@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.SingleClaim"
+              Shell.BackgroundColor="Accent"
+             Shell.TabBarBackgroundColor="Accent"
+             NavigationPage.HasBackButton="True"
+             Title="Claim">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="15" Orientation="Vertical">
+                <!--<Label Margin="15" Text="Note: All claims will be deactivated if not accepted within three (3) working days!!"
+                TextColor="#FF5F58" HorizontalOptions="CenterAndExpand" FontSize="15" LineBreakMode="WordWrap" />-->
+
+                <ActivityIndicator x:Name="indicator" BackgroundColor="White" Opacity="0.8" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" FlexLayout.Grow="5"/>
+
+                <StackLayout Margin="0,15,0,0" x:Name="SingleClaimDetails">
+                    <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Image Margin="8" Source="account.png" HeightRequest="20" WidthRequest="20" 
+                               VerticalOptions="CenterAndExpand"/>
+                        <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding name}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Image Margin="8" Source="clipboard.png" HeightRequest="20" WidthRequest="20" 
+                               VerticalOptions="CenterAndExpand"/>
+                        <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding vehicle_make}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Image Margin="8" Source="calendar.png" HeightRequest="20" WidthRequest="20" 
+                               VerticalOptions="CenterAndExpand"/>
+                        <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding P_date}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Image Margin="8" Source="starbox.png" HeightRequest="20" WidthRequest="20" 
+                               VerticalOptions="CenterAndExpand"/>
+                        <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding status}" />
+                    </StackLayout>
+
+                    <StackLayout BackgroundColor="#f5fafa" Margin="10" Orientation="Vertical">
+                        <Label Margin="5,10,5,5" Text="Policy Holder Recommended Amount" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" FontAttributes="Bold"/>
+                        <Label Text="{Binding PHCAamountformat}" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" FontAttributes="Bold" Margin="10,2,10,10"/>
+                    </StackLayout>
+
+                    <StackLayout BackgroundColor="#f5fafa" Margin="10" Orientation="Vertical">
+                        <Label Margin="5,10,5,5" Text="Loss Asssessor Recommended Amount" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" FontAttributes="Bold"/>
+                        <Label Text="{Binding LACAamountformat}" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" FontAttributes="Bold" Margin="10,2,10,10"/>
+                    </StackLayout>
+
+                    <StackLayout BackgroundColor="#f5fafa" Margin="10" Orientation="Vertical">
+                        <Label Margin="5,10,5,5" Text="Consultant Recommended Amount" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" FontAttributes="Bold"/>
+                        <Label Text="{Binding CCAamountformat}" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" FontAttributes="Bold" Margin="10,2,10,10"/>
+                    </StackLayout>
+
+                  
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:PeerCover"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.SignUp" Shell.NavBarIsVisible="True"
+             NavigationPage.HasBackButton="True"
+             NavigationPage.HasNavigationBar="True"
+             Title="Sign Up">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="{StaticResource Primary}" IsClippedToBounds="True" HasShadow="True">
+                <Label Text="Sign Up" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Margin="5,0,0,0"/>
+            </Frame>
+            <ScrollView>
+                <StackLayout Margin="20,10,20,10">
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" Text="Firstname" TextColor="Gray"/>
+                        <Entry x:Name="FTInput" Margin="0,0,0,8" Keyboard="Default" 
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" Text="Lastname" TextColor="Gray"/>
+                        <Entry x:Name="LTInput" Margin="0,0,0,8" Keyboard="Default"
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" x:Name="LblUser" Text="Username" TextColor="Gray"/>
+                        <Entry x:Name="USNInput" TextChanged="Input2_TextChanged" Unfocused="Username_Unfocused" Keyboard="Default"
+                                  Style="{StaticResource EntryStyle}"/>
+                        <Label Margin="5,1,5,1" Text="" x:Name="LblUsn" TextColor="Red" FontSize="12"/>
+                    </StackLayout>
+
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" Text="Email Address" TextColor="Gray"/>
+                        <Entry x:Name="EAInput" Margin="0,0,0,8" Keyboard="Email"
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" Text="Phone Number" TextColor="Gray"/>
+                        <Entry x:Name="PNInput" Margin="0,0,0,8"  Keyboard="Telephone"
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" Text="Community Code" TextColor="Gray"/>
+                        <Entry x:Name="CCInput" Margin="0,0,0,8"  Keyboard="Default"
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,2" Text="Password" TextColor="Gray"/>
+                        <Entry Margin="0,0,0,2" x:Name="PWDInput" TextChanged="Handle_TextChanged" IsPassword="True" Keyboard="Default"
+                                  Style="{StaticResource EntryStyle}">
+                            <Entry.Effects>
+                                <Controls:ShowHidePassEffect />
+                            </Entry.Effects>
+                        </Entry>
+
+                        <StackLayout Orientation="Horizontal" Margin="7,1,5,5" HorizontalOptions="Start" IsVisible="True">
+                            <Label Text="Password Strength: " FontSize="12"/>
+                            <Label
+                        x:Name="StrengthIndicator"
+                        FontSize="12"
+                        Text="" FontAttributes="Bold" />
+                        </StackLayout>
+                    </StackLayout>
+                    
+
+                    <StackLayout Margin="5">
+                        <Grid>
+                            <CheckBox Color="#FF5F58" 
+                                      IsChecked="False" IsEnabled="True" x:Name="TermsCheck"/>
+                            <Label TextColor="#FF5F58" Text="Accept Terms and Conditions" Margin="40,5,0,0"/>
+                        </Grid>
+                    </StackLayout>
+
+                    <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
+
+                    <StackLayout>
+                        <Button  Margin="10,20" FontSize="20" BorderRadius="6"
+                         HeightRequest="45" TextColor="White" Clicked="CreateUserBtn_Clicked"
+                         BackgroundColor="{StaticResource BtnColor}" Text="Sign Up"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

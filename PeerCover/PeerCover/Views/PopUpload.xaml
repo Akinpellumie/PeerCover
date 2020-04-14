@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="PeerCover.Views.PopUpload">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="300"
+                                   DurationOut="300"
+                                   EasingIn="SpringIn"
+                                   EasingOut="SpringOut"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Top"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
+    <StackLayout Margin="10"
+                 Orientation="Vertical"
+                 Padding="24"
+                 BackgroundColor="White"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center">
+
+        <Label Text="Image Session Expired, Kindly Re-upload your vehicle image to proceed!" FontSize="13"
+               TextColor="{StaticResource TxtColor}" HorizontalOptions="Center" Margin="5"/>
+
+        <ProgressBar Progress="0.2" IsVisible="False" HorizontalOptions="FillAndExpand" x:Name="Indic"/>
+
+        <Button BackgroundColor="Transparent" BorderColor="{StaticResource Primary}" HeightRequest="45"
+                FontSize="15" Clicked="UploadImaTapped" ImageSource="cameraPlus.png"
+                Text="Launch Camera" Margin="5" HorizontalOptions="Fill" BorderWidth="2"
+                TextColor="Accent" ContentLayout="0, top"/>
+
+        <!--<BoxView BackgroundColor="{StaticResource Primary}" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+        
+        <Button BackgroundColor="{StaticResource Primary}" FontSize="15" HeightRequest="45"
+                Text="Upload Image" HorizontalOptions="Fill" Margin="5" TextColor="White"/>-->
+
+    </StackLayout>
+</pages:PopupPage>

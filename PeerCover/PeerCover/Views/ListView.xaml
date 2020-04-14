@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.ListView">
+
+    <ContentView.Content>
+        <Frame IsClippedToBounds="True"
+HasShadow="False"
+Padding="0"
+BackgroundColor="White" >
+            <Frame.Margin>
+                <OnPlatform x:TypeArguments="Thickness" Android="10" iOS="10"/>
+            </Frame.Margin>
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+
+                <Frame HorizontalOptions="FillAndExpand" Margin="0,0,0,0" Style="{StaticResource FrameListView}" >
+                    <Grid VerticalOptions="CenterAndExpand" Padding="0" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="0" Grid.Column="0" Margin="0,0,4,0">
+
+                            <Image Source="SubImage.png" HeightRequest="80" WidthRequest="90" />
+
+                        </StackLayout>
+                        <StackLayout Grid.Row="0" Grid.Column="1"  Orientation="Vertical">
+                            <StackLayout Grid.Row="0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                <Label Style="{StaticResource LabelStyle}" Text="Accidental Damages to Cars Including Theft"/>
+                            </StackLayout>
+                            <StackLayout Grid.Row="1" HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                <Button BackgroundColor="Transparent" FontSize="10" TextColor="#FF5F58" Text="Read more..."/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

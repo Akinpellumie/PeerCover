@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:local12="clr-namespace:PeerCover.Views"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.SingleMemberPage"
+             Shell.BackgroundColor="Accent"
+             Shell.TabBarBackgroundColor="Accent" Shell.NavBarIsVisible="True"
+             NavigationPage.HasBackButton="True"
+             Title="Member Details">
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Grid BackgroundColor="{StaticResource Primary}"  Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" BackgroundColor="Transparent" ImageSource="back.png" Margin="0,0,0,20" Padding="20,20,0,0" Clicked="backClicked"></Button>
+                    <Label Style="{DynamicResource LabelStyle}" Grid.Column="1" Text="Member" TextColor="White" Margin="0,20,0,0"></Label>
+                </Grid>
+            </Grid>-->
+
+            <StackLayout Margin="15" x:Name="SingleMemberDetails">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Margin="10" Grid.Row="0" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand">
+                        <controls:CircleImage
+                                    Margin="25,10,0,0" x:Name="MemberImage"
+                                    Source="placeholder.png"
+                                    Aspect="AspectFill"
+                                    BorderColor="#CBFDD3"
+                                    BorderThickness="1"
+                                    HeightRequest="100"
+                                    WidthRequest="100">
+                        </controls:CircleImage>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" HorizontalOptions="CenterAndExpand" Orientation="Vertical" Margin="10">
+                        <Label x:Name="MemberName" Text="{Binding capitalizedname}"
+                                    TextColor="{StaticResource TxtColor}" FontSize="18"/>
+                        <Label x:Name="MemName" Text="{Binding username}"
+                                    TextColor="{StaticResource TxtColor}" FontSize="15"/>
+
+                        <!--<StackLayout Spacing="0" Padding="0" BackgroundColor="#e8fceb" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Role (s): "/>
+                            <Label Margin="8" FontSize="14" x:Name="LblPriv" TextColor="{StaticResource TxtColor}" Text="{Binding priviledges}"/>
+                        </StackLayout>-->
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2">
+                        <StackLayout>
+                            <StackLayout BackgroundColor="#f5fafa">
+                                <Label Margin="10" Text="Subscriptions" HorizontalOptions="CenterAndExpand" 
+                       VerticalOptions="CenterAndExpand" TextColor="{StaticResource TxtColor}" FontSize="25"/>
+                            </StackLayout>
+
+                            <ListView x:Name="DashMemList" HasUnevenRows="True"
+                          SeparatorVisibility="Default" SeparatorColor="Accent" IsPullToRefreshEnabled="False">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <local12:DashView/>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </StackLayout>
+
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

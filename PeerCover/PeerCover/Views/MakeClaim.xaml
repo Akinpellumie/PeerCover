@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.MakeClaim"
+              Shell.BackgroundColor="#27d2dc" Shell.NavBarIsVisible="True"
+             Shell.TabBarBackgroundColor="#27d2dc"
+             NavigationPage.HasBackButton="True"
+             Title="Make Claim">
+    <ContentPage.Content>
+        <StackLayout Margin="15">
+
+            <StackLayout IsVisible="True" x:Name="MainDetails">
+                <ScrollView>
+                    <StackLayout x:Name="PlanDetails">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <StackLayout Margin="5,10,0,5"  Grid.Row="0" Orientation="Horizontal">
+                                <Label Text="Model:" TextColor="{StaticResource Primary}"
+                        FontSize="20" FontAttributes="Bold" />
+                                <Label Text="{Binding vehicle_make}" TextColor="{StaticResource Primary}"
+                         FontSize="20" FontAttributes="Bold" />
+                            </StackLayout>
+
+                            <StackLayout Margin="10" Grid.Row="1" Orientation="Horizontal">
+                                <Label Text="Reg. Number:" TextColor="{StaticResource Primary}"
+                             FontSize="20" FontAttributes="Bold" />
+                                <Label Text="{Binding vehicle_registration_number}" TextColor="{StaticResource Primary}"
+                            FontSize="20" FontAttributes="Bold" />
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="2" >
+                                <Editor x:Name="RecInput" Keyboard="Default"  Margin="0,0,0,10"
+                                Placeholder="Write a message" PlaceholderColor="{StaticResource TypeColor}"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="3">
+                                <Picker x:Name="PickCauses" Style="{StaticResource PickerStyle}" Title="--Select Causes--"
+                                    ItemsSource="{Binding CausesList}"
+                                    ItemDisplayBinding="{Binding Value}"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="4" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackLayout Grid.Row="0" BackgroundColor="LightGray">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Margin="7,5,5,5" Text="Vehicle Front View" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                                            <Button x:Name="Img1uploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadImage1Tapped" Margin="5"/>
+
+                                        </Grid>
+                                        <Label x:Name="LblImg1" Text="" FontSize="9" TextColor="{StaticResource TxtColor}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" BackgroundColor="LightGray">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Margin="7,5,5,5" Text="Vehicle Side View" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                                            <Button x:Name="Img2uploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadImage2Tapped" Margin="5"/>
+
+                                        </Grid>
+                                        <Label x:Name="LblImg2" Text="" FontSize="9" TextColor="{StaticResource TxtColor}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="2" BackgroundColor="LightGray">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Margin="7,5,5,5" Text="Vehicle Rear Image" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                                            <Button x:Name="Img3uploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadImage3Tapped" Margin="5"/>
+
+                                        </Grid>
+                                        <Label x:Name="LblImg3" Text="" FontSize="9" TextColor="{StaticResource TxtColor}"/>
+                                    </StackLayout>
+
+
+                                </Grid>
+                            </StackLayout>
+
+
+                        </Grid>
+                    </StackLayout>
+                </ScrollView>
+
+                <Button Clicked="MainScrn_clicked" HeightRequest="45" HorizontalOptions="End"
+                       BackgroundColor="{StaticResource OriginalColor}" FontSize="15" Text="CONTINUE" 
+                    Margin="5,5,5,10" TextColor="White" VerticalOptions="EndAndExpand" />
+
+            </StackLayout>
+
+            <StackLayout x:Name="AcctDetailsStack" IsVisible="False" Orientation="Vertical" BackgroundColor="Transparent">
+
+                <Button Clicked="AcctScrn_clicked" HeightRequest="45" HorizontalOptions="Start"
+                       BackgroundColor="{StaticResource OriginalColor}" FontSize="15" Text="PREVIOUS" 
+                    Margin="5,10,5,5" TextColor="White"/>
+
+                <ScrollView>
+                    <StackLayout>
+
+
+                        <StackLayout Margin="0,0,0,10">
+                            <Label Margin="7,5,5,5" Text="Repair Cost" TextColor="Gray"/>
+                            <Entry x:Name="CostInput" Margin="0,0,0,10"  TextChanged="CostInput_TextChanged" Keyboard="Default" Placeholder="#0.00" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Margin="7,5,5,5" Text="Account Number" TextColor="Gray"/>
+                            <Entry TextChanged="Input_TextChanged" Margin="0,0,0,10"  x:Name="MaACNInput" Text="{Binding account_number}" Keyboard="Numeric" Placeholder="XXXX-XXXX-XX" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        </StackLayout>
+
+                        <StackLayout Margin="10">
+                            <Picker x:Name="MaBankPicker" SelectedIndexChanged="BnkPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Bank--"
+                       ItemsSource="{Binding BankList}"  ItemDisplayBinding="{Binding name}"/>
+                        </StackLayout>
+
+                        <StackLayout Margin="10">
+                            <Label Margin="7,5,5,5" Text="Account Name" TextColor="Gray"/>
+                            <Entry Margin="0,0,0,10"  x:Name="MaANMInput" TextChanged="Input2_TextChanged" Text="{Binding account_name}" Keyboard="Default" Placeholder="Account name" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="2" BackgroundColor="#FEFBFB">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Margin="7,5,5,5" Text="Click the camera button to capture quotation document" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                                <Button x:Name="DocUploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadDocTapped" Margin="5"/>
+
+                            </Grid>
+                            <Label x:Name="LblDoc" Text="" Margin="0,0,0,5" FontSize="10" TextColor="{StaticResource TxtColor}"/>
+                        </StackLayout>
+
+
+                    </StackLayout>
+                </ScrollView>
+                <Button x:Name="SubmitBtn" Clicked="MakeClaimClicked" WidthRequest="285.53" HeightRequest="45"
+                       BackgroundColor="{StaticResource OriginalColor}" FontSize="25" Text="SUBMIT" 
+                    Margin="10" TextColor="White" VerticalOptions="EndAndExpand" />
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

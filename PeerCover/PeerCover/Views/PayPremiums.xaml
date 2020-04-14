@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PeerCover.ViewModels"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.PayPremiums"
+              Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc"
+             Title="Pay Contribution">
+
+    <ContentPage.BindingContext>
+        <vm:PaymentViewModel />
+    </ContentPage.BindingContext>
+
+
+
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Margin="10">
+                <StackLayout Margin="15">
+                    <Picker x:Name="SubPicker" Margin="5" Style="{StaticResource PickerStyle}" Title="--Select Subscription--"
+                                    ItemsSource="{Binding SubList}" SelectedIndexChanged="SelectedItemEvent_Clicked"
+                                    ItemDisplayBinding="{Binding vehicle_make}"/>
+                </StackLayout>
+
+                <StackLayout Margin="10" x:Name="SinSubPay" IsVisible="False">
+                    <!--<Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding PlanImage}" WidthRequest="90" HeightRequest="80" Grid.Column="0"/>
+                    <StackLayout Orientation="Vertical" Grid.Column="1">
+                        <Label Text="{Binding vehicle_make}" TextColor="{StaticResource TxtColor}" FontSize="22" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Policy No:" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding policy_number}" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold" VerticalOptions="StartAndExpand"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>-->
+
+                    <StackLayout BackgroundColor="#f5fafa" Margin="5" Orientation="Vertical">
+                        <Label Margin="5" Text="Payment Amount" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}"/>
+                        <Label Text="{Binding PRamountformat}" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" FontSize="20"
+                       TextColor="{StaticResource TxtColor}" Margin="5"/>
+                    </StackLayout>
+                </StackLayout>
+
+
+
+                <StackLayout Margin="7">
+                    <Label Text="How do you want to pay?" TextColor="{StaticResource TxtColor}"
+                       FontSize="22" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Spacing="5">
+                    <Frame x:Name="frmAstra" BackgroundColor="#F8F5F5" IsClippedToBounds="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0" Source="astraIcon.png" WidthRequest="24" HeightRequest="24" Aspect="Fill"
+                               BackgroundColor="Transparent" HorizontalOptions="Center"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="Pay Using AstraPay" FontAttributes="Bold" 
+                                   TextColor="{StaticResource TxtColor}" VerticalOptions="Center" FontSize="13"/>
+                            <ff:CachedImage Grid.Row="0" Grid.Column="2" x:Name="spin" Source="Spinner.gif" HeightRequest="24" Aspect="Fill" IsVisible="False" HorizontalOptions="End" Margin="0,0,5,0"/>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AstraWebPayClicked"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <Frame BackgroundColor="#F8F5F5" IsClippedToBounds="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" WidthRequest="24" HeightRequest="24" Grid.Column="0" Source="debitCard.png" Aspect="Fill"
+                               BackgroundColor="Transparent" HorizontalOptions="Center"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="Pay Using Debit Card" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource TxtColor}" FontSize="13"/>
+                            <ff:CachedImage Grid.Row="0" Grid.Column="2" x:Name="spin1" Source="Spinner.gif" HeightRequest="24" Aspect="Fill" IsVisible="False" HorizontalOptions="End" Margin="0,0,5,0"/>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PayWithCardClicked"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+
+                    <Frame BackgroundColor="#F8F5F5" IsClippedToBounds="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" WidthRequest="24" HeightRequest="24" Grid.Column="0" Source="bank.png" Aspect="Fill" HorizontalOptions="Center"
+                               BackgroundColor="Transparent"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="Pay Using Bank Transfer" FontAttributes="Bold" 
+                                   VerticalOptions="Center" TextColor="{StaticResource TxtColor}" FontSize="13"/>
+                            <ff:CachedImage Grid.Row="0" Grid.Column="2" x:Name="spin2" Source="Spinner.gif" HeightRequest="24" Aspect="Fill" IsVisible="False" HorizontalOptions="End" Margin="0,0,5,0"/>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBankTrans_Clicked"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <!--<Button x:Name="btnAstra" Text="Pay Using AstraPay" Clicked="AstraPayClicked" BackgroundColor="#F8F5F5" 
+                       ContentLayout=" Left, 0" ImageSource="astraIcon.png" CornerRadius="5" Margin="5,1"
+                        HeightRequest="45" TextColor="Accent" FontSize="12" Pressed="OnPressAst_Clicked"/>-->
+
+                    <!--<Button x:Name="btnCard" Text="Pay Using Debit Card" Clicked="PayWithCardClicked" BackgroundColor="#F8F5F5" 
+                       ContentLayout=" Left, 0" ImageSource="debitCard.png" CornerRadius="5" Margin="5,1"
+                        HeightRequest="45" TextColor="Accent" FontSize="12" Pressed="OnPressCrd_Clicked"/>
+
+                <Button x:Name="btnTrans" Text="Pay Using Bank Transfer" Clicked="OnBankTrans_Clicked" BackgroundColor="#F8F5F5" 
+                       ContentLayout=" Left, 0" ImageSource="bank.png" CornerRadius="5" Margin="5,1"
+                        HeightRequest="45" TextColor="Accent" FontSize="12" Pressed="OnPressBnk_Clicked"/>-->
+
+                    <StackLayout IsVisible="False" x:Name="BnkOpts" Margin="3">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Grid.Row="0" Spacing="5" Padding="1" BackgroundColor="#f5fafa"
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label Margin="10,10,0,10" Text="BANK NAME:" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold"/>
+                                <Label Margin="10,10,0,10" Text="ASTRAPOLARIS MICROFINANCE BANK" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="1" Spacing="5" Padding="1" BackgroundColor="#f5fafa"
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label Margin="10,10,0,10" Text="ACCOUNT NAME:" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold"/>
+                                <Label Margin="10,10,0,10" Text="INSURANCE HUB PLC" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="1" Spacing="5" Padding="1" BackgroundColor="#f5fafa"
+                                    HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label Margin="10,10,0,10" Text="TRANSACTION ID:" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold"/>
+                                <Label Margin="10,10,0,10" x:Name="TxnId" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                            </StackLayout>
+
+                            <Frame Grid.Row="2" Margin="2" Padding="1" BackgroundColor="#f5fafa"
+                                     HorizontalOptions="FillAndExpand" HasShadow="False">
+                                <Grid ColumnSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Margin="10,10,0,10" Text="ACCOUNT NUMBER:" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1" Margin="10,10,0,10" Text="0125463876" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                                    <Label Text="COPY" Grid.Column="2" FontSize="15" TextColor="{StaticResource TxtColor}" 
+                                   HorizontalOptions="End" Margin="10" BackgroundColor="Transparent">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="CopyClicked"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+
+                        <Button Text="I HAVE MADE THIS PAYMENT" TextColor="White"
+                            BackgroundColor="Accent" FontSize="15" HorizontalOptions="Fill"
+                            Margin="10"/>
+                    </StackLayout>
+                </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

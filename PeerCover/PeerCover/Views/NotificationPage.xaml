@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local12="clr-namespace:PeerCover.Views"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.NotificationPage"
+             Shell.BackgroundColor="#27d2dc"
+             BackgroundColor="#f0eff4"
+             Shell.TabBarBackgroundColor="#27d2dc"
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True" Shell.NavBarIsVisible="True"
+             Title="Notifications">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0" Padding="0" Margin="15,15,15,5" BackgroundColor="Transparent"
+                        HasShadow="False" HorizontalOptions="Fill">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="NewBtn" Pressed="onNewBtnPressed" 
+                                 d:Padding="5" Text="New Message(s)" Grid.Column="0" Padding="0" HeightRequest="30"
+                               Margin="0" TextColor="White" BackgroundColor="Accent" Clicked="NewBtn_Clicked"/>
+
+                                <Button x:Name="OldBtn" Text="Old Message(s)" d:Padding="5"
+                                Grid.Column="1" Padding="0" HeightRequest="30" Pressed="onOldBtnPressed"
+                               Margin="0" TextColor="White" Clicked="OldBtn_Clicked" BackgroundColor="Gray"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Row="1">
+                    <StackLayout x:Name="newNotStack">
+                        <StackLayout x:Name="Frm1" IsVisible="True" Padding="0" Margin="0,10,0,5">
+                            <StackLayout>
+                                <ListView x:Name="NewMsgList" Margin="5"
+                          HasUnevenRows="True" SeparatorVisibility="Default" SeparatorColor="LightGreen"
+                          ItemTapped="ViewNotsTapped">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <StackLayout Margin="5">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <StackLayout Grid.Row="0">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="auto"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <StackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                                                                    <BoxView BackgroundColor="Transparent" Color="Red" WidthRequest="7" CornerRadius="50" VerticalOptions="Center" HeightRequest="7"/>
+                                                                </StackLayout>
+                                                                <StackLayout Grid.Column="1">
+
+                                                                    <Grid>
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition Height="*"/>
+                                                                            <RowDefinition Height="*"/>
+                                                                        </Grid.RowDefinitions>
+                                                                        <StackLayout Grid.Row="0">
+                                                                            <Grid>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="auto"/>
+                                                                                    <ColumnDefinition Width="*"/>
+                                                                                    <ColumnDefinition Width="*"/>
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                                                                                    <Label x:Name="LblSubject" Text="{Binding subject}" TextColor="{StaticResource TxtColor}" 
+                          FontAttributes="Bold" FontSize="18"/>
+                                                                                </StackLayout>
+
+                                                                                <StackLayout HorizontalOptions="EndAndExpand"  Grid.Column="2">
+                                                                                    <Label x:Name="LblDate" Text="{Binding DateFormat}" FontSize="12" FontAttributes="Bold" TextColor="#FA9917"/>
+                                                                                </StackLayout>
+
+                                                                            </Grid>
+                                                                        </StackLayout>
+
+                                                                        <StackLayout Grid.Row="1">
+                                                                            <Label x:Name="LblBody" Text="{Binding body}"  
+                              FontSize="14" LineBreakMode="TailTruncation" FontAttributes="Bold"  TextColor="{StaticResource TxtColor}"/>
+                                                                        </StackLayout>
+                                                                    </Grid>
+                                                                </StackLayout>
+                                                            </Grid>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </StackLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout x:Name="Frm1B" IsVisible="False" Padding="0" Margin="0,10,0,5">
+                            <Label Text="Your New Notifications will appear here!!!" Margin="10" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout x:Name="oldNotStack">
+                        <StackLayout x:Name="Frm2" IsVisible="False" Margin="0,10,0,5" Padding="0">
+                            <StackLayout Margin="5,0,5,5">
+                                <ListView IsPullToRefreshEnabled="True" x:Name="MsgList" Margin="5"
+                          HasUnevenRows="True" SeparatorVisibility="Default" SeparatorColor="LightGreen"
+                          ItemTapped="ViewNotsTapped">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <StackLayout>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <StackLayout Grid.Row="0">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                                                                    <Label x:Name="LblSubject" Text="{Binding subject}" TextColor="{StaticResource TxtColor}" 
+                          FontAttributes="Bold" FontSize="18"/>
+                                                                </StackLayout>
+
+                                                                <StackLayout HorizontalOptions="EndAndExpand"  Grid.Column="1">
+                                                                    <Label x:Name="LblDate" Text="{Binding DateFormat}" FontSize="12" FontAttributes="Bold" TextColor="#FA9917"/>
+                                                                </StackLayout>
+
+                                                            </Grid>
+                                                        </StackLayout>
+
+                                                        <StackLayout Grid.Row="1">
+                                                            <Label x:Name="LblBody" Text="{Binding body}"  
+                              FontSize="14" LineBreakMode="TailTruncation" FontAttributes="Bold"  TextColor="{StaticResource TxtColor}"/>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </StackLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout x:Name="Frm2B" IsVisible="False" Padding="0" Margin="0,10,0,5">
+
+                            <Label Text="Your Old Notifications will appear here!!!" Margin="10" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+
+                        </StackLayout>
+                    </StackLayout>
+
+                    <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

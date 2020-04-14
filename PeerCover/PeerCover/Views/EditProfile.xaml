@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.EditProfile"
+              Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc"
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True" Shell.NavBarIsVisible="True"
+             Title="Edit Profile">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"
+                     Text="Save" Clicked="UpdateMemberClicked"
+                     Priority="0"/>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Margin="15,0,15,50">
+                <ProgressBar Grid.Row="0" Progress="0.2" IsVisible="False" HorizontalOptions="FillAndExpand" x:Name="Indic"/>
+                <AbsoluteLayout HorizontalOptions="CenterAndExpand" Margin="0,12,0,0">
+                    <Grid HorizontalOptions="CenterAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <StackLayout Grid.Row="0" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" 
+                                 AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                            <controls:CircleImage
+                                    Margin="25,10,0,0" x:Name="EditUserImage"
+                                    Source="placeholder.png"
+                                    Aspect="AspectFill"
+                                    BorderColor="Accent"
+                                    BorderThickness="1"
+                                    HeightRequest="100"
+                                    WidthRequest="100">
+                            </controls:CircleImage>
+                        </StackLayout>
+                        <ImageButton Grid.Row="1" Margin="90,-40,0,0" Clicked="IconImg_Clicked" 
+                                     HorizontalOptions="CenterAndExpand" Source="camera.png" BackgroundColor="Transparent" 
+                                 AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,1,-1,-1" />
+                    </Grid>
+                </AbsoluteLayout>
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Firstname" TextColor="{StaticResource Primary}"/>
+                    <Entry x:Name="FNInput" Margin="0,0,0,10" Text="{Binding firstname}" Placeholder="firstname" PlaceholderColor="{StaticResource TypeColor}" Keyboard="Default" 
+                                  Style="{StaticResource EntryStyle}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Lastname" TextColor="{StaticResource Primary}"/>
+                    <Entry x:Name="LNInput" Margin="0,0,0,10" Text="{Binding lastname}" Keyboard="Default" Placeholder="lastname" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Email" TextColor="{StaticResource Primary}"/>
+                    <Entry x:Name="EMInput" Margin="0,0,0,10" Text="{Binding email}" Keyboard="Default" Placeholder="example@mail.com" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Select Gender" TextColor="{StaticResource Primary}"/>
+                    <Picker x:Name="GenderPicker" SelectedIndexChanged="GndPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Gender--"
+                                    ItemsSource="{Binding GenderList}"
+                                    ItemDisplayBinding="{Binding Value}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Phone Number" TextColor="{StaticResource Primary}"/>
+                    <Entry x:Name="PNInput" Margin="0,0,0,10"  Text="{Binding phonenumber}" Keyboard="Numeric" Placeholder="phone number" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Address" TextColor="{StaticResource Primary}"/>
+                    <Entry x:Name="ADRInput" Margin="0,0,0,10" Text="{Binding address}" Keyboard="Default" Placeholder="Address" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Select Bank Name" TextColor="{StaticResource Primary}"/>
+                    <Picker x:Name="BankPicker" SelectedIndexChanged="BnkPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Bank--"
+                                    ItemsSource="{Binding BankList}"
+                                    ItemDisplayBinding="{Binding name}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Margin="7,5,5,5" Text="Account Number" TextColor="{StaticResource Primary}"/>
+                    <Entry TextChanged="Input_TextChanged" Margin="0,0,0,10" x:Name="ACNInput" Text="{Binding account_number}" Keyboard="Numeric" Placeholder="XXXX-XXXX-XX" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                </StackLayout>
+
+                <ActivityIndicator x:Name="indicator" Grid.RowSpan="2" BackgroundColor="#F0F6FB" 
+                                   VerticalOptions="Center"  IsVisible="False"  HorizontalOptions="Center" />
+
+                <StackLayout Margin="0,0,0,40">
+                    <Label Margin="7,5,5,5" Text="Account Name" TextColor="{StaticResource Primary}"/>
+                    <Entry x:Name="ANMInput" Margin="0,0,0,10" TextChanged="Input2_TextChanged" Text="{Binding account_name}" Keyboard="Default" Placeholder="Account name" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                </StackLayout>
+
+                <!--<Button  Margin="60,20,60,20" FontSize="20" BorderRadius="6" WidthRequest="157"
+                         HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
+                         BackgroundColor="{StaticResource BtnColor}" Text="Save"  ContentLayout="0, right" ImageSource="save.png"/>-->
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

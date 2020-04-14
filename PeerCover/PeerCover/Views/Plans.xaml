@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local12="clr-namespace:PeerCover.Views"
+             xmlns:Pages="clr-namespace:PeerCover.Views"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.Plans"
+              Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc"
+            SelectedTabColor="#27d2dc" BackgroundColor="White" 
+            BarBackgroundColor="#27d2dc" BarTextColor="White" 
+            Title="My Subscriptions">
+
+    <ContentPage Title="Active Subscriptions">
+        <ScrollView>
+            <StackLayout>
+
+                <!--<StackLayout Margin="5,15,5,15" Grid.Row="0">
+                        <Label Text="Available Claims" FontAttributes="Bold" TextColor="{StaticResource TxtColor}" FontSize="20" 
+                HorizontalOptions="StartAndExpand"/>
+                    </StackLayout>-->
+
+                <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
+
+                <StackLayout  Margin="5,15,5,5">
+                    <ListView x:Name="ActivePlanList" HasUnevenRows="True" ItemTapped="ViewSubTapped"
+                          SeparatorVisibility="Default" SeparatorColor="LightGreen" IsPullToRefreshEnabled="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <local12:DashView/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+
+    <Pages:ExpiredPremium/>
+</TabbedPage>

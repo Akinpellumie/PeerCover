@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PeerCover.Views.PayWithCard"
+           Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc"
+             Shell.NavBarIsVisible="True"
+             Title="Pay With Card">
+
+    <!--<ContentPage.ToolbarItems >
+
+        <ToolbarItem x:Name="exit" Text="Sign Out" Order="Secondary"  Clicked="Exit_Clicked"  />
+    </ContentPage.ToolbarItems>-->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--Page Level Resources: Compatible with Xamarin Live Player -->
+            <Color x:Key="Primary">#27d2dc</Color>
+            <Color x:Key="Accent">#27d2dc</Color>
+            <Color x:Key="LightTextColor">#5f5d5d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ProgressBar Grid.Row="0" Progress="0.2" IsVisible="False" HorizontalOptions="FillAndExpand" x:Name="Indic"/>
+        <WebView Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill" x:Name="PayCard" Navigating="Payview_Navigating" Navigated="Payview_Navigated"/>
+
+    </Grid>
+</ContentPage>

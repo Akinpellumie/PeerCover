@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.RequestListView">
+    <ContentView.Content>
+        <StackLayout>
+            <Frame IsClippedToBounds="True"
+HasShadow="False"
+Padding="0"
+BackgroundColor="White" >
+                <Frame.Margin>
+                    <OnPlatform x:TypeArguments="Thickness" Android="10" iOS="10"/>
+                </Frame.Margin>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+
+                    <Frame HorizontalOptions="FillAndExpand" Margin="0,0,0,0" Style="{StaticResource FrameListView}" >
+                        <Grid VerticalOptions="CenterAndExpand" Padding="0" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                <Label x:Name="renameReq" Text="{Binding Rename}" TextColor="{StaticResource TxtColor}" FontSize="18"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

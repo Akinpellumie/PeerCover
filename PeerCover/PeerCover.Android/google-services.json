@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "95698796075",
+    "firebase_url": "https://project1-d6c01.firebaseio.com",
+    "project_id": "project1-d6c01",
+    "storage_bucket": "project1-d6c01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95698796075:android:0a845141fed3092aa6746e",
+        "android_client_info": {
+          "package_name": "com.companyname.covermycar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95698796075-nja205ufit7bgekh2bdrs210ot836tv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIbEIiAHTigOqboym2Gg1FsmftE1jTK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95698796075-nja205ufit7bgekh2bdrs210ot836tv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95698796075:android:c6c706db7911f484a6746e",
+        "android_client_info": {
+          "package_name": "com.companyname.inhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95698796075-nja205ufit7bgekh2bdrs210ot836tv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIbEIiAHTigOqboym2Gg1FsmftE1jTK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95698796075-nja205ufit7bgekh2bdrs210ot836tv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95698796075:android:cec77e35ba1a2229a6746e",
+        "android_client_info": {
+          "package_name": "com.companyname.peercover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95698796075-nja205ufit7bgekh2bdrs210ot836tv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIbEIiAHTigOqboym2Gg1FsmftE1jTK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95698796075-nja205ufit7bgekh2bdrs210ot836tv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

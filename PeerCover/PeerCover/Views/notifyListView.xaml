@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.notifyListView">
+    <ContentView.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                            <Label x:Name="LblSubject" Text="{Binding subject}" TextColor="{StaticResource TxtColor}" 
+                          FontAttributes="Bold" FontSize="18"/>
+                        </StackLayout>
+
+                        <StackLayout HorizontalOptions="EndAndExpand"  Grid.Column="1">
+                            <Label x:Name="LblDate" Text="{Binding DateFormat}" FontSize="12" FontAttributes="Bold" TextColor="#FA9917"/>
+                        </StackLayout>
+
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Row="1">
+                    <Label x:Name="LblBody" Text="{Binding body}"  
+                              FontSize="14" LineBreakMode="TailTruncation" FontAttributes="Bold"  TextColor="{StaticResource TxtColor}"/>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

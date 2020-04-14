@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.Profile"
+              Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc"
+             Title="Profile">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowSpacing="0" ColumnSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="placeholder.png" x:Name="HeaderImg" HeightRequest="150" Aspect="AspectFill" Opacity=".5"/>
+
+                <StackLayout Spacing="0" Padding="0,20,0,0" VerticalOptions="CenterAndExpand"  Grid.Row="1" HorizontalOptions="Center">
+                    <Label x:Name="PageName" Text="{Binding capName}" FontSize="20" TextColor="#5F5D5D"
+                       FontAttributes="Bold" FontFamily="{StaticResource font_medium}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label x:Name="UserName" Text="{Binding username}" FontSize="15" TextColor="#828282"
+                        FontFamily="{StaticResource font_book}" HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <!--<StackLayout >
+                    <BoxView Margin="0,0,0,5" BackgroundColor="#CBFDD3" HeightRequest="1" 
+                         HorizontalOptions="FillAndExpand" Color="#CBFDD3"/>-->
+
+                <Button Grid.Row="2" Margin="15,0,15,0" HorizontalOptions="Fill" Text="Edit Profile" HeightRequest="35" FontSize="12" TextColor="{StaticResource Primary}"
+                            BorderColor="{StaticResource BtnColor}" Clicked="EditProfileClicked" BackgroundColor="#F3EFEF" BorderWidth="1"/>
+                <!--</StackLayout>-->
+
+
+                <StackLayout Grid.Row="3" Padding="15">
+
+                    <StackLayout Orientation="Horizontal" Margin="0,10,0,5">
+                        <Image Source="calendar.png" WidthRequest="30" HeightRequest="30" Aspect="Fill"/>
+                        <Label VerticalOptions="CenterAndExpand" Text="" x:Name="dateJoined" TextColor="{StaticResource TxtColor}"
+                               FontSize="15"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,10,0,5">
+                        <Image Source="domain.png" WidthRequest="30" HeightRequest="30" Aspect="Fill"/>
+                        <Label VerticalOptions="CenterAndExpand" x:Name="CommName" Text="{Binding ComName}" TextColor="{StaticResource TxtColor}"
+                               FontSize="15"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,10,0,5">
+                        <Image Source="email.png" WidthRequest="30" HeightRequest="30" Aspect="Fill"/>
+                        <Label VerticalOptions="CenterAndExpand" Text="" x:Name="emailTxt" TextColor="{StaticResource TxtColor}"
+                               FontSize="15"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <controls:CircleImage TranslationY="50" VerticalOptions="End" HorizontalOptions="Center"
+                                     x:Name="UserImagePro"
+                                    Source="placeholder.png"
+                                    Aspect="AspectFill"
+                                    BorderColor="White"
+                                    BorderThickness="1"
+                                    HeightRequest="100"
+                                    WidthRequest="100">
+                </controls:CircleImage>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

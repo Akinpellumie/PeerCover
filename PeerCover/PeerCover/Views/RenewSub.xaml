@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:PeerCover"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.RenewSub"
+              Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc" Shell.NavBarIsVisible="True"
+             NavigationPage.HasBackButton="True"
+             Title="New Plan">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout x:Name="renewSubStack" Margin="15">
+
+                <StackLayout x:Name="ReFirstScreen" IsVisible="True">
+
+                    <StackLayout>
+                        <Label Text="Ensure to fill all fields correctly!!!" FontSize="12" TextColor="Red"
+                               HorizontalOptions="CenterAndExpand" Margin="5"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Vehicle Model" TextColor="LightGray"/>
+                        <Entry x:Name="ReVMInput" Text="{Binding vehicle_make}" Margin="0,0,0,15" PlaceholderColor="{StaticResource TypeColor}" Keyboard="Default" 
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Registration Number" TextColor="LightGray"/>
+                        <Entry x:Name="ReRNInput" Margin="0,0,0,15" Keyboard="Default" Text="{Binding vehicle_registration_number}" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}"/>
+                    </StackLayout>
+
+                    <StackLayout BackgroundColor="#FEFBFB">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Margin="7,5,5,5" Text="Driver's License" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                            <Button x:Name="ReDLuploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadLicenseTapped" Margin="0,0,5,5"/>
+
+                        </Grid>
+
+                        <Label x:Name="Relbl" Text=" " FontSize="12" TextColor="#828282"/>
+                    </StackLayout>
+
+                    <StackLayout BackgroundColor="#FEFBFB">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Margin="7,5,5,5" Text="Vehicle Image" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                            <Button x:Name="ReImguploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadImaTapped" Margin="0,0,5,5"/>
+
+                        </Grid>
+
+                        <Label x:Name="Relbl1" Text=" " FontSize="12" TextColor="#828282"/>
+                    </StackLayout>
+
+                    <StackLayout BackgroundColor="#FEFBFB">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Margin="7,5,5,5" Text="Utility Bill" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
+                            <Button x:Name="ReBillUploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                                    FontSize="10" Text="Take Picture" HorizontalOptions="End"
+                                    BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
+                                   Clicked="UploadBillTapped" Margin="0,0,5,5"/>
+
+                        </Grid>
+
+                        <Label x:Name="Relbl2" Text=" " FontSize="12" TextColor="#828282"/>
+                    </StackLayout>
+
+                    <Button  Margin="5,20,5,15" FontSize="20" BorderRadius="6"
+                         WidthRequest="200" HeightRequest="45" HorizontalOptions="End" TextColor="White" 
+                         BackgroundColor="{StaticResource BtnColor}" Text="NEXT" Clicked="firstScrn_clicked"/>
+                </StackLayout>
+
+
+                <StackLayout x:Name="ReSecondScreen" IsVisible="False">
+
+                    <Button  Margin="5,20,5,15" FontSize="20" BorderRadius="6" 
+                         WidthRequest="200" HeightRequest="45" HorizontalOptions="Start" TextColor="White" 
+                         BackgroundColor="{StaticResource BtnColor}" Text="BACK" Clicked="ScndScrn_clicked"/>
+
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Vehicle Color" TextColor="LightGray"/>
+                        <Entry x:Name="ReVCInput" Margin="0,0,0,10" Keyboard="Default" Text="{Binding vehicle_color}" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Year of Make" TextColor="LightGray"/>
+                        <Entry Margin="0,0,0,10"  x:Name="ReYMInput" Keyboard="Default" Text="{Binding year_of_make}" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Engine Number" TextColor="LightGray"/>
+                        <Entry Margin="0,0,0,10"  x:Name="ReENInput" Keyboard="Default" Text="{Binding engine_number}" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Valuation Amount" TextColor="LightGray"/>
+                        <Entry Margin="0,0,0,10"  x:Name="ReVLMInput" Unfocused="Input_unfocused" Keyboard="Numeric"  TextChanged="Input_TextChanged" 
+                                  Style="{StaticResource EntryStyle}"  Placeholder="Input your car valuation" 
+                                              PlaceholderColor="{StaticResource TypeColor}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="Premium (per annum)" TextColor="LightGray"/>
+                        <Entry Margin="0,0,0,10" x:Name="RePRMInput" TextChanged="InputPrm_TextChanged" Keyboard="Default" Placeholder="#0.00" IsReadOnly="True"
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Margin="7,5,5,5" Text="VIN" TextColor="LightGray"/>
+                        <Entry Margin="0,0,0,10"  x:Name="ReVINInput" Keyboard="Default" Text="{Binding VIN}" 
+                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Button  Margin="5,10,5,15" FontSize="20" BorderRadius="6"
+                         WidthRequest="285.53" HeightRequest="45" Clicked="NewSubClicked" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" TextColor="White" 
+                         BackgroundColor="{StaticResource BtnColor}" Text="SUBSCRIBE"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

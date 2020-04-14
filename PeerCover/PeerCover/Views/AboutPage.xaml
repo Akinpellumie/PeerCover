@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.AboutPage"
+              Shell.BackgroundColor="#27d2dc"
+             NavigationPage.HasNavigationBar="True"
+             Shell.TabBarBackgroundColor="#27d2dc" Shell.NavBarIsVisible="True"
+             NavigationPage.HasBackButton="True"
+             Title="About Plan">
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Frame BackgroundColor="{StaticResource Primary}" IsClippedToBounds="True" HasShadow="True">
+                <Label Text="About Plan" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Margin="5,0,0,0"/>
+            </Frame>-->
+
+            <StackLayout Margin="15">
+                <Label LineBreakMode="WordWrap">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="The auto insurance generally includes: Loss or damage by accident, fire, lightning, self ignition, 
+                              external explosion, burglary, housebreaking or theft, malicious act. Liability for third party injury/death, 
+                              third party property and liability  to paid driver." LineHeight="1.8"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Button VerticalOptions="EndAndExpand" Text="GET STARTED" BackgroundColor="{StaticResource BtnColor}" FontSize="15"
+                    BorderRadius="6"  HeightRequest="45" WidthRequest="150" HorizontalOptions="CenterAndExpand" 
+                    Clicked="getStartedClicked" TextColor="White"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

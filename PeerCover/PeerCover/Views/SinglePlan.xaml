@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.SinglePlan"
+             Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc" Title="Active Subscription"
+             NavigationPage.HasBackButton="True">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout x:Name="SinglePlanDetails">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Margin="10,10,10,10" Grid.Row="0">
+                        <Image Source="{Binding UserImage}" x:Name="UserImage" Aspect="Fill" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Margin="3" Grid.Row="1" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Label FontSize="20" TextColor="{StaticResource BtnColor}" Text="Model: "/>
+                        <Label FontSize="20" TextColor="{StaticResource BtnColor}" Text="{Binding vehicle_make}"/>
+                    </StackLayout>
+                    <StackLayout  Grid.Row="2" Orientation="Vertical" Margin="15">
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Valuation Amount: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding VMamountformat}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Coverage Period: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding coverage_period}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Premium"/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding PRamountformat}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Color: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding vehicle_color}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa"  
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Engine Number: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding engine_number}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="VIN: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding VIN}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Coverage Amount: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding CAamountformat}"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Vehicle Reg. Number: "/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding vehicle_registration_number}"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="3" Margin="3" x:Name="PayStc1"  IsVisible="False" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="ClaimBtn" Grid.Column="0" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                         HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
+                         WidthRequest="157" BackgroundColor="Accent" Text="Make Claim" Clicked="MakeClaim_Clicked"/>
+                            <Button x:Name="BtnPay" Grid.Column="1" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                        HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
+                        WidthRequest="157" BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="3" Margin="3" x:Name="PayStck" IsVisible="False" HorizontalOptions="CenterAndExpand">
+                        <Button VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                        HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
+                        WidthRequest="157" BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="3" Margin="3" x:Name="RenewStck" IsVisible="False" HorizontalOptions="CenterAndExpand">
+                        <Button VerticalOptions="EndAndExpand" FontSize="20" BorderRadius="6"
+                        HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
+                        WidthRequest="157" BackgroundColor="Accent" Text="Renew Plan" Clicked="Renew_Clicked"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

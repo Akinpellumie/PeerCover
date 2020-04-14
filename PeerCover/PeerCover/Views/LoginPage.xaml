@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:PeerCover"
+             xmlns:vm="clr-namespace:PeerCover.ViewModels"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.LoginPage"
+             BackgroundImageSource="background.jpg"
+             NavigationPage.HasNavigationBar="false">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Margin="10,45,10,5"  Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+
+        <Grid Margin="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" Margin="30,0,30,5" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+                <StackLayout Margin="0,10,0,5" HeightRequest="40">
+                    <Label x:Name="lbl_NoInternet" HorizontalTextAlignment="Center" 
+                   TextColor="DarkRed" BackgroundColor="White"/>
+                    <ActivityIndicator x:Name="indicator" Color="Coral" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
+                </StackLayout>
+
+                <StackLayout>
+                    <StackLayout Margin="0,0,0,10">
+                        <Label Text="Username" Margin="7,0,0,0" TextColor="LightGray"/>
+
+                        <Entry x:Name="UsernameInput"  Text="{Binding Username, Mode=TwoWay}" 
+                                                  IsTextPredictionEnabled="True" TabIndex="0" Keyboard="Default" 
+                                  Style="{StaticResource EntryStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Password" Margin="7,0,0,0" TextColor="LightGray"/>
+
+                        <Entry x:Name="PasswordInput" Text="{Binding password, Mode=TwoWay}" Keyboard="Default" IsPassword="True" 
+                                  Style="{StaticResource EntryStyle}">
+                            <Entry.Effects>
+                                <Controls:ShowHidePassEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </StackLayout>
+                    <StackLayout
+                        Margin="2,10"
+                        IsVisible="True"
+                        Orientation="Horizontal">
+                        <Label Text="Remember Me: " Margin="0,3,0,0" />
+                        <Switch IsToggled="{Binding RememberMe}" />
+                    </StackLayout>
+
+                    <Label
+                    x:Name="LabelForgotPassword"
+                    Grid.Row="2"
+                    Margin="5"
+                    HorizontalOptions="End"
+                    Text="Forgot Password?"
+                    TextColor="Accent"
+                    TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ForgotPassword" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </StackLayout>
+
+                <StackLayout>
+                    <Button  Margin="0,15,0,5" FontSize="20" BorderRadius="6" WidthRequest="285.53" Clicked="LoginClicked"
+                         HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
+                         BackgroundColor="{StaticResource BtnColor}" Text="Login"/>
+                </StackLayout>
+                <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="Center" Orientation="Horizontal" BackgroundColor="Transparent">
+                    <!--<Button FontSize="Caption" Text="Don't have an account yet? Sign Up Here!!!"
+                        TextColor="{StaticResource Primary}"  BackgroundColor="Transparent"
+                       Clicked="SignUpClicked" x:Name="Register"/>-->
+
+                    <Label Text="Don't have an account yet?" Margin="0,5" TextColor="Accent" FontSize="Caption"/>
+
+                    <Label x:Name="Register" Margin="0,5"
+                        Text="Click Here!" TextColor="Accent" FontSize="Caption" TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SignUpClicked" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+
+
+
+        </Grid>
+
+    </StackLayout>
+</ContentPage>

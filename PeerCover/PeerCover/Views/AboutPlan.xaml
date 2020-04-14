@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PeerCover.Views.AboutPlan"
+              Shell.BackgroundColor="#27d2dc"
+             Shell.TabBarBackgroundColor="#27d2dc" Shell.NavBarIsVisible="True"
+             NavigationPage.HasBackButton="True"
+             Title="About Plan">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="15">
+                <Label LineBreakMode="WordWrap">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="This article provides a summary of some of the salient provisions of the Insurance Act of 2003 including the insurance policies made compulsory by the law.
+
+1.            COMPULSORY INSURANCE
+Compulsory Insurances are those insurance policies which every person must have or face penalties for default and it is therefore important for people know what insurance policies are compulsory. In Nigeria, there are six (6) insurance policies made compulsory by the law. It is important to emphasize that these six (6) classes of Insurance are made compulsory under their enabling laws and failure to comply with the law is regarded as a criminal offence and employees can also sue for compensation in a civil suit. The policies and their relevant legislation are as follows:
+
+1.1 Motor Third Party Insurance as required by the Motor Vehicles (Third Party Insurance) Act of 1950. This is the minimum insurance that owners of motor vehicles plying Nigerian roads are required to have. The policy covers liability for death or bodily injury to a third party arising from the use of the vehicle. Section 68 of the Insurance Act 2003 extends the liability to cover damage to the property of a third party to the tune of One Million Naira. It also makes it a criminal offence not to have a motor vehicle third party insurance policy and the penalty for non-compliance is imprisonment for one year or a fine of N250,000 or  both.
+
+1.2 Employee Group Life Insurance as required by the Pension Reform Act of 2004. Section 9(3) of that Act requires every employer of labour with five (5) or more employees to take out a life insurance policy for a minimum of three times the annual total emolument of the employee. This law is applicable to both private and public sector employees. Failure to comply with this provision is an offence punishable with imprisonment for up to one year or a fine of N250,000 or  both.
+
+1.3 Health Care Professional Indemnity as required by the National Health Insurance Scheme Act of 1999. Section 45 of that Act requires all licensed health care providers to have a professional indemnity policy. The law defines a health care provider as any registered Government or private healthcare practitioner and hospital or maternity center.
+
+1.4 Insurance of Public Buildings as required by the Insurance Act of 2003. Section 65 of that Act requires the owner or occupier of every public building to be insured against liability for loss or damage to property or death or bodily injury caused by collapse, fire, earthquake, storm or flood. The Act defines a public building as one to which members of the public have access for educational, recreational, medical and commercial purposes. The penalty for non-compliance is a maximum fine of N100,000 or one year imprisonment or both.
+
+1.5 Insurance of Buildings under Construction as required by the Insurance Act of 2003. Section 64 of that Act requires every owner or contractor of any building under construction with more than two (2) floors must take out an insurance policy to cover liability against construction risks caused by his negligence or that of his servants, agents or consultants which may result in death, bodily injury or property damage to workers on site or members of the public. This insurance policy also covers liability for collapse of buildings under construction. Failure to comply with this provision is an offence punishable with a fine of N250,000   or three years imprisonment or  both.
+
+1.6 Employers Liability Insurance as required by the Employee Compensation Act of 2010 (which repealed the Workmen Compensation Act of 1987). The Act requires every employer, within the first two years of the commencement of the 2010 Act, to make a minimum monthly contribution of 1% of the total monthly payroll of employees to the Employee Compensation Fund. The Fund shall be used to pay adequate compensation to employees or their dependants for any death, injury, disease or disability arising out of or in the course of their employment." LineHeight="1.8"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Button VerticalOptions="EndAndExpand" Text="GET STARTED" BackgroundColor="{StaticResource BtnColor}" FontSize="25"
+                    BorderRadius="6"  HeightRequest="45" HorizontalOptions="CenterAndExpand" 
+                     ContentLayout="0, right" ImageSource="arrowIcn.png" Clicked="getStartedClicked" TextColor="White"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

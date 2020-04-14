@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="PeerCover.Views.PopUpDecline">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
+    <StackLayout Margin="15"
+                 Padding="24"
+                 BackgroundColor="White"
+                 HorizontalOptions="StartAndExpand"
+                 VerticalOptions="Center">
+
+        <Label Margin="10" Text="Note that declining a recommendation more than twice will attract a penalty from the Community!!!"
+       TextColor="{StaticResource TxtColor}" FontSize="15" LineBreakMode="WordWrap"/>
+
+        <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
+                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
+
+        <StackLayout>
+            <Label Margin="5" Text="Drop a message" TextColor="{StaticResource Primary}"/>
+            <Editor x:Name="RejInput" Keyboard="Default" Margin="0,0,0,10"  
+                                Placeholder="Why do you want to decline the recommendation?" PlaceholderColor="{StaticResource TypeColor}"/>
+        </StackLayout>
+
+        <Button
+                FontSize="20" Clicked="DeclineClmClicked"
+                Text="Decline" HeightRequest="40"
+                TextColor="White" BackgroundColor="{StaticResource Primary}"/>
+    </StackLayout>
+</pages:PopupPage>
