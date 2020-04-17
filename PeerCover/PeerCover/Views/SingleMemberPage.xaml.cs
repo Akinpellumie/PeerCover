@@ -60,6 +60,19 @@ namespace PeerCover.Views
             var result = await client.GetStringAsync(UserCountEndpoint);
             var UsersCnt = JsonConvert.DeserializeObject<ActSubModel>(result);
             DashMemList.ItemsSource = UsersCnt.subscriptions;
+
+            TxtEmp.Text = username + " has no active subscription(s).";
+
+            if (UsersCnt.subscriptions.Count == 0)
+            {
+                FrmSB.IsVisible = true;
+                SubList.IsVisible = false;
+            }
+            else
+            {
+                SubList.IsVisible = true;
+                FrmSB.IsVisible = false;
+            }
         }
 
         private async void backClicked(object sender, EventArgs e)

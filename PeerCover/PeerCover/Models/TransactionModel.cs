@@ -58,7 +58,7 @@ namespace PeerCover.Models
                 }
                 else if (payment_status.Contains("Successful"))
                 {
-                    return Color.Accent;
+                    return Color.Green;
                 }
                 else if (payment_status.Contains("Failed"))
                 {
@@ -150,5 +150,13 @@ namespace PeerCover.Models
     public class TransModel
     {
         public List<TransHisModel> transactions { get; set; }
+    }
+
+    public class PayMethModel
+    {
+        public string username { get; set; }
+        public string paymentMethod { get; set; }
+        public string transRefNum { get; set; }
+        public string transactionId { get; set; }
     }
 }

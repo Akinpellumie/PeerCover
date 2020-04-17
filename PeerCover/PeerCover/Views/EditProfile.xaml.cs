@@ -165,90 +165,99 @@ namespace PeerCover.Views
 
         private async void UpdateMemberClicked(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(new PopLoader());
-            try
+            if(string.IsNullOrEmpty(UserImage))
             {
-                getMembersModel update = new getMembersModel()
+                await DisplayAlert("Oops!","Please wait......", "Ok");
+                return;
+            }
+            else
+            {
+            await PopupNavigation.Instance.PushAsync(new PopLoader());
+                try
                 {
-                    firstname = FNInput.Text,
-                    lastname = LNInput.Text,
-                    username = HelperAppSettings.username,
-                    phonenumber = PNInput.Text,
-                    email = EMInput.Text,
-                    accountNumber = ACNInput.Text.Trim(),
-                    address = ADRInput.Text,
-                    accountName = ANMInput.Text,
-                };
-                if (string.IsNullOrEmpty(UserImage))
-                {
-                    update.profileImgUrl = ProfileImage;
-                }
-                else
-                {
-                    update.profileImgUrl = UserImage;
-                }
-
-                if (!string.IsNullOrEmpty(bnkNm2) && !string.IsNullOrEmpty(bnkCd2))
-                {
-                    update.bankName = bnkNm2;
-                    update.bankCode = bnkCd2;
-                }
-                else if (string.IsNullOrEmpty(bnkNm2) && string.IsNullOrEmpty(bnkCd2))
-                {
-                    update.bankName = bnkNm;
-                    update.bankCode = bnkCde;
-                }
-
-                if (!string.IsNullOrEmpty(myGend))
-                {
-                    update.gender = myGend;
-                }
-                else if (string.IsNullOrEmpty(myGend))
-                {
-                    update.gender = gndPck;
-                }
-
-
-                var clientee = new HttpClient();
-                clientee.DefaultRequestHeaders.Clear();
-                clientee.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
-
-                var jsonUpd = JsonConvert.SerializeObject(update);
-                HttpContent result = new StringContent(jsonUpd);
-                result.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                var response = await clientee.PutAsync(Helper.getMembersUrl, result);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    await Indic.ProgressTo(0.9, 950, Easing.SpringIn);
-                    await PopupNavigation.Instance.PopAsync(true);
-                    await DisplayAlert("InHub", "Profile Updated", "Ok");
-                    await Shell.Current.Navigation.PushAsync(new Profile());
-                    Indic.IsVisible = false;
-                    //indicator.IsVisible = false;
-                    //indicator.IsRunning = false;
-
-                }
-                else
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    MembersModel update = new MembersModel()
                     {
+                        firstname = FNInput.Text,
+                        lastname = LNInput.Text,
+                        username = HelperAppSettings.username,
+                        phonenumber = PNInput.Text,
+                        email = EMInput.Text,
+                        accountNumber = ACNInput.Text.Trim(),
+                        address = ADRInput.Text,
+                        accountName = ANMInput.Text,
+                    };
+                    if (string.IsNullOrEmpty(UserImage))
+                    {
+                        update.profileImgUrl = ProfileImage;
+                    }
+                    else
+                    {
+                        update.profileImgUrl = UserImage;
+                    }
+
+                    if (!string.IsNullOrEmpty(bnkNm2) && !string.IsNullOrEmpty(bnkCd2))
+                    {
+                        update.bankName = bnkNm2;
+                        update.bankCode = bnkCd2;
+                    }
+                    else if (string.IsNullOrEmpty(bnkNm2) && string.IsNullOrEmpty(bnkCd2))
+                    {
+                        update.bankName = bnkNm;
+                        update.bankCode = bnkCde;
+                    }
+
+                    if (!string.IsNullOrEmpty(myGend))
+                    {
+                        update.gender = myGend;
+                    }
+                    else if (string.IsNullOrEmpty(myGend))
+                    {
+                        update.gender = gndPck;
+                    }
+
+
+                    var clientee = new HttpClient();
+                    clientee.DefaultRequestHeaders.Clear();
+                    clientee.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
+
+                    var jsonUpd = JsonConvert.SerializeObject(update);
+                    HttpContent result = new StringContent(jsonUpd);
+                    result.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    var response = await clientee.PutAsync(Helper.getMembersUrl, result);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await Indic.ProgressTo(0.9, 950, Easing.SpringIn);
                         await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("InHub", response.ReasonPhrase, "Ok");
+                        await DisplayAlert("Alert", "Profile Updated", "Ok");
+                        await Shell.Current.Navigation.PushAsync(new Profile());
+                        Indic.IsVisible = false;
+                        //indicator.IsVisible = false;
+                        //indicator.IsRunning = false;
 
                     }
                     else
                     {
-                        await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("InHub", "Please try again later", "Ok");
+                        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                        {
+                            await PopupNavigation.Instance.PopAsync(true);
+                            await DisplayAlert("Alert", response.ReasonPhrase, "Ok");
 
+                        }
+                        else
+                        {
+                            await PopupNavigation.Instance.PopAsync(true);
+                            await DisplayAlert("Alert", "Please try again later", "Ok");
+
+                        }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                return;
+                catch (Exception)
+                {
+                    return;
+                }
+
             }
         }
 
@@ -312,6 +321,7 @@ namespace PeerCover.Views
                     else
                     {
                         await DisplayAlert("Alert", "An error occured, please try again later", "ok");
+                        await PopupNavigation.Instance.PopAsync(true);
                     }
 
                     await PopupNavigation.Instance.PopAsync(true);

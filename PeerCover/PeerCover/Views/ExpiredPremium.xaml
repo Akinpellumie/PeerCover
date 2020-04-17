@@ -18,16 +18,23 @@
                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
 
 
-                <ListView x:Name="expPreList" HasUnevenRows="True" ItemTapped="ViewSubTapped"
+                <StackLayout Margin="5,10,5,5" x:Name="InActList" IsVisible="True">
+                    <ListView x:Name="expPreList" HasUnevenRows="True" ItemTapped="ViewSubTapped"
                           SeparatorVisibility="Default" SeparatorColor="Accent" IsPullToRefreshEnabled="False">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <local12:DashView/>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <local12:DashView/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <StackLayout x:Name="FrmInB" IsVisible="False" Padding="0" Margin="0,10,0,5">
+                    <Label Text="Your  inactive subscription(s) will appear here!!!" Margin="10" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

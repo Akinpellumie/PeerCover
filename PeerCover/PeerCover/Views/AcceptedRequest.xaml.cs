@@ -28,7 +28,8 @@ namespace PeerCover.Views
             indicator.IsRunning = true;
             indicator.IsVisible = true;
 
-
+            try
+            {
             HttpClient client = new HttpClient();
             var dashboardEndpoint = Helper.GetRequestsUrl + HelperAppSettings.community_code + Helper.getRequestFilter + "accepted";
             client.DefaultRequestHeaders.Clear();
@@ -49,6 +50,12 @@ namespace PeerCover.Views
             }
             indicator.IsRunning = false;
             indicator.IsVisible = false;
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Oops!", "check your internet connection", "Ok");
+                return;
+            }
         }
 
         protected override void OnAppearing()

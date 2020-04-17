@@ -22,8 +22,12 @@ namespace PeerCover.Views
         }
         public async void GetSubDetails()
         {
+            indicator.IsRunning = true;
+            indicator.IsVisible = true;
+
+
             HttpClient client = new HttpClient();
-            var UserCountEndpoint = Helper.getActiveSubUrl + HelperAppSettings.username;
+            var UserCountEndpoint = Helper.getActiveSubUrl + HelperAppSettings.username + "&isActive=0";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
 
@@ -32,7 +36,18 @@ namespace PeerCover.Views
             //Users = new ObservableCollection<AddedUsers>(UsersList);
             //var hut = UsersCnt.subscriptions;
             expPreList.ItemsSource = UsersCnt.subscriptions;
-
+            if (UsersCnt.subscriptions.Count == 0)
+            {
+                FrmInB.IsVisible = true;
+                InActList.IsVisible = false;
+            }
+            else
+            {
+                InActList.IsVisible = true;
+                FrmInB.IsVisible = false;
+            }
+            indicator.IsRunning = false;
+            indicator.IsVisible = false;
         }
 
 

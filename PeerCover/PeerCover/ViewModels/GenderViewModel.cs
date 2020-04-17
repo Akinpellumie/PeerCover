@@ -17,6 +17,7 @@ namespace PeerCover.ViewModels
         {
             new Genders(){key = 1, Value = "Male"},
             new Genders(){key = 2, Value = "Female"},
+             new Genders(){key = 3, Value = "Others"},
 
         };
             return banks;

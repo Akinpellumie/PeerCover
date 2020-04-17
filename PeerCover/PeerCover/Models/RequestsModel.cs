@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace PeerCover.Models
 {
@@ -15,6 +16,21 @@ namespace PeerCover.Models
 	    public string is_reviewed { get; set; }
 	    public string date_created { get; set; }
 	    public string status { get; set; }
+        public Color ReqStatus_color
+        {
+            get
+            {
+                if (status.Contains("Accepted"))
+                {
+                    return Color.FromHex("37CA4B");
+                }
+                else if (status.Contains("Declined"))
+                {
+                    return Color.Red;
+                }
+                return Color.Orange;
+            }
+        }
         public string reviewedBy { get; set; }
         public string requestId { get; set; }
         public string reviewed_by { get; set; }
@@ -43,6 +59,21 @@ namespace PeerCover.Models
         public string is_reviewed { get; set; }
         public string date_created { get; set; }
         public string status { get; set; }
+        public Color ReqStatus_color
+        {
+            get
+            {
+                if (status.Contains("Accepted"))
+                {
+                    return Color.FromHex("37CA4B");
+                }
+                else if (status.Contains("Declined"))
+                {
+                    return Color.Red;
+                }
+                return Color.Orange;
+            }
+        }
         public string reviewedBy { get; set; }
         public string requestId { get; set; }
         public string reviewed_by { get; set; }
@@ -71,6 +102,21 @@ namespace PeerCover.Models
         public string is_reviewed { get; set; }
         public string date_created { get; set; }
         public string status { get; set; }
+        public Color ReqStatus_color
+        {
+            get
+            {
+                if (status.Contains("Accepted"))
+                {
+                    return Color.Green;
+                }
+                else if (status.Contains("Declined"))
+                {
+                    return Color.Red;
+                }
+                return Color.Orange;
+            }
+        }
         public string reviewedBy { get; set; }
         public string requestId { get; set; }
         public string reviewed_by { get; set; }

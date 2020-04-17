@@ -30,13 +30,16 @@ namespace PeerCover.Views
             var result = await client.GetStringAsync(dashboardEndpoint);
             var ClaimsList = JsonConvert.DeserializeObject<ClaimsListModel>(result);
 
-            if (ClaimsList == null)
+            ClaimList.ItemsSource = ClaimsList.claims;
+            if (ClaimsList.claims.Count == 0)
             {
-                ClaimList.ItemsSource = "No Available Claims";
+                FrmCB.IsVisible = true;
+                stackList.IsVisible = false;
             }
             else
             {
-                ClaimList.ItemsSource = ClaimsList.claims;
+                stackList.IsVisible = true;
+                FrmCB.IsVisible = false;
             }
 
             indicator.IsRunning = false;

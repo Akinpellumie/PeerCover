@@ -29,6 +29,7 @@
                     </StackLayout>
 
                     <Frame BackgroundColor="#f5fafa">
+                        <StackLayout>
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -41,10 +42,13 @@
                                     BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
                                    Clicked="UploadLicenseTapped" Margin="2"/>
                         </Grid>
+                        <Label x:Name="lbl" Text="" FontSize="12" TextColor="#828282"/>
+                        </StackLayout>
                     </Frame>
-                    <Label x:Name="lbl" Text="" FontSize="12" TextColor="#828282"/>
+                    
                     
                     <Frame BackgroundColor="#f5fafa">
+                        <StackLayout>
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -58,10 +62,13 @@
                                    Clicked="UploadImaTapped" Margin="2"/>
 
                         </Grid>
+                        <Label x:Name="lbl1" Text=" " FontSize="12" TextColor="#828282"/>
+                        </StackLayout>
                     </Frame>
-                    <Label x:Name="lbl1" Text=" " FontSize="12" TextColor="#828282"/>
+                   
                     
                     <Frame BackgroundColor="#f5fafa">
+                        <StackLayout>
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -74,8 +81,10 @@
                                     BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
                                    Clicked="UploadBillTapped" Margin="2"/>
                         </Grid>
+                        <Label x:Name="lbl2" Text=" " FontSize="12" TextColor="#828282"/>
+                        </StackLayout>
                     </Frame>
-                    <Label x:Name="lbl2" Text=" " FontSize="12" TextColor="#828282"/>
+                    
                     
 
                     <Button  Margin="5,20,5,15" FontSize="20" BorderRadius="6"
@@ -92,13 +101,13 @@
 
 
                     <StackLayout>
-                        <Label Margin="7,5,5,5" Text="Vehicle Color" TextColor="LightGray"/>
+                        <Label Margin="7,5,5,5" Text="Vehicle Color" TextColor="{StaticResource TxtColor}"/>
                         <Entry x:Name="VCInput" Keyboard="Default" Margin="0,0,0,10" Placeholder="XXXX-XXXX-XXXX" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                     </StackLayout>
 
                     <StackLayout>
-                        <Label Margin="7,5,5,5" Text="Year of Make" TextColor="LightGray"/>
+                        <Label Margin="7,5,5,5" Text="Year of Make" TextColor="{StaticResource TxtColor}"/>
                         <Entry x:Name="YMInput" Margin="0,0,0,10" Keyboard="Default" Placeholder="XXXX" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                     </StackLayout>
@@ -110,20 +119,20 @@
                     </StackLayout>
 
                     <StackLayout>
-                        <Label Margin="7,5,5,5" Text="Valuation Amount" TextColor="LightGray"/>
+                        <Label Margin="7,5,5,5" Text="Valuation Amount" TextColor="{StaticResource TxtColor}"/>
                         <Entry x:Name="VLMInput" Margin="0,0,0,10"  Unfocused="Input_unfocused" Keyboard="Numeric"  TextChanged="Input_TextChanged" 
                                   Style="{StaticResource EntryStyle}"  Placeholder="Input your car valuation" 
                                               PlaceholderColor="{StaticResource TypeColor}"/>
                     </StackLayout>
 
                     <StackLayout>
-                        <Label Margin="7,5,5,5" Text="Premium (per annum)" TextColor="LightGray"/>
+                        <Label Margin="7,5,5,5" Text="Premium (per annum)" TextColor="{StaticResource TxtColor}"/>
                         <Entry x:Name="PRMInput" Margin="0,0,0,10" TextChanged="InputPrm_TextChanged" Keyboard="Default" Placeholder="#0.00" IsReadOnly="True"
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}"/>
                     </StackLayout>
 
                     <StackLayout>
-                        <Label Margin="7,5,5,5" Text="VIN" TextColor="LightGray"/>
+                        <Label Margin="7,5,5,5" Text="VIN" TextColor="{StaticResource TxtColor}"/>
                         <Entry x:Name="VINInput" Margin="0,0,0,10" Keyboard="Default" Placeholder="XXXX-XXXX-XXXX" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                     </StackLayout>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Rg.Plugins.Popup.Services;
 
 namespace PeerCover.Views
 {
@@ -26,18 +27,20 @@ namespace PeerCover.Views
             LoadSinglePlan(subscription_id);
         }
         public async void LoadSinglePlan(string subscription_id)
-
         {
+            await PopupNavigation.Instance.PushAsync(new PopLoader());
             var url = Helper.NewPlanUrl + subscription_id;
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
             var result = await client.GetStringAsync(url);
             var UsersList = JsonConvert.DeserializeObject<ActiveSubModel>(result);
+
             SinglePlanDetails.BindingContext = UsersList.subscription[0];
             policyNo = UsersList.subscription[0].policy_number;
             var BtnCheck = UsersList.subscription[0].status;
             var expCheck = UsersList.subscription[0].is_expired;
+            await PopupNavigation.Instance.PopAsync(true);
 
             if (BtnCheck.Contains("Not Paid"))
             {
@@ -57,6 +60,7 @@ namespace PeerCover.Views
                 PayStck.IsVisible = false;
                 RenewStck.IsVisible = true;
             }
+
         }
 
         async void MakeClaim_Clicked(object sender, EventArgs e)
@@ -77,7 +81,7 @@ namespace PeerCover.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            LoadSinglePlan(subscription_id);
+            //LoadSinglePlan(subscription_id);
         }
 
     }

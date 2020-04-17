@@ -18,16 +18,23 @@
                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
 
 
-                <ListView x:Name="OtherClaimsList" HasUnevenRows="True" ItemTapped="ViewClaimTapped"
+                <StackLayout Margin="5,15,5,5" x:Name="stcList" IsVisible="True">
+                    <ListView x:Name="OtherClaimsList" HasUnevenRows="True" ItemTapped="ViewClaimTapped"
                           SeparatorVisibility="Default" SeparatorColor="LightGreen" IsPullToRefreshEnabled="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <local12:ClaimListView/>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <local12:ClaimListView/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <StackLayout x:Name="FrmSB" IsVisible="False" Padding="0" Margin="0,10,0,5">
+                    <Label Text="The other claims in the community will appear here!!!" Margin="10" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" TextColor="{StaticResource TxtColor}" FontSize="15"/>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

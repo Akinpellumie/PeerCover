@@ -24,6 +24,8 @@ namespace PeerCover.Views
 
         public async void GetTransHis()
         {
+            try
+            {
             await PopupNavigation.Instance.PushAsync(new PopLoader());
             HttpClient client = new HttpClient();
             var dashboardEndpoint = Helper.TransactionUrl + HelperAppSettings.username;
@@ -34,6 +36,23 @@ namespace PeerCover.Views
             TransList.ItemsSource = TnxList.transactions;
 
             await PopupNavigation.Instance.PopAsync(true);
+                if (TnxList.transactions.Count == 0)
+                {
+                    FrmTB.IsVisible = true;
+                    TranStack.IsVisible = false;
+                }
+                else
+                {
+                    TranStack.IsVisible = true;
+                    FrmTB.IsVisible = false;
+                }
+
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Oops!", "check yoour internet connection", "Ok");
+                return;
+            }
         }
 
     }

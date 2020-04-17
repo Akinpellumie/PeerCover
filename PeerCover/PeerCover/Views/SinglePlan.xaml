@@ -18,8 +18,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <StackLayout Margin="10,10,10,10" Grid.Row="0">
-                        <Image Source="{Binding UserImage}" x:Name="UserImage" Aspect="Fill" HorizontalOptions="FillAndExpand"/>
+                    <StackLayout Margin="10" Grid.Row="0">
+                        <Image Source="{Binding UserImage}" x:Name="UserImage" Aspect="AspectFit" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                     <StackLayout Margin="3" Grid.Row="1" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                         <Label FontSize="20" TextColor="{StaticResource BtnColor}" Text="Model: "/>
@@ -40,8 +40,14 @@
 
                         <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
                                      HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Premium"/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Premium:"/>
                             <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding PRamountformat}"/>
+                        </StackLayout>
+                        
+                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Expiry Date:"/>
+                            <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding exDate}"/>
                         </StackLayout>
 
                         <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
@@ -62,11 +68,11 @@
                             <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding VIN}"/>
                         </StackLayout>
 
-                        <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
+                        <!--<StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
                                      HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                             <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="Coverage Amount: "/>
                             <Label Margin="8" FontSize="14" TextColor="{StaticResource TxtColor}" Text="{Binding CAamountformat}"/>
-                        </StackLayout>
+                        </StackLayout>-->
 
                         <StackLayout Spacing="0" Padding="0" BackgroundColor="#f5fafa" 
                                      HorizontalOptions="FillAndExpand" Orientation="Horizontal">
@@ -75,31 +81,27 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <StackLayout Grid.Row="3" Margin="3" x:Name="PayStc1"  IsVisible="False" >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="ClaimBtn" Grid.Column="0" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
-                         HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
-                         WidthRequest="157" BackgroundColor="Accent" Text="Make Claim" Clicked="MakeClaim_Clicked"/>
-                            <Button x:Name="BtnPay" Grid.Column="1" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
-                        HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
-                        WidthRequest="157" BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>
-                        </Grid>
+                    <StackLayout Grid.Row="3" Margin="20, 15" x:Name="PayStc1"  IsVisible="False" >
+                        
+                            <Button x:Name="ClaimBtn" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                         HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
+                         BackgroundColor="Accent" Text="Make Claim" Clicked="MakeClaim_Clicked"/>
+                            <!--<Button x:Name="BtnPay" Grid.Column="1" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                        HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
+                         BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>-->
+                       
                     </StackLayout>
 
-                    <StackLayout Grid.Row="3" Margin="3" x:Name="PayStck" IsVisible="False" HorizontalOptions="CenterAndExpand">
+                    <StackLayout Grid.Row="3" Margin="20, 15" x:Name="PayStck" IsVisible="False" HorizontalOptions="Fill">
                         <Button VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
-                        HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
-                        WidthRequest="157" BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>
+                        HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
+                         BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>
                     </StackLayout>
 
-                    <StackLayout Grid.Row="3" Margin="3" x:Name="RenewStck" IsVisible="False" HorizontalOptions="CenterAndExpand">
-                        <Button VerticalOptions="EndAndExpand" FontSize="20" BorderRadius="6"
-                        HeightRequest="45" HorizontalOptions="CenterAndExpand" TextColor="White" 
-                        WidthRequest="157" BackgroundColor="Accent" Text="Renew Plan" Clicked="Renew_Clicked"/>
+                    <StackLayout Grid.Row="3" Margin="20, 15" x:Name="RenewStck" IsVisible="False" HorizontalOptions="Fill">
+                        <Button VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                        HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
+                         BackgroundColor="Accent" Text="Renew Plan" Clicked="Renew_Clicked"/>
                     </StackLayout>
                 </Grid>
             </StackLayout>

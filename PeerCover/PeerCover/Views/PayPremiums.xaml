@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:PeerCover.ViewModels"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:PickerControl="clr-namespace:PeerCover.CustomControls"
              mc:Ignorable="d"
              x:Class="PeerCover.Views.PayPremiums"
               Shell.BackgroundColor="#27d2dc"
@@ -22,9 +23,11 @@
         <ScrollView>
             <StackLayout Orientation="Vertical" Margin="10">
                 <StackLayout Margin="15">
-                    <Picker x:Name="SubPicker" Margin="5" Style="{StaticResource PickerStyle}" Title="--Select Subscription--"
+                    <Frame Style="{StaticResource FrameStyle}" HasShadow="False" HeightRequest="45">
+                        <PickerControl:CustomPicker x:Name="SubPicker" Image="ic_arrow_drop_down" Margin="5" Style="{StaticResource PickerStyle}" Title="--Select Subscription--"
                                     ItemsSource="{Binding SubList}" SelectedIndexChanged="SelectedItemEvent_Clicked"
                                     ItemDisplayBinding="{Binding vehicle_make}"/>
+                    </Frame>
                 </StackLayout>
 
                 <StackLayout Margin="10" x:Name="SinSubPay" IsVisible="False">
@@ -59,7 +62,7 @@
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical" Spacing="5">
-                    <Frame x:Name="frmAstra" BackgroundColor="#F8F5F5" IsClippedToBounds="True">
+                    <Frame x:Name="frmAstra" BackgroundColor="#F8F5F5" IsEnabled="True" IsClippedToBounds="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -74,11 +77,11 @@
                             <ff:CachedImage Grid.Row="0" Grid.Column="2" x:Name="spin" Source="Spinner.gif" HeightRequest="24" Aspect="Fill" IsVisible="False" HorizontalOptions="End" Margin="0,0,5,0"/>
                         </Grid>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="AstraWebPayClicked"/>
+                            <TapGestureRecognizer Tapped="AstraWebPayClicked" NumberOfTapsRequired="1"/>
                         </Frame.GestureRecognizers>
                     </Frame>
 
-                    <Frame BackgroundColor="#F8F5F5" IsClippedToBounds="True">
+                    <Frame BackgroundColor="#F8F5F5" IsEnabled="True" x:Name="frmDebCard" IsClippedToBounds="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -92,12 +95,12 @@
                             <ff:CachedImage Grid.Row="0" Grid.Column="2" x:Name="spin1" Source="Spinner.gif" HeightRequest="24" Aspect="Fill" IsVisible="False" HorizontalOptions="End" Margin="0,0,5,0"/>
                         </Grid>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="PayWithCardClicked"/>
+                            <TapGestureRecognizer Tapped="PayWithCardClicked" NumberOfTapsRequired="1"/>
                         </Frame.GestureRecognizers>
                     </Frame>
 
 
-                    <Frame BackgroundColor="#F8F5F5" IsClippedToBounds="True">
+                    <Frame BackgroundColor="#F8F5F5" IsEnabled="True" x:Name="frmBank" IsClippedToBounds="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -113,7 +116,7 @@
                             <ff:CachedImage Grid.Row="0" Grid.Column="2" x:Name="spin2" Source="Spinner.gif" HeightRequest="24" Aspect="Fill" IsVisible="False" HorizontalOptions="End" Margin="0,0,5,0"/>
                         </Grid>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnBankTrans_Clicked"/>
+                            <TapGestureRecognizer Tapped="OnBankTrans_Clicked" NumberOfTapsRequired="1"/>
                         </Frame.GestureRecognizers>
                     </Frame>
                     <!--<Button x:Name="btnAstra" Text="Pay Using AstraPay" Clicked="AstraPayClicked" BackgroundColor="#F8F5F5" 
@@ -149,11 +152,11 @@
                                 <Label Margin="10,10,0,10" Text="INSURANCE HUB PLC" TextColor="{StaticResource TxtColor}" FontSize="15"/>
                             </StackLayout>
 
-                            <StackLayout Grid.Row="1" Spacing="5" Padding="1" BackgroundColor="#f5fafa"
+                            <!--<StackLayout Grid.Row="1" Spacing="5" Padding="1" BackgroundColor="#f5fafa"
                                     HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                                 <Label Margin="10,10,0,10" Text="TRANSACTION ID:" TextColor="{StaticResource TxtColor}" FontSize="15" FontAttributes="Bold"/>
                                 <Label Margin="10,10,0,10" x:Name="TxnId" TextColor="{StaticResource TxtColor}" FontSize="15"/>
-                            </StackLayout>
+                            </StackLayout>-->
 
                             <Frame Grid.Row="2" Margin="2" Padding="1" BackgroundColor="#f5fafa"
                                      HorizontalOptions="FillAndExpand" HasShadow="False">
@@ -175,9 +178,12 @@
                             </Frame>
                         </Grid>
 
+                        <StackLayout Margin="10">
+                        <ProgressBar Grid.Row="0" Progress="0.2" IsVisible="False" HorizontalOptions="FillAndExpand" x:Name="Indic"/>
                         <Button Text="I HAVE MADE THIS PAYMENT" TextColor="White"
-                            BackgroundColor="Accent" FontSize="15" HorizontalOptions="Fill"
-                            Margin="10"/>
+                            BackgroundColor="Accent" FontSize="15" Clicked="PaymentClicked" HorizontalOptions="Fill"
+                            Margin="10,0,10,10"/>
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
                 

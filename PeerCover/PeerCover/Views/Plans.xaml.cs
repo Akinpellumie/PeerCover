@@ -18,8 +18,12 @@ namespace PeerCover.Views
         }
         public async void GetSubDetails()
         {
+            indicator.IsRunning = true;
+            indicator.IsVisible = true;
+
+
             HttpClient client = new HttpClient();
-            var UserCountEndpoint = Helper.getActiveSubUrl + HelperAppSettings.username;
+            var UserCountEndpoint = Helper.getActiveSubUrl + HelperAppSettings.username + "&isActive=1";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
 
@@ -28,6 +32,18 @@ namespace PeerCover.Views
 
             ActivePlanList.ItemsSource = UsersCnt.subscriptions;
 
+            if (UsersCnt.subscriptions.Count == 0)
+            {
+                FrmPLB.IsVisible = true;
+                PlanActList.IsVisible = false;
+            }
+            else
+            {
+                PlanActList.IsVisible = true;
+                FrmPLB.IsVisible = false;
+            }
+            indicator.IsRunning = false;
+            indicator.IsVisible = false;
         }
 
         public async void ViewSubTapped(object sender, ItemTappedEventArgs e)

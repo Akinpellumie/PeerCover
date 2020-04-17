@@ -9,18 +9,25 @@
                 return "https://cover-my-car.herokuapp.com";
             }
         }
+        //public static string domainurl
+        //{
+        //    get
+        //    {
+        //        return "http://192.168.1.120:3000";
+        //    }
+        //}
         public static string astraUrl
         {
             get
             {
-                return "http://192.168.1.109:5502/?referenceNumber=";
+                return "http://webservices.astrapay.com.ng/astraPay.html?referenceNumber=";
             }
         }
         public static string CardPayUrl
         {
             get
             {
-                return "http://192.168.1.109:5502/payWithCard.html?ref=";
+                return "http://192.168.1.111:5503/payWithCard.html?ref=";
             }
         }
         public static string bankUrl
@@ -45,6 +52,7 @@
         public static string LoginUrl { get { return Helper.domainurl + "/user_auth/"; } }
         public static string AppTokenUrl { get { return Helper.domainurl + "/members/registrationToken"; } }
         public static string TransactionUrl { get { return Helper.domainurl + "/transaction?username="; } }
+        public static string VerifyBankPayUrl { get { return Helper.domainurl + "/transaction/verify/bankPayments/"; } }
 
         public static string getMembersUrl { get { return Helper.domainurl + "/members/"; } }
         public static string getBanksUrl { get { return Helper.domainurl + "/banks/"; } }

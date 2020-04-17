@@ -26,7 +26,7 @@ namespace PeerCover
             AbsoluteLayout.SetLayoutBounds(splashImage,
                 new Rectangle(0.5, 0.5, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
             sub.Children.Add(splashImage);
-            this.BackgroundColor = Color.White;
+            this.BackgroundColor = Color.Accent;
             this.Content = sub;
         }
 

@@ -31,7 +31,7 @@ namespace PeerCover.Models
                 }
                 else if (status.Contains("Recommendation Accepted"))
                 {
-                    return Color.Accent;
+                    return Color.Green;
                 }
                 else if (status.Contains("Declined"))
                 {
@@ -181,6 +181,8 @@ namespace PeerCover.Models
         public string subscriptionId { get; set; }
         public string bankName { get; set; }
         public string bankCode { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
         public string accountName { get; set; }
         public string accountNumber { get; set; }
         public string policyHolderClaimAmount { get; set; }

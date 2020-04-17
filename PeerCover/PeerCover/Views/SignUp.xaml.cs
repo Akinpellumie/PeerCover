@@ -138,8 +138,8 @@ namespace PeerCover.Views
                 if (e.NewTextValue.Length >= 1)
                 {
                     //UsnFrm.BorderColor = Color.Accent;
-                    USNInput.TextColor = Color.Accent;
-                    LblUser.TextColor = Color.Accent;
+                    USNInput.TextColor = Color.Default;
+                    LblUser.TextColor = Color.Default;
                     LblUsn.Text = "";
                 }
             }
@@ -166,7 +166,7 @@ namespace PeerCover.Views
             stateGroup.States.Add(CreateState("Blank", "", Color.White));
             stateGroup.States.Add(CreateState("VeryWeak", "Very Weak", Color.Red));
             stateGroup.States.Add(CreateState("Weak", "Weak", Color.Orange));
-            stateGroup.States.Add(CreateState("Medium", "Good", Color.Yellow));
+            stateGroup.States.Add(CreateState("Medium", "Good", Color.GreenYellow));
             stateGroup.States.Add(CreateState("String", "Strong", Color.Green));
             stateGroup.States.Add(CreateState("VeryStrong", "Very Strong", Color.Green));
 

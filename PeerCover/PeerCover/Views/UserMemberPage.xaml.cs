@@ -50,7 +50,7 @@ namespace PeerCover.Views
                     // Autocomplete.IsEnabled = false;
                 }
 
-                var url = Helper.SearchUsersurl + e.NewTextValue;
+                var url = Helper.getCommunityMembers + HelperAppSettings.community_code + "&name=" + e.NewTextValue;
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
@@ -91,7 +91,7 @@ namespace PeerCover.Views
         public async void ViewMemberTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null) return;
-            var selectedUser = e.Item as Models.getMembersModel; ;
+            var selectedUser = e.Item as Models.MembersModel; ;
             await Shell.Current.Navigation.PushAsync(new SingleMemberPage(selectedUser.id, selectedUser.username));
 
         }

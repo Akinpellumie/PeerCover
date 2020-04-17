@@ -11,7 +11,8 @@ namespace PeerCover.Views
         public AstraWebView()
         {
             InitializeComponent();
-            Payview.Source = Helper.astraUrl + TransHelper.referenceNumber;
+            var astraWeb = Helper.astraUrl + TransHelper.referenceNumber;
+            Payview.Source = astraWeb;
         }
 
         private void Payview_Navigating(object sender, WebNavigatingEventArgs e)

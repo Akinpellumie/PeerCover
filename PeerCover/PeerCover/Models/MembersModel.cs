@@ -88,7 +88,7 @@ namespace PeerCover.Models
         }
     }
 
-    public class getMembersModel
+    public class MembersModel
     {
         public string id { get; set; }
         public string username { get; set; }
@@ -165,13 +165,25 @@ namespace PeerCover.Models
 
     public class MembersListModel
     {
-        public List<getMembersModel> members { get; set; }
-        public static ObservableCollection<getMembersModel> Members { get; set; }
+        public List<MembersModel> members { get; set; }
+        public static ObservableCollection<MembersModel> Members { get; set; }
+    }
+
+    public class PersonList
+    {
+        public string Heading { get 
+            {
+                var heading = this.members[0].firstname;
+                 return heading.Substring(0, 1).ToUpper();
+            } 
+            set { Heading = value; }
+        }
+        public List<MembersModel> members { get; set; }
     }
 
     public class SinMemberModel
     {
-        public List<getMembersModel> member { get; set; }
+        public List<MembersModel> member { get; set; }
     }
 
     public class TxnCardModel

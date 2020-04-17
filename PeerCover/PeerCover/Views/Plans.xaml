@@ -25,7 +25,7 @@
                 <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
 
-                <StackLayout  Margin="5,15,5,5">
+                <StackLayout  Margin="5,15,5,5" x:Name="PlanActList" IsVisible="True">
                     <ListView x:Name="ActivePlanList" HasUnevenRows="True" ItemTapped="ViewSubTapped"
                           SeparatorVisibility="Default" SeparatorColor="LightGreen" IsPullToRefreshEnabled="False">
                         <ListView.ItemTemplate>
@@ -36,6 +36,11 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                </StackLayout>
+
+                <StackLayout x:Name="FrmPLB" IsVisible="False" Padding="0" Margin="0,10,0,5">
+                    <Label Text="Your  active subscription(s) will appear here!!!" Margin="10" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" TextColor="{StaticResource TxtColor}" FontSize="15"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

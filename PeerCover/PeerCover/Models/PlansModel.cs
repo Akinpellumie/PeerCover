@@ -117,12 +117,37 @@ namespace PeerCover.Models
                 }
                 else if (status.Contains("Paid"))
                 {
-                    return Color.Accent;
+                    return Color.Green;
                 }
                 return Color.FromHex("FA9917");
             }
         }
         public string is_expired { get; set; }
+        public string exDate
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(expiry_date))
+                {
+                    return this.expiry_date;
+                }
+                else if (!string.IsNullOrEmpty(expiry_date))
+                {
+                    return this.expDate;
+                }
+                return expiry_date;
+            }
+        }
+        public string expiry_date { get; set; }
+        public string expDate
+        {
+            get
+            {
+
+                var date = DateTime.Parse(this.expiry_date.Replace("[UTC]", ""));
+                return date.ToLocalTime().ToShortDateString();
+            }
+        }
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string community_name { get; set; }

@@ -33,6 +33,8 @@ namespace PeerCover.Views
         string bnkNm;
         string bnkCd2;
         string bnkNm2;
+        double Latitude;
+        double Longitude;
 
         public MakeClaim(string subscription_id)
         {
@@ -567,6 +569,8 @@ namespace PeerCover.Views
                     policyNumber = policyNo,
                     incidentReport = RecInput.Text,
                     subscriptionId = SubId,
+                    longitude = Longitude,
+                    latitude = Latitude,
                     incidentCause = (PickCauses.SelectedItem as Causes).Value,
                     claimRolePlayed = "Claimant",
                     accountName = MaANMInput.Text,
@@ -723,6 +727,49 @@ namespace PeerCover.Views
             await Permissions.RequestAsync<Permissions.Camera>();
             await Permissions.RequestAsync<Permissions.StorageRead>();
             await Permissions.RequestAsync<Permissions.StorageWrite>();
+            await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            await Permissions.RequestAsync<Permissions.LocationAlways>();
+        }
+
+        async void GetLocation()
+        {
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                var location = await Geolocation.GetLocationAsync(request);
+
+                if (location != null)
+                {
+                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                    Latitude = location.Latitude;
+                    Longitude = location.Longitude;
+                }
+            }
+            catch (FeatureNotSupportedException)
+            {
+                await DisplayAlert("Oops!","Location is Not Supported","Ok");
+                return;
+            }
+            catch (FeatureNotEnabledException)
+            {
+                await DisplayAlert("Oops!", "Location Feature is Not Enabled", "Ok");
+                return;
+            }
+            catch (PermissionException)
+            {
+                Permission();
+                return;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            GetLocation();
         }
     }
 }

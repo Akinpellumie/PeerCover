@@ -86,7 +86,7 @@ namespace PeerCover.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await DisplayAlert("Hello", "Your account has not been verified yet! You'll be blocked from any activities until verification", "Ok");
+            await DisplayAlert("Hello", "Your account has not been verified yet! You'll be blocked from any activities until the Admin verifies your account", "Ok");
         }
     }
 }
