@@ -38,6 +38,14 @@
             }
         }
 
+        public static string ImageUrl
+        {
+            get
+            {
+                return "https://res.cloudinary.com/dmnghlyic/image/upload/v1587479916/";
+            }
+        }
+
         public static string flutterUrl
         {
             get
@@ -84,7 +92,7 @@
         public static string RenewSubUrl { get { return Helper.domainurl + "/subscriptions/renew/"; } }
         public static string ExpiredImgUrl { get { return Helper.domainurl + "/subscriptions/isIMageExpired/"; } }
         public static string UpdateCarImg { get { return Helper.domainurl + "/subscriptions/imageExpired/updateImage"; } }
-        public static string ImageUrl { get { return Helper.domainurl + "/files/images/"; } }
+       
         public static string UsernameAvailability { get { return Helper.domainurl + "/members/name/availability/"; } }
 
 

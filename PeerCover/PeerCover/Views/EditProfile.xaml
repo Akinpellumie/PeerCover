@@ -15,7 +15,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Order="Primary" x:Name="SaveBtn"
-                     Text="Save" Clicked="UpdateMemberClicked"
+                     Text="Save" Clicked="CallIconUpload"
                      Priority="0"/>
     </ContentPage.ToolbarItems>
 
@@ -42,57 +42,54 @@
                                     WidthRequest="100">
                             </controls:CircleImage>
                         </StackLayout>
-                        <ImageButton Grid.Row="1" Margin="90,-40,0,0" Clicked="IconImg_Clicked" 
+                        <ImageButton Grid.Row="1" Margin="90,-40,0,0" Clicked="CallPrfUploadAsync" 
                                      HorizontalOptions="CenterAndExpand" Source="camera.png" BackgroundColor="Transparent" 
                                  AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,1,-1,-1" />
                     </Grid>
                 </AbsoluteLayout>
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Firstname" TextColor="{StaticResource TxtColor}"/>
-                    <Entry x:Name="FNInput" Margin="0,0,0,10" Text="{Binding firstname}" Placeholder="firstname" PlaceholderColor="{StaticResource TypeColor}" Keyboard="Default" 
+                    <Entry x:Name="FNInput" Margin="0,0,0,10" Text="{Binding firstname}" TextChanged="InputFt_TextChanged" Placeholder="firstname" PlaceholderColor="{StaticResource TypeColor}" Keyboard="Default" 
                                   Style="{StaticResource EntryStyle}"/>
                 </StackLayout>
 
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Lastname" TextColor="{StaticResource TxtColor}"/>
-                    <Entry x:Name="LNInput" Margin="0,0,0,10" Text="{Binding lastname}" Keyboard="Default" Placeholder="lastname" 
+                    <Entry x:Name="LNInput" Margin="0,0,0,10" Text="{Binding lastname}" TextChanged="InputLt_TextChanged" Keyboard="Default" Placeholder="lastname" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                 </StackLayout>
 
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Email" TextColor="{StaticResource TxtColor}"/>
-                    <Entry x:Name="EMInput" Margin="0,0,0,10" Text="{Binding email}" Keyboard="Default" Placeholder="example@mail.com" 
+                    <Entry x:Name="EMInput" Margin="0,0,0,10" Text="{Binding email}" TextChanged="InputEm_TextChanged" Keyboard="Default" Placeholder="example@mail.com" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                 </StackLayout>
 
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Select Gender" TextColor="{StaticResource TxtColor}"/>
-                    <Frame Style="{StaticResource FrameStyle}" HasShadow="False" HeightRequest="45">
-                        <PickerControl:CustomPicker x:Name="GenderPicker" Image="ic_arrow_drop_down" SelectedIndexChanged="GndPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Gender--"
-                                    ItemsSource="{Binding GenderList}"
+                    <Picker x:Name="GenderPicker" HeightRequest="50" SelectedIndexChanged="GndPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Gender--"
+                                    ItemsSource="{Binding GenderList}" FontSize="12"
                                     ItemDisplayBinding="{Binding Value}"/>
-                    </Frame>
+                    <!--<BoxView HorizontalOptions="Fill" Color="{StaticResource TxtColor}" />-->
                 </StackLayout>
 
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Phone Number" TextColor="{StaticResource TxtColor}"/>
-                    <Entry x:Name="PNInput" Margin="0,0,0,10"  Text="{Binding phonenumber}" Keyboard="Numeric" Placeholder="phone number" 
+                    <Entry x:Name="PNInput" Margin="0,0,0,10"  Text="{Binding phonenumber}" TextChanged="InputPn_TextChanged" Keyboard="Numeric" Placeholder="phone number" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                 </StackLayout>
 
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Address" TextColor="{StaticResource TxtColor}"/>
-                    <Entry x:Name="ADRInput" Margin="0,0,0,10" Text="{Binding address}" Keyboard="Default" Placeholder="Address" 
+                    <Entry x:Name="ADRInput" Margin="0,0,0,10" Text="{Binding address}" TextChanged="InputAdr_TextChanged" Keyboard="Default" Placeholder="Address" 
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                 </StackLayout>
 
                 <StackLayout>
                     <Label Margin="7,5,5,5" Text="Select Bank Name" TextColor="{StaticResource TxtColor}"/>
-                    <Frame Style="{StaticResource FrameStyle}" HasShadow="False" HeightRequest="45">
-                        <PickerControl:CustomPicker HeightRequest="45" x:Name="BankPicker" Image="ic_arrow_drop_down" SelectedIndexChanged="BnkPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Bank--"
-                                    ItemsSource="{Binding BankList}"
+                    <Picker HeightRequest="50" x:Name="BankPicker" SelectedIndexChanged="BnkPck_SldIdxChanged" Style="{StaticResource PickerStyle}" Title="--Select Bank--"
+                                    ItemsSource="{Binding BankList}" FontSize="12"
                                     ItemDisplayBinding="{Binding name}"/>
-                    </Frame>
                 </StackLayout>
 
                 <StackLayout>

@@ -29,9 +29,9 @@ BackgroundColor="White" >
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Label x:Name="renameReq" Grid.Column="0" Text="{Binding Rename}" TextColor="{StaticResource TxtColor}" FontSize="18"/>
-                                    <Button CornerRadius="6" HeightRequest="3" BorderWidth="2" x:Name="reqBagde" FontSize="8"  
+                                    <Button CornerRadius="6" HeightRequest="0.2" WidthRequest="50" BorderWidth="2" x:Name="reqBagde" FontSize="8"  
                                             Grid.Column="1" BackgroundColor="Transparent" TextColor="{Binding Path=ReqStatus_color}"
-                                            Text="{Binding status}" BorderColor="{Binding Path=ReqStatus_color}" HorizontalOptions="End" Margin="0,0,3,0"/>
+                                            Text="{Binding status}" BorderColor="{Binding Path=ReqStatus_color}" HorizontalOptions="End" Margin="5,8"/>
                                 </Grid>
                             </StackLayout>
                         </Grid>

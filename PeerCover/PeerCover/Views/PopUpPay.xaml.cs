@@ -28,46 +28,55 @@ namespace PeerCover.Views
 
         public async void VerifyPayment_Clicked(object sender, EventArgs e)
         {
+            try
+            {
             indicator.IsRunning = true;
             indicator.IsVisible = true;
-            PayMethModel update = new PayMethModel()
-            {
-                username = HelperAppSettings.username,
-                transactionId = transId,
-                transRefNum = transRef.Text,
-                paymentMethod = (PickMethod.SelectedItem as PaymentMethods).Value
-        };
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
-
-            var json = JsonConvert.SerializeObject(update);
-            HttpContent result = new StringContent(json);
-            result.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var response = await client.PostAsync(Helper.VerifyBankPayUrl, result);
-
-            if (response.IsSuccessStatusCode)
-            {
-                await DisplayAlert("Success", "Your transaction details has been verified successfully!!!", "Ok");
-                await PopupNavigation.Instance.PopAsync(true);
-            }
-            else
-            {
-                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            
+                PayMethModel update = new PayMethModel()
                 {
-                    await DisplayAlert("Alert", "Whoopss! Try Again Later", "Ok");
+                    username = HelperAppSettings.username,
+                    transactionId = transId,
+                    transRefNum = transRef.Text,
+                    paymentMethod = (PickMethod.SelectedItem as PaymentMethods).Value
+            };
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
+
+                var json = JsonConvert.SerializeObject(update);
+                HttpContent result = new StringContent(json);
+                result.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await client.PostAsync(Helper.VerifyBankPayUrl, result);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("Success", "Your transaction details has been verified successfully!!!", "Ok");
                     await PopupNavigation.Instance.PopAsync(true);
-                    indicator.IsVisible = false;
-                    indicator.IsRunning = false;
                 }
                 else
                 {
-                    await DisplayAlert("Alert", "Please try again later", "Ok");
-                    await PopupNavigation.Instance.PopAsync(true);
-                    indicator.IsVisible = false;
-                    indicator.IsRunning = false;
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        await DisplayAlert("Alert", "Whoopss! Try Again Later", "Ok");
+                        await PopupNavigation.Instance.PopAsync(true);
+                        indicator.IsVisible = false;
+                        indicator.IsRunning = false;
+                    }
+                    else
+                    {
+                        await DisplayAlert("Alert", "Please try again later", "Ok");
+                        await PopupNavigation.Instance.PopAsync(true);
+                        indicator.IsVisible = false;
+                        indicator.IsRunning = false;
+                    }
                 }
+
+            }
+            catch (Exception)
+            {
+                return;
             }
         }
     }

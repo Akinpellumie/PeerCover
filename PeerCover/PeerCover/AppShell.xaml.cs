@@ -46,5 +46,11 @@ namespace PeerCover
             base.OnAppearing();
             GetUserById();
         }
+
+            protected override bool OnBackButtonPressed()
+            {
+            base.OnBackButtonPressed();
+            return true;
+            }
+        }
     }
-}

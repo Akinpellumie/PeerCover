@@ -16,5 +16,11 @@ namespace PeerCover
         {
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+            return true;
+        }
     }
 }

@@ -23,6 +23,11 @@ namespace PeerCover.Views
 
         private async void ChangePassClicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(OldPasswordInput.Text) || string.IsNullOrEmpty(NewPasswordInput.Text))
+            {
+                await DisplayAlert("Alert", "Entry cannot be empty", "ok");
+                return;
+            }
 
             User update = new User()
             {

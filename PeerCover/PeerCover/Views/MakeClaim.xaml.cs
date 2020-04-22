@@ -35,6 +35,7 @@ namespace PeerCover.Views
         string bnkNm2;
         double Latitude;
         double Longitude;
+        string PckCause;
 
         public MakeClaim(string subscription_id)
         {
@@ -59,127 +60,7 @@ namespace PeerCover.Views
             policyNo = UsersList.subscription[0].policy_number;
         }
 
-        private async void Button1_Clicked(object sender, EventArgs e)
-        {
-            var file1 = await CrossFilePicker.Current.PickFile();
-
-            Plugin.FileUploader.Abstractions.FileBytesItem bfitem = new FileBytesItem("fileName", file1.DataArray, file1.FileName);
-
-            Plugin.FileUploader.Abstractions.FilePathItem fpitem = new Plugin.FileUploader.Abstractions.FilePathItem("fileName", file1.FilePath);
-
-            if (file1 != null)
-            {
-                LblImg1.Text = file1.FileName;
-            }
-            Plugin.FileUploader.Abstractions.FileUploadResponse k = null;
-            try
-            {
-
-                k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
-            }
-            catch (Exception)
-            {
-                return;
-            }
-            string responsee = k.Message;
-            if (k.StatusCode == 201)
-            {
-
-                ImageName1 = responsee;
-
-            }
-            else if (k.StatusCode == 401)
-            {
-                await DisplayAlert("InHub", k.Message, "ok");
-            }
-            else
-            {
-                await DisplayAlert("InHub", k.Message, "ok");
-            }
-        }
-
-        private async void Button2_Clicked(object sender, EventArgs e)
-        {
-            var file2 = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-
-            Plugin.FileUploader.Abstractions.FileBytesItem bfitem = new Plugin.FileUploader.Abstractions.FileBytesItem("fileName", file2.DataArray, file2.FileName);
-
-            Plugin.FileUploader.Abstractions.FilePathItem fpitem = new Plugin.FileUploader.Abstractions.FilePathItem("fileName", file2.FilePath);
-
-            if (file2 != null)
-            {
-                LblImg2.Text = file2.FileName;
-
-            }
-            Plugin.FileUploader.Abstractions.FileUploadResponse k = null;
-            try
-            {
-
-
-                k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
-            }
-            catch (Exception)
-            {
-                return;
-            }
-            string responseee = k.Message;
-            if (k.StatusCode == 201)
-            {
-
-                ImageName2 = responseee;
-
-            }
-            else if (k.StatusCode == 401)
-            {
-                await DisplayAlert("InHub", k.Message, "ok");
-            }
-            else
-            {
-                await DisplayAlert("InHub", k.Message, "ok");
-            }
-        }
-
-        private async void Button3_Clicked(object sender, EventArgs e)
-        {
-            var file3 = await CrossFilePicker.Current.PickFile();
-
-            Plugin.FileUploader.Abstractions.FileBytesItem bfitem = new Plugin.FileUploader.Abstractions.FileBytesItem("fileName", file3.DataArray, file3.FileName);
-
-            Plugin.FileUploader.Abstractions.FilePathItem fpitem = new Plugin.FileUploader.Abstractions.FilePathItem("fileName", file3.FilePath);
-
-            if (file3 != null)
-            {
-                LblImg3.Text = file3.FileName;
-
-            }
-            Plugin.FileUploader.Abstractions.FileUploadResponse k = null;
-            try
-            {
-
-
-                k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
-            }
-            catch (Exception)
-            {
-                return;
-            }
-            string responseeee = k.Message;
-            if (k.StatusCode == 201)
-            {
-
-                ImageName3 = responseeee;
-
-            }
-            else if (k.StatusCode == 401)
-            {
-                await DisplayAlert("InHub", k.Message, "ok");
-            }
-            else
-            {
-                await DisplayAlert("InHub", k.Message, "ok");
-            }
-        }
-
+        
         public async void UploadImage1Tapped(object sender, EventArgs e)
         {
             Permission();
@@ -488,6 +369,12 @@ namespace PeerCover.Views
 
         }
 
+        private void CausesPck_SldIdxChanged(object sender, EventArgs e)
+        {
+            PckCause = (PickCauses.SelectedItem as Causes).Value;
+
+        }
+
         async void Fetchdetails()
         {
 
@@ -518,6 +405,7 @@ namespace PeerCover.Views
 
                 else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
+                    await DisplayAlert("Oops!", "Service Timeout, Kindly login again", "Ok");
                     Application.Current.MainPage = new LoginPage();
                 }
 
@@ -550,16 +438,22 @@ namespace PeerCover.Views
 
         private async void MakeClaimClicked(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(new PopLoader());
-            if (string.IsNullOrEmpty(MaACNInput.Text) || string.IsNullOrEmpty(MaANMInput.Text))
-            {
-                await PopupNavigation.Instance.PopAsync(true);
-                await DisplayAlert("Oops!", "Account Number or Account Name cannot be empty", "Ok");
-                MaACNInput.TextColor = Color.Red;
-                MaANMInput.TextColor = Color.Red;
+            if (string.IsNullOrEmpty(MaACNInput.Text) || string.IsNullOrEmpty(MaANMInput.Text) || string.IsNullOrEmpty(RecInput.Text) || string.IsNullOrEmpty(CostInput.Text))
+            {;
+                await DisplayAlert("Oops!", "Input fields cannot be empty", "Ok");
+                MaACNInput.PlaceholderColor = Color.Red;
+                MaANMInput.PlaceholderColor = Color.Red;
+                RecInput.PlaceholderColor = Color.Red;
+                CostInput.PlaceholderColor = Color.Red;
+
                 return;
             }
-
+            if(string.IsNullOrEmpty(LblDoc.Text) || string.IsNullOrEmpty(LblImg1.Text) || string.IsNullOrEmpty(LblImg2.Text) || string.IsNullOrEmpty(LblImg3.Text))
+            {
+                await DisplayAlert("Oops!","Please check if you've capture all required Images and documents.","Ok");
+                return;
+            }
+            await PopupNavigation.Instance.PushAsync(new PopLoader());
             try
             {
                 MakeClaimModel update = new MakeClaimModel()
@@ -637,11 +531,21 @@ namespace PeerCover.Views
                         await DisplayAlert("InHub", response.ReasonPhrase, "Ok");
 
                     }
+                    else if(response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                    {
+                        await PopupNavigation.Instance.PopAsync(true);
+                        await DisplayAlert("InHub", "An error occured. Please try again later", "Ok");
+
+                    }
+                    else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        await PopupNavigation.Instance.PopAsync(true);
+                        await DisplayAlert("InHub", "Session timeout. Please Login again.", "Ok");
+                    }
                     else
                     {
                         await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("InHub", "Please try again later", "Ok");
-
+                        await DisplayAlert("InHub", "Please try again later.", "Ok");
                     }
                 }
             }
@@ -684,7 +588,7 @@ namespace PeerCover.Views
         {
             if (e.NewTextValue.Length >= 1)
             {
-                MaACNInput.TextColor = Color.Accent;
+                MaACNInput.TextColor = Color.Default;
             }
 
             if (MaBankPicker.SelectedItem != null && string.IsNullOrEmpty(MaACNInput.Text) == false)
@@ -700,7 +604,7 @@ namespace PeerCover.Views
         {
             if (e.NewTextValue.Length >= 1)
             {
-                MaACNInput.TextColor = Color.Accent;
+                MaACNInput.TextColor = Color.Default;
             }
         }
         private class List

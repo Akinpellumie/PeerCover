@@ -11,6 +11,8 @@ using System.Net.Http.Headers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.FilePicker;
+using System.Threading.Tasks;
+using Plugin.FileUploader.Abstractions;
 
 namespace PeerCover.Views
 {
@@ -25,8 +27,16 @@ namespace PeerCover.Views
         string bnkCde;
         string bnkNm;
         string gndPck;
+        string firstname;
+        string lastname;
+        string email;
+        string phone;
+        string address;
+        string acctNumEdit;
+        string acctNameEdit;
+        string filename;
+        FileBytesItem bfitem;
         private string fileName;
-        private MediaFile _mediaFile;
 
         public EditProfile()
         {
@@ -91,173 +101,197 @@ namespace PeerCover.Views
 
         }
 
-        private async void IconImg_Clicked(object sender, EventArgs e)
+        protected override bool OnBackButtonPressed()
         {
-            try
+                if (!string.IsNullOrEmpty(firstname) || !string.IsNullOrEmpty(lastname) || !string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(phone) || !string.IsNullOrEmpty(address) || !string.IsNullOrEmpty(gndPck) || !string.IsNullOrEmpty(bnkNm2) || !string.IsNullOrEmpty(acctNumEdit) || !string.IsNullOrEmpty(acctNameEdit))
+                {
+                    var result  = DisplayAlert("Discard unsaved changes?", "You have unsaved changes, are you sure you want to discard them?", "Cancel", "Okay");
+                    if(result.Equals( true))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+        }
+        public async void CallIconUpload(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopLoader());
+            if (string.IsNullOrEmpty(ProfileImage) && string.IsNullOrEmpty(filename))
             {
+                await UpdateMemberClicked();
+            }
+            else if (string.IsNullOrEmpty(ProfileImage) && !string.IsNullOrEmpty(filename))
+            {
+                await IconImg_Clicked();
+                await UpdateMemberClicked();
+            }
+            else if (!string.IsNullOrEmpty(ProfileImage) && !string.IsNullOrEmpty(filename))
+            {
+                await IconImg_Clicked();
+                //await Task.CompletedTask;
+                //{ { await IconImg_Clicked(); } }
+                await UpdateMemberClicked();
+            }
+            else if (!string.IsNullOrEmpty(ProfileImage) && string.IsNullOrEmpty(filename))
+            {
+                await UpdateMemberClicked();
+            }
+            await PopupNavigation.Instance.PopAsync(true);
+        }
 
-                var file2 = await CrossFilePicker.Current.PickFile();
+        public async void CallPrfUploadAsync(object sender, EventArgs e)
+        {
+            var file2 = await CrossFilePicker.Current.PickFile();
 
-                Plugin.FileUploader.Abstractions.FileBytesItem bfitem = new Plugin.FileUploader.Abstractions.FileBytesItem("fileName", file2.DataArray, file2.FileName);
+            bfitem = new FileBytesItem("fileName", file2.DataArray, file2.FileName);
 
-                Plugin.FileUploader.Abstractions.FilePathItem fpitem = new Plugin.FileUploader.Abstractions.FilePathItem("fileName", file2.FilePath);
+            FilePathItem fpitem = new FilePathItem("fileName", file2.FilePath);
 
-                EditUserImage.Source = ImageSource.FromStream(() => file2.GetStream());
+            EditUserImage.Source = ImageSource.FromStream(() => file2.GetStream());
 
-                //if (file2 != null)
-                //{
-                //    EditUserImage.Source = file2.;
-                //}
+            if (file2 != null)
+            {
+                filename = file2.FilePath;
+            }
+            
+        }
 
-                Plugin.FileUploader.Abstractions.FileUploadResponse k = null;
+            async Task
+IconImg_Clicked()
+        {
                 try
                 {
+                    
+                             FileUploadResponse k = null;
+                    try
+                    {
 
 
-                    k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
+                        k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
+                    string responset = k.Message;
+                    if (k.StatusCode == 201)
+                    {
+
+                        UserImage = responset;
+
+                    }
+                    else if (k.StatusCode == 401)
+                    {
+                        await DisplayAlert("InHub", k.Message, "ok");
+                    }
+                    else
+                    {
+                        await DisplayAlert("InHub", k.Message, "ok");
+                    }
+
                 }
                 catch (Exception)
                 {
                     return;
                 }
-                string responset = k.Message;
-                if (k.StatusCode == 201)
-                {
+        }
 
-                    UserImage = responset;
 
-                }
-                else if (k.StatusCode == 401)
+
+        async
+
+
+        Task
+UpdateMemberClicked()
+        {
+            //await PopupNavigation.Instance.PushAsync(new PopLoader());
+            try
+            {
+                MembersModel update = new MembersModel()
                 {
-                    await DisplayAlert("InHub", k.Message, "ok");
+                    firstname = FNInput.Text,
+                    lastname = LNInput.Text,
+                    username = HelperAppSettings.username,
+                    phonenumber = PNInput.Text,
+                    email = EMInput.Text,
+                    accountNumber = ACNInput.Text.Trim(),
+                    address = ADRInput.Text,
+                    accountName = ANMInput.Text,
+                };
+                if (string.IsNullOrEmpty(UserImage))
+                {
+                    update.profileImgUrl = ProfileImage;
                 }
                 else
                 {
-                    await DisplayAlert("InHub", k.Message, "ok");
+                    update.profileImgUrl = UserImage;
                 }
 
+                if (!string.IsNullOrEmpty(bnkNm2) && !string.IsNullOrEmpty(bnkCd2))
+                {
+                    update.bankName = bnkNm2;
+                    update.bankCode = bnkCd2;
+                }
+                else if (string.IsNullOrEmpty(bnkNm2) && string.IsNullOrEmpty(bnkCd2))
+                {
+                    update.bankName = bnkNm;
+                    update.bankCode = bnkCde;
+                }
+
+                if (!string.IsNullOrEmpty(myGend))
+                {
+                    update.gender = myGend;
+                }
+                else if (string.IsNullOrEmpty(myGend))
+                {
+                    update.gender = gndPck;
+                }
+
+
+                var clientee = new HttpClient();
+                clientee.DefaultRequestHeaders.Clear();
+                clientee.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
+
+                var jsonUpd = JsonConvert.SerializeObject(update);
+                HttpContent result = new StringContent(jsonUpd);
+                result.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await clientee.PutAsync(Helper.getMembersUrl, result);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await Indic.ProgressTo(0.9, 950, Easing.SpringIn);
+                    //await PopupNavigation.Instance.PopAsync(true);
+                    await DisplayAlert("Alert", "Profile Updated", "Ok");
+                    await Shell.Current.Navigation.PushAsync(new Profile());
+                    Indic.IsVisible = false;
+                    //indicator.IsVisible = false;
+                    //indicator.IsRunning = false;
+
+                }
+                else
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        //await PopupNavigation.Instance.PopAsync(true);
+                        await DisplayAlert("Alert", response.ReasonPhrase, "Ok");
+
+                    }
+                    else
+                    {
+                        //await PopupNavigation.Instance.PopAsync(true);
+                        await DisplayAlert("Alert", "Please try again later", "Ok");
+
+                    }
+                }
             }
             catch (Exception)
             {
                 return;
-            }
-        }
-
-        public async void UploadImageTapped(object sender, EventArgs e)
-        {
-            await CrossMedia.Current.Initialize();
-
-            if (!CrossMedia.Current.IsPickPhotoSupported)
-            {
-                await DisplayAlert("Warning", "Picking  a photo is not supported", "OK");
-
-                return;
-            }
-            //byte[] bytes;
-            _mediaFile = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
-            {
-                PhotoSize = PhotoSize.Full,
-                CompressionQuality = 40
-            });
-
-            EditUserImage.Source = ImageSource.FromStream(() => _mediaFile.GetStream());
-        }
-
-        private async void UpdateMemberClicked(object sender, EventArgs e)
-        {
-            if(string.IsNullOrEmpty(UserImage))
-            {
-                await DisplayAlert("Oops!","Please wait......", "Ok");
-                return;
-            }
-            else
-            {
-            await PopupNavigation.Instance.PushAsync(new PopLoader());
-                try
-                {
-                    MembersModel update = new MembersModel()
-                    {
-                        firstname = FNInput.Text,
-                        lastname = LNInput.Text,
-                        username = HelperAppSettings.username,
-                        phonenumber = PNInput.Text,
-                        email = EMInput.Text,
-                        accountNumber = ACNInput.Text.Trim(),
-                        address = ADRInput.Text,
-                        accountName = ANMInput.Text,
-                    };
-                    if (string.IsNullOrEmpty(UserImage))
-                    {
-                        update.profileImgUrl = ProfileImage;
-                    }
-                    else
-                    {
-                        update.profileImgUrl = UserImage;
-                    }
-
-                    if (!string.IsNullOrEmpty(bnkNm2) && !string.IsNullOrEmpty(bnkCd2))
-                    {
-                        update.bankName = bnkNm2;
-                        update.bankCode = bnkCd2;
-                    }
-                    else if (string.IsNullOrEmpty(bnkNm2) && string.IsNullOrEmpty(bnkCd2))
-                    {
-                        update.bankName = bnkNm;
-                        update.bankCode = bnkCde;
-                    }
-
-                    if (!string.IsNullOrEmpty(myGend))
-                    {
-                        update.gender = myGend;
-                    }
-                    else if (string.IsNullOrEmpty(myGend))
-                    {
-                        update.gender = gndPck;
-                    }
-
-
-                    var clientee = new HttpClient();
-                    clientee.DefaultRequestHeaders.Clear();
-                    clientee.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
-
-                    var jsonUpd = JsonConvert.SerializeObject(update);
-                    HttpContent result = new StringContent(jsonUpd);
-                    result.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                    var response = await clientee.PutAsync(Helper.getMembersUrl, result);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await Indic.ProgressTo(0.9, 950, Easing.SpringIn);
-                        await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("Alert", "Profile Updated", "Ok");
-                        await Shell.Current.Navigation.PushAsync(new Profile());
-                        Indic.IsVisible = false;
-                        //indicator.IsVisible = false;
-                        //indicator.IsRunning = false;
-
-                    }
-                    else
-                    {
-                        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                        {
-                            await PopupNavigation.Instance.PopAsync(true);
-                            await DisplayAlert("Alert", response.ReasonPhrase, "Ok");
-
-                        }
-                        else
-                        {
-                            await PopupNavigation.Instance.PopAsync(true);
-                            await DisplayAlert("Alert", "Please try again later", "Ok");
-
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-
             }
         }
 
@@ -278,7 +312,8 @@ namespace PeerCover.Views
         {
             if (e.NewTextValue.Length >= 1)
             {
-                ACNInput.TextColor = Color.Accent;
+                ACNInput.TextColor = Color.Default;
+                acctNumEdit = ACNInput.Text;
             }
             if (BankPicker.SelectedItem != null && string.IsNullOrEmpty(ACNInput.Text) == false)
             {
@@ -293,7 +328,8 @@ namespace PeerCover.Views
         {
             if (e.NewTextValue.Length >= 1)
             {
-                ANMInput.TextColor = Color.Accent;
+                ANMInput.TextColor = Color.Default;
+                acctNameEdit = ANMInput.Text;
             }
         }
 
@@ -362,6 +398,44 @@ namespace PeerCover.Views
         {
             gndPck = (GenderPicker.SelectedItem as Genders).Value;
         }
-    }
 
+        public void InputFt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length >= 1)
+            {
+                firstname = FNInput.Text;
+            }
+        }
+
+        public void InputLt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length >= 1)
+            {
+                lastname = LNInput.Text;
+            }
+        }
+        public void InputEm_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length >= 1)
+            {
+                email = EMInput.Text;
+            }
+        }
+
+        public void InputPn_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length >= 1)
+            {
+                phone = PNInput.Text;
+            }
+        }
+
+        public void InputAdr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length >= 1)
+            {
+                address = ADRInput.Text;
+            }
+        }
+    }
 }

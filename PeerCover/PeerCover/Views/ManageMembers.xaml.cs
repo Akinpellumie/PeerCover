@@ -36,6 +36,14 @@ namespace PeerCover.Views
             var MemList = JsonConvert.DeserializeObject<MembersListModel>(result);
             MemberList.ItemsSource = MemList.members;
 
+            //var xList = from mem in MemList.members
+            //var tee = new PersonList
+            //{
+            //    Heading = xList
+            //};
+            //tee.members = from 
+
+
             //MemberList.BindingContext = MembersGrouped;
             //var sorted = from member in Members
             //             orderby member.members[0].firstname

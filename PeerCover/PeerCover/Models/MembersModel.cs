@@ -158,11 +158,25 @@ namespace PeerCover.Models
                 if (string.IsNullOrWhiteSpace(firstname) || firstname.Length == 0)
                     return "?";
 
-                return firstname[0].ToString().ToUpper();
+                return firstname.Substring(0,1).ToUpper();
             }
         }
+       
     }
 
+
+    //public class NameHead : MembersModel
+    //{
+    //    public List<String> nameSort
+    //    {
+            
+    //    }
+    //}
+    public class ListFirst
+    {
+        public string firstLetter { get; set; }
+    }
+   
     public class MembersListModel
     {
         public List<MembersModel> members { get; set; }
@@ -171,14 +185,9 @@ namespace PeerCover.Models
 
     public class PersonList
     {
-        public string Heading { get 
-            {
-                var heading = this.members[0].firstname;
-                 return heading.Substring(0, 1).ToUpper();
-            } 
-            set { Heading = value; }
-        }
+        public string Heading { get; set; }
         public List<MembersModel> members { get; set; }
+
     }
 
     public class SinMemberModel

@@ -82,38 +82,20 @@ namespace PeerCover.Views
             await ((Frame)sender).ScaleTo(0.8, length: 50, Easing.Linear);
             await Task.Delay(100);
             await ((Frame)sender).ScaleTo(1, length: 50, Easing.Linear);
+            frmAstra.IsVisible = false;
+            frmAstra2.IsVisible = true;
+            frmDebCard.IsVisible = false;
+            frmDebCard2.IsVisible = true;
 
-            if (stats.Contains("Paid"))
-            {
-                await DisplayAlert("Oops!", "This subscription has already been paid for. ", "Ok");
-                return;
-                //if (renew)
-                //{
-                //    await Navigation.PushModalAsync(new RenewSub(polNo, subId));
-                //}
-            }
 
-            //else if(stats.Contains("Not Paid"))
-            //{
-            //    frmAstra.IsEnabled = false;
-            //    frmBank.IsEnabled = false;
-            //    frmDebCard.IsEnabled = false;
-
-            else
-            {
-            spin.IsVisible = true;
-                frmAstra.IsEnabled = false;
-                frmBank.IsEnabled = false;
-                frmDebCard.IsEnabled = false;
+            spinB.IsVisible = true;
                 try
                 {
                         if (SinSubPay.IsVisible == false)
                         {
                             await DisplayAlert("Oops", "Kindly Select a Subscription above", "Ok");
-                            spin.IsVisible = false;
-                            frmAstra.IsEnabled = true;
-                            frmBank.IsEnabled = true;
-                            frmDebCard.IsEnabled = true;
+                            spinB.IsVisible = false;
+                           
                             return;
                         }
 
@@ -129,28 +111,30 @@ namespace PeerCover.Views
                             if (resultee.Contains("Image is expired"))
                             {
                                 await PopupNavigation.Instance.PushAsync(new PopUpload(NumId));
-
-                                CallAstraPay();
+             
+                                await CallAstraPay();
 
                             }
                             else if (resultee.Contains("Image not expired"))
                             {
-                                CallAstraPay();
+                                await CallAstraPay();
                             }
                         }
-                    frmAstra.IsEnabled = true;
-                    frmBank.IsEnabled = true;
-                    frmDebCard.IsEnabled = true;
+                frmAstra.IsVisible = true;
+                frmAstra2.IsVisible = false;
+                frmDebCard.IsVisible = true;
+                frmDebCard2.IsVisible = false;
                 }
-                    catch (Exception)
-                    {
-                        return;
-                    }
+                catch (Exception)
+                {
+                    return;
+                }
 
-            }
         }
 
-        async void CallAstraPay()
+        async 
+        Task
+CallAstraPay()
         {
             try
             {
@@ -193,12 +177,12 @@ namespace PeerCover.Views
                         TransHelper.transactionId = pro.transactionId;
                         TransHelper.inHubRefNum = pro.inHubRefNum;
                         await Navigation.PushAsync(new AstraWebView());
-                        spin.IsVisible = false;
+                        spinB.IsVisible = false;
                     }
                     else
                     {
                         await DisplayAlert("Oops!", "Please try again Later!", "Ok");
-                        spin.IsVisible = false;
+                        spinB.IsVisible = false;
                     }
                 }
 
@@ -222,23 +206,27 @@ namespace PeerCover.Views
             await ((Frame)sender).ScaleTo(0.8, length: 50, Easing.Linear);
             await Task.Delay(100);
             await ((Frame)sender).ScaleTo(1, length: 50, Easing.Linear);
+            frmAstra.IsVisible = false;
+            frmAstra2.IsVisible = true;
+            frmDebCard.IsVisible = false;
+            frmDebCard2.IsVisible = true;
 
-            if (stats.Contains("Paid"))
-            {
-                await DisplayAlert("Oops!", "This subscription has already been paid for. ", "Ok");
-                return;
-               
-            }
+            //if (stats.Contains("Paid"))
+            //{
+            //    await DisplayAlert("Oops!", "This subscription has already been paid for. ", "Ok");
+            //    return;
 
-            else
-            {
-            spin1.IsVisible = true;
+            //}
+
+            //else
+            //{
+            spin1B.IsVisible = true;
                 try
                 {
                     if (SinSubPay.IsVisible == false)
                     {
                         await DisplayAlert("Oops", "Kindly Select a Subscription above", "Ok");
-                        spin1.IsVisible = false;
+                        spin1B.IsVisible = false;
                         return;
                     }
 
@@ -283,17 +271,15 @@ namespace PeerCover.Views
                             TransHelper.inHubRefNum = pro.inHubRefNum;
 
                             await Navigation.PushAsync(new PayWithCard());
-                            spin1.IsVisible = false;
+                            spin1B.IsVisible = false;
                         }
                     }
                 }
                 catch (Exception)
                 {
-                    spin1.IsVisible = false;
+                    spin1B.IsVisible = false;
                     return;
                 }
-
-            }
         }
 
 
@@ -303,15 +289,15 @@ namespace PeerCover.Views
             await Task.Delay(100);
             await ((Frame)sender).ScaleTo(1, length: 50, Easing.Linear);
 
-            if (stats.Contains("Paid"))
-            {
-                await DisplayAlert("Oops!", "This subscription has already been paid for. ", "Ok");
-                return;
+            //if (stats.Contains("Paid"))
+            //{
+            //    await DisplayAlert("Oops!", "This subscription has already been paid for. ", "Ok");
+            //    return;
 
-            }
+            //}
 
-            else
-            {
+            //else
+            //{
                 if (BnkOpts.IsVisible == false)
                 {
                     BnkOpts.IsVisible = true;
@@ -323,8 +309,6 @@ namespace PeerCover.Views
             {
                 //chvBUp.Source = "chevronDown.png";
                 BnkOpts.IsVisible = false;
-            }
-
             }
         }
 
@@ -340,56 +324,31 @@ namespace PeerCover.Views
                     return;
                 }
 
-                else
+                if (!string.IsNullOrEmpty(NumId))
                 {
-                    TransactionModel txndetails = new TransactionModel()
-                    {
-                        subscriptionId = NumId,
-                        depositorsName = HelperAppSettings.Name,
-                        depositorsUsername = HelperAppSettings.username,
-                        recipientName = "InsuranceHub",
-                        recipientUsername = "InsuranceHub",
-                        policyHolder = HelperAppSettings.username,
-                        policyNumber = polNo,
-                        vehicleMake = vehMk,
-                        communityCode = HelperAppSettings.community_code,
-                        transactionType = "premium",
-                        paymentMethod = "Over the Counter",
-
-                    };
-                    var p = pre;
-                    var pel = p.ToString();
-                    txndetails.paymentAmount = pel;
-
-                    var json = JsonConvert.SerializeObject(txndetails);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
+                    var url = Helper.ExpiredImgUrl + NumId;
                     HttpClient client = new HttpClient();
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
-                    var logEndpoint = Helper.TransUrl;
+                    var resultee = await client.GetStringAsync(url);
 
-                    var result = await client.PostAsync(logEndpoint, content);
-                    string responsee = await result.Content.ReadAsStringAsync();
-
-                    if (result.IsSuccessStatusCode)
+                    //string responseeee = await resultee.Content.ReadAsStringAsync();
+                    if (resultee.Contains("Image is expired"))
                     {
-                        await Indic.ProgressTo(0.9, 950, Easing.SpringIn);
-                        var pro = JsonConvert.DeserializeObject<TransResModel>(responsee);
-                        Helper.transResponse = pro;
-                        TransHelper.referenceNumber = pro.transactionReferenceNumber;
-                        TransHelper.transactionId = pro.transactionId;
-                        TransHelper.inHubRefNum = pro.inHubRefNum;
-                        
+                        await PopupNavigation.Instance.PushAsync(new PopUpload(NumId));
 
-                        //await Navigation.PushAsync(new PayWithCard());
-                        //TxnId.Text = TransHelper.transactionId;
-                        txnId = TransHelper.transactionId;
+                        await CallOverCounterPay();
 
-                        Indic.IsVisible = false;
-                        await PopupNavigation.Instance.PushAsync(new PopUpPay(txnId));
-                        spin2.IsVisible = false;
                     }
+                    else if (resultee.Contains("Image not expired"))
+                    {
+                        await CallOverCounterPay();
+                    }
+                }
+
+                else
+                {
+                    
                 }
             }
             catch (Exception)
@@ -398,6 +357,60 @@ namespace PeerCover.Views
                 return;
             }
            
+        }
+
+        async 
+        Task
+CallOverCounterPay()
+        {
+            TransactionModel txndetails = new TransactionModel()
+            {
+                subscriptionId = NumId,
+                depositorsName = HelperAppSettings.Name,
+                depositorsUsername = HelperAppSettings.username,
+                recipientName = "InsuranceHub",
+                recipientUsername = "InsuranceHub",
+                policyHolder = HelperAppSettings.username,
+                policyNumber = polNo,
+                vehicleMake = vehMk,
+                communityCode = HelperAppSettings.community_code,
+                transactionType = "premium",
+                paymentMethod = "Over the Counter",
+
+            };
+            var p = pre;
+            var pel = p.ToString();
+            txndetails.paymentAmount = pel;
+
+            var json = JsonConvert.SerializeObject(txndetails);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
+            var logEndpoint = Helper.TransUrl;
+
+            var result = await client.PostAsync(logEndpoint, content);
+            string responsee = await result.Content.ReadAsStringAsync();
+
+            if (result.IsSuccessStatusCode)
+            {
+                await Indic.ProgressTo(0.9, 950, Easing.SpringIn);
+                var pro = JsonConvert.DeserializeObject<TransResModel>(responsee);
+                Helper.transResponse = pro;
+                TransHelper.referenceNumber = pro.transactionReferenceNumber;
+                TransHelper.transactionId = pro.transactionId;
+                TransHelper.inHubRefNum = pro.inHubRefNum;
+
+
+                //await Navigation.PushAsync(new PayWithCard());
+                //TxnId.Text = TransHelper.transactionId;
+                txnId = TransHelper.transactionId;
+
+                Indic.IsVisible = false;
+                await PopupNavigation.Instance.PushAsync(new PopUpPay(txnId));
+                spin2.IsVisible = false;
+            }
         }
     }
 }

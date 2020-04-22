@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,20 +8,19 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PeerCover
+namespace PeerCover.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppShellUser : Shell
+    public partial class PopUpNoInternet
     {
-        public AppShellUser()
+        public PopUpNoInternet()
         {
             InitializeComponent();
         }
 
-        protected override bool OnBackButtonPressed()
+        public async void ClosePopUp_Clicked (object sender, EventArgs e)
         {
-            base.OnBackButtonPressed();
-            return true;
+            await PopupNavigation.Instance.PopAsync(true);
         }
     }
 }

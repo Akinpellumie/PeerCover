@@ -19,13 +19,23 @@ namespace PeerCover.Views
         public LoginPage()
         {
             InitializeComponent();
-            BindingContext = this;
-            Init();
+            Permission();
+            //BindingContext = this;
+            CheckInternet();
+            //Init();
         }
 
-        void Init()
+        //void Init()
+        //{
+        //    App.StartCheckIfInternet(lbl_NoInternet, this);
+        //}
+
+        async void CheckInternet()
         {
-            App.StartCheckIfInternet(lbl_NoInternet, this);
+            if (Connectivity.NetworkAccess== NetworkAccess.Internet)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
         public async void ForgotPassword(object sender, EventArgs e)
         {
@@ -38,6 +48,11 @@ namespace PeerCover.Views
 
         public async void LoginClicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
             await PopupNavigation.Instance.PushAsync(new PopLoader());
             try
             {
@@ -47,8 +62,8 @@ namespace PeerCover.Views
                     await DisplayAlert("Alert", "Username or Password cannot be empty", "ok");
                     return;
                 }
-                indicator.IsRunning = false;
-                indicator.IsVisible = false;
+                //indicator.IsRunning = false;
+                //indicator.IsVisible = false;
                 User members = new User(UsernameInput.Text, PasswordInput.Text)
                 {
                     username = UsernameInput.Text,
@@ -217,12 +232,20 @@ namespace PeerCover.Views
                                 }
                             }
                             await PopupNavigation.Instance.PopAsync(true);
-
+                            try
+                            {
+                                await SecureStorage.SetAsync("token", PasswordInput.Text);
+                                await SecureStorage.SetAsync("username", UsernameInput.Text);
+                            }
+                            catch (Exception)
+                            {
+                                return;
+                            }
                         }
                         else if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
                         {
-                            indicator.IsRunning = false;
-                            indicator.IsVisible = false;
+                            //indicator.IsRunning = false;
+                            //indicator.IsVisible = false;
                             await PopupNavigation.Instance.PopAsync(true);
                             await DisplayAlert("Login Failed", "Username or Password is Incorrect, Please Try Again!", "Ok");
 
@@ -233,10 +256,10 @@ namespace PeerCover.Views
                 }
                 else
                 {
-                    indicator.IsRunning = false;
-                    indicator.IsVisible = false;
+                    //indicator.IsRunning = false;
+                    //indicator.IsVisible = false;
                     await PopupNavigation.Instance.PopAsync(true);
-                    await DisplayAlert("Login", "Invalid Login details", "ok");
+                    await DisplayAlert("Login", "Server Unavailable. Please try again later...", "Ok");
 
                 }
 
@@ -259,8 +282,23 @@ namespace PeerCover.Views
                 }
                 OnPropertyChanged(nameof(RememberMe));
             }
+
         }
 
+       public async void ToggleSwitch_Toggled(object sender, EventArgs e)
+        {
+            try
+            {
+                var password = await SecureStorage.GetAsync("token");
+                PasswordInput.Text = password;
+                var username = await SecureStorage.GetAsync("username");
+                UsernameInput.Text = username;
+            }
+            catch (Exception)
+            {
+                // Possible that device doesn't support secure storage on device.
+            }
+        }
         string username = Preferences.Get(nameof(Username), string.Empty);
         public string Username
         {
@@ -277,15 +315,31 @@ namespace PeerCover.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            try
+            CheckInternet();
+            if (toggleSwitch.IsToggled == true)
             {
-                var password = await SecureStorage.GetAsync("token");
-                PasswordInput.Text = password;
+                try
+                {
+                    var password = await SecureStorage.GetAsync("token");
+                    PasswordInput.Text = password;
+                    var username = await SecureStorage.GetAsync("username");
+                    UsernameInput.Text = username;
+                }
+                catch (Exception)
+                {
+                    // Possible that device doesn't support secure storage on device.
+                }
             }
-            catch (Exception)
-            {
-                // Possible that device doesn't support secure storage on device.
-            }
+        }
+
+        async void Permission()
+        {
+            await Permissions.RequestAsync<Permissions.Camera>();
+            await Permissions.RequestAsync<Permissions.StorageRead>();
+            await Permissions.RequestAsync<Permissions.StorageWrite>();
+            await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            await Permissions.RequestAsync<Permissions.LocationAlways>();
+            await Permissions.RequestAsync<Permissions.NetworkState>();
         }
     }
 }

@@ -13,6 +13,9 @@ namespace PeerCover.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Dashboard : ContentPage
     {
+        string appToken;
+        string ProfileImage;
+
         public ObservableCollection<PlansListModel> plan_id { get; set; }
         public Dashboard()
         {
@@ -131,26 +134,24 @@ namespace PeerCover.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            //GetSubs();
+            GetUserById();
             GetSubDetails();
-
-            var ProfileImage = HelperAppSettings.profile_img_url;
-
-            if (string.IsNullOrEmpty(ProfileImage))
+            try
             {
-                FlyOutImage.Source = "placeholder.png";
+                appToken = await SecureStorage.GetAsync("refreshedToken");
             }
-            else
+            catch (Exception)
             {
-                FlyOutImage.Source = Helper.ImageUrl + ProfileImage;
+                return;
             }
 
-            if (string.IsNullOrEmpty(HelperAppSettings.fcm_token))
+
+            if (!string.IsNullOrEmpty(appToken))
             {
                 User update = new User()
                 {
                     username = HelperAppSettings.username,
-                    registrationToken = HelperAppSettings.AppToken
+                    registrationToken = appToken
                 };
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Clear();
@@ -223,5 +224,28 @@ namespace PeerCover.Views
             }
 
         }
-    }
+
+        public async void GetUserById()
+        {
+            HttpClient client = new HttpClient();
+            var UserdetailEndpoint = Helper.getMembersUrl + HelperAppSettings.id;
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
+
+            var result = await client.GetStringAsync(UserdetailEndpoint);
+            var MemberDetails = JsonConvert.DeserializeObject<MemberDetailsModel>(result);
+            
+            ProfileImage = MemberDetails.member[0].profile_img_url;
+            
+            if (string.IsNullOrEmpty(ProfileImage))
+            {
+                FlyOutImage.Source = "placeholder.png";
+            }
+            else
+            {
+                var imgUrl = Helper.ImageUrl + "PeerCoverImages/odlu1kyfty1uwemzezef.jpg";
+                FlyOutImage.Source = imgUrl;
+            }
+        }
+     }
 }

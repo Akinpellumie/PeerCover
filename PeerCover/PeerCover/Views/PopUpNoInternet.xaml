@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 CloseWhenBackgroundIsClicked="False"  
+                  xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="PeerCover.Views.PopUpNoInternet">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="200"
+                                   DurationOut="150"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <!--  You can use any elements here which are extended from Xamarin.Forms.View  -->
+    <Frame Padding="20"
+                 BackgroundColor="White"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill">
+        <StackLayout Orientation="Vertical">
+            <StackLayout VerticalOptions="Center">
+                <Grid>
+                <StackLayout Grid.Row="0" Margin="0,15,0,0">
+                    <Image Source="NoInternet.png" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5"/>
+                </StackLayout>
+
+                <StackLayout Margin="10" Grid.Row="1">
+                    <Label Text="Oops!" FontSize="20" FontAttributes="Bold" TextColor="#e63e25"/>
+                    <Label Text="No Internet Connection Found" FontSize="15" TextColor="{StaticResource TxtColor}" Margin="0,5"/>
+                </StackLayout>
+
+            </Grid>
+            </StackLayout>
+            
+            <StackLayout HorizontalOptions="Center" VerticalOptions="End" Margin="10">
+            <Button Text="Retry" BackgroundColor="Transparent" BorderColor="#e63e25" 
+                           HeightRequest="45" FontSize="15" TextColor="#e63e25" 
+                            WidthRequest="150" BorderWidth="2" CornerRadius="10"/>
+            </StackLayout>
+        </StackLayout>
+
+    </Frame>
+</pages:PopupPage>
