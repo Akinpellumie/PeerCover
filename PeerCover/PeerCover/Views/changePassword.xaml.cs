@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Rg.Plugins.Popup.Services;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -23,12 +25,18 @@ namespace PeerCover.Views
 
         private async void ChangePassClicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             if (string.IsNullOrEmpty(OldPasswordInput.Text) || string.IsNullOrEmpty(NewPasswordInput.Text))
             {
                 await DisplayAlert("Alert", "Entry cannot be empty", "ok");
                 return;
             }
-
+            await PopupNavigation.Instance.PushAsync(new PopLoader());
             User update = new User()
             {
                 username = HelperAppSettings.username,
@@ -47,6 +55,7 @@ namespace PeerCover.Views
 
             if (response.IsSuccessStatusCode)
             {
+                await PopupNavigation.Instance.PopAsync(true);
                 await DisplayAlert("Successful", "Kindly Login Again", "Ok");
                 ContentPage fpm = new LoginPage();
                 OldPasswordInput.Text = "";
@@ -60,15 +69,22 @@ namespace PeerCover.Views
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    await DisplayAlert("InHub", "Whoopps! Kindly check your internet connection", "Ok");
+                    await PopupNavigation.Instance.PopAsync(true);
+                    await DisplayAlert("Whoops!", "Server error. Please try again later", "Ok");
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
+                }
+                else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    await PopupNavigation.Instance.PopAsync(true);
+                    await DisplayAlert("Oops!" , "Session timeout. Please login again!" , "Ok");
+                    Application.Current.MainPage = new NavigationPage(new LoginPage());
                 }
                 else
                 {
                     indicator.IsRunning = false;
                     indicator.IsVisible = false;
-                    await DisplayAlert("InHub", "Please try again later", "Ok");
+                    await DisplayAlert("Whoops!", "Please try again later", "Ok");
 
                 }
             }

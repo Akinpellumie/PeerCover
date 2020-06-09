@@ -20,7 +20,7 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             Permission();
-            //BindingContext = this;
+            BindingContext = this;
             CheckInternet();
             //Init();
         }
@@ -32,7 +32,7 @@ namespace PeerCover.Views
 
         async void CheckInternet()
         {
-            if (Connectivity.NetworkAccess== NetworkAccess.Internet)
+            if (Connectivity.NetworkAccess== NetworkAccess.None)
             {
                 await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
             }
@@ -48,7 +48,7 @@ namespace PeerCover.Views
 
         public async void LoginClicked(object sender, EventArgs e)
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
             {
                 await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
                 return;
@@ -174,7 +174,7 @@ namespace PeerCover.Views
                         if (responsee == null)
                         {
                             await PopupNavigation.Instance.PopAsync(true);
-                            await DisplayAlert("InHub", "Check your connection and try Again", "Ok");
+                            await DisplayAlert("Oops!", "Check your connection and try Again", "Ok");
 
                         }
                         else if (result.IsSuccessStatusCode == false)
@@ -259,7 +259,7 @@ namespace PeerCover.Views
                     //indicator.IsRunning = false;
                     //indicator.IsVisible = false;
                     await PopupNavigation.Instance.PopAsync(true);
-                    await DisplayAlert("Login", "Server Unavailable. Please try again later...", "Ok");
+                    await DisplayAlert("Login error!", "Server Unavailable. Please try again later...", "Ok");
 
                 }
 
@@ -315,7 +315,6 @@ namespace PeerCover.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            CheckInternet();
             if (toggleSwitch.IsToggled == true)
             {
                 try

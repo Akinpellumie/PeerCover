@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -15,10 +16,22 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetRequests();
+            CheckInternet();
+            AllRequestList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetRequests();
+                AllRequestList.IsRefreshing = false;
+            });
+        }
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
 
         public async void GetRequests()
-
         {
             indicator.IsRunning = true;
             indicator.IsVisible = true;

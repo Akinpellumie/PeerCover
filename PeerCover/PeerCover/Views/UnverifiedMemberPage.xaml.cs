@@ -9,19 +9,33 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Rg.Plugins.Popup.Services;
 
 namespace PeerCover.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UnverifiedMemberPage : ContentPage
     {
+        private string ProfileImage;
+
         public UnverifiedMemberPage()
         {
             NavigationPage.SetHasNavigationBar(this, true);
             InitializeComponent();
             GetSubs();
+            GetUserById();
+            CheckInternet();
             LblName.Text = HelperAppSettings.Name;
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void GetSubs()
 
         {
@@ -87,6 +101,28 @@ namespace PeerCover.Views
         {
             base.OnAppearing();
             await DisplayAlert("Hello", "Your account has not been verified yet! You'll be blocked from any activities until the Admin verifies your account", "Ok");
+        }
+        public async void GetUserById()
+        {
+            HttpClient client = new HttpClient();
+            var UserdetailEndpoint = Helper.getMembersUrl + HelperAppSettings.id;
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
+
+            var result = await client.GetStringAsync(UserdetailEndpoint);
+            var MemberDetails = JsonConvert.DeserializeObject<MemberDetailsModel>(result);
+
+            ProfileImage = MemberDetails.member[0].profile_img_url;
+
+            if (string.IsNullOrEmpty(ProfileImage))
+            {
+                FlyOutImage.Source = "placeholder.png";
+            }
+            else
+            {
+                var imgUrl = Helper.ImageUrl + ProfileImage;
+                FlyOutImage.Source = imgUrl;
+            }
         }
     }
 }

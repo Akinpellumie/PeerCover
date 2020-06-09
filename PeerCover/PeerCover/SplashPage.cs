@@ -34,9 +34,9 @@ namespace PeerCover
         {
             base.OnAppearing();
 
-            await splashImage.ScaleTo(1, 2000);
-            await splashImage.ScaleTo(0.9, 1500, Easing.Linear);
-            await splashImage.ScaleTo(150, 1200, Easing.Linear);
+            await splashImage.ScaleTo(1, 600);
+            await splashImage.ScaleTo(0.9, 500, Easing.Linear);
+            await splashImage.ScaleTo(150, 650, Easing.Linear);
             Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
     }

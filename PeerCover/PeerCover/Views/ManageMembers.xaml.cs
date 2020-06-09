@@ -5,6 +5,10 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using Rg.Plugins.Popup.Services;
+using System.Linq;
+using PeerCover.GroupHelper;
 
 namespace PeerCover.Views
 {
@@ -15,12 +19,28 @@ namespace PeerCover.Views
 
         public static ObservableCollection<MembersListModel> Members { get; set; }
         public static ObservableCollection<MembersListModel> AllMembers { get; set; }
+        private ObservableCollection<GroupedMembersModel> grouped { get; set; }
 
         public ManageMembers()
         {
             InitializeComponent();
             GetMembers();
+            CheckInternet();
+            MemberList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetMembers();
+                MemberList.IsRefreshing = false;
+            });
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void GetMembers()
 
         {
@@ -34,40 +54,22 @@ namespace PeerCover.Views
             client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
             var result = await client.GetStringAsync(dashboardEndpoint);
             var MemList = JsonConvert.DeserializeObject<MembersListModel>(result);
-            MemberList.ItemsSource = MemList.members;
-
-            //var xList = from mem in MemList.members
-            //var tee = new PersonList
-            //{
-            //    Heading = xList
-            //};
-            //tee.members = from 
+            var sorted = from member in MemList.members
+                         orderby member.firstname
+                         group member by member.NameSort into memberGroup
+                         select new Grouping<string, MembersModel>(memberGroup.Key, memberGroup);
+            var groupedMembers = new ObservableCollection<Grouping<string, MembersModel>>(sorted);
 
 
-            //MemberList.BindingContext = MembersGrouped;
-            //var sorted = from member in Members
-            //             orderby member.members[0].firstname
-            //             group member by member.members[0].NameSort into memberGroup
-            //             select new Grouping<string, MembersListModel>(memberGroup.Key, memberGroup);
+            stack2.IsVisible = false;
+            stack1.IsVisible = true;
+            MemberList.ItemsSource = groupedMembers;
+            MemberList.IsGroupingEnabled = true;
+            MemberList.GroupDisplayBinding = new Binding("Key");
+            MemberList.GroupShortNameBinding = new Binding("Key");
 
-            ////create a new collection of groups
-            //MembersGrouped = new ObservableCollection<Grouping<string, MembersListModel>>(sorted);
-
-            //MemberList.ItemsSource = MembersGrouped;
-            //MemberList.IsGroupingEnabled = true;
-            //MemberList.GroupDisplayBinding = new Binding("Key");
-
-            //var ProfileImage = MemList.members[0].profile_img_url;
-
-            //if (ProfileImage != null)
-            //{
-            //    MmImage.Source = Helper.ImageUrl + ProfileImage;
-            //}
-            //else
-            //{
-            //    MmImage.Source = "placeholder.png";
-            //}
-
+            //grouped = new ObservableCollection<GroupedMembersModel>();
+            //var veggieGroup = new GroupedMembersModel() { LongName = , ShortName = "v" };
 
             indicator.IsRunning = false;
             indicator.IsVisible = false;
@@ -98,18 +100,25 @@ namespace PeerCover.Views
                 {
                     indicator.IsRunning = false;
                     indicator.IsVisible = false;
-
-                    MemberList.ItemsSource = UsersList.members;
+                    stack2.IsVisible = true;
+                    stack1.IsVisible = false;
+                    SearchMemList.ItemsSource = UsersList.members;
                 }
-                else if (UsersList == null)
+                else if (string.IsNullOrEmpty(UsersList.members[0].firstname))
                 {
+                    stack2.IsVisible = false;
+                    stack1.IsVisible = false;
+                    emptysearch.IsVisible = true;
                     await DisplayAlert("Search", "No Record Found", "Ok");
                 }
             }
 
             else if (string.IsNullOrEmpty(e.NewTextValue))
             {
-                 GetMembers();
+                stack2.IsVisible = false;
+                stack1.IsVisible = true;
+                emptysearch.IsVisible = false;
+                GetMembers();
             
             }
 

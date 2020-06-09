@@ -160,16 +160,26 @@ namespace PeerCover.Models
 
                 return firstname.Substring(0,1).ToUpper();
             }
+            set { NameSort = value; }
         }
-       
-    }
 
+        public MembersModel()
+        {
+        
+        }
+     }
+
+    public class GroupedMembersModel : ObservableCollection<MembersModel>
+    {
+        public string LongName { get; set; }
+        public string ShortName { get; set; }
+    }
 
     //public class NameHead : MembersModel
     //{
     //    public List<String> nameSort
     //    {
-            
+
     //    }
     //}
     public class ListFirst

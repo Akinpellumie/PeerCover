@@ -10,11 +10,11 @@
              Shell.TabBarBackgroundColor="#27d2dc"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True" Shell.NavBarIsVisible="True"
-             Title="Requests">
+             Title="Pending Requests">
     <ContentPage.Content>
         <StackLayout Margin="15" Orientation="Vertical">
-            <Label Text="Pending Request" TextColor="#FA9917" 
-                HorizontalOptions="StartAndExpand" Margin="10" FontSize="18" />
+            <!--<Label Text="Pending Request" TextColor="#FA9917" 
+                HorizontalOptions="StartAndExpand" Margin="10" FontSize="18" />-->
 
             <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />

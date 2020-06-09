@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -20,6 +21,20 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetTransHis();
+            CheckInternet();
+            TransList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetTransHis();
+                TransList.IsRefreshing = false;
+            });
+        }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
 
         public async void GetTransHis()

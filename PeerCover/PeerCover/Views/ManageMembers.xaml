@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:Controls="clr-namespace:PeerCover"
              mc:Ignorable="d"
              x:Class="PeerCover.Views.ManageMembers"
              Title="Members"
@@ -17,26 +18,40 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <StackLayout Grid.Row="0" Margin="20,15,20,15">
-                    <Grid VerticalOptions="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="magnify.png" Margin="10,0,0,0"></Image>
-                        <Entry Grid.Column="1" Margin="0,0,0,20" Style="{StaticResource EntryStyle}" TextChanged="SearchBar_TextChanged"
+                <StackLayout Grid.Row="0" Margin="15,5">
+                    <Frame Style="{StaticResource FrameStyle}" Margin="0,10,0,20" 
+                   WidthRequest="285.53" CornerRadius="60" HeightRequest="45">
+                        <Grid VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="magnify.png" Margin="10,0,0,0"></Image>
+                            <Controls:CustomEntry Grid.Column="1" Style="{StaticResource EntryStyle}" TextChanged="SearchBar_TextChanged"
                                           Placeholder="Input member name" x:Name="TxtMemberSearch" Keyboard="Default"/>
-                    </Grid>
+                        </Grid>
+                    </Frame>
                 </StackLayout>
 
                 <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
 
 
-                <StackLayout Grid.Row="1">
+                <StackLayout Grid.Row="1" x:Name="stack1" IsVisible="True">
                     <ListView x:Name="MemberList" CachingStrategy="RecycleElement" VerticalScrollBarVisibility="Default"
-                          HasUnevenRows="True" ItemTapped="ViewMemberTapped" 
+                          HasUnevenRows="True" ItemTapped="ViewMemberTapped" IsPullToRefreshEnabled="True"
                               SeparatorVisibility="Default">
+                        <ListView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="25">
+                                    <StackLayout VerticalOptions="FillAndExpand"
+                       Padding="5"
+                       BackgroundColor="Gray">
+                                        <Label Text="{Binding Key}" TextColor="{StaticResource TxtColor}" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.GroupHeaderTemplate>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -68,6 +83,43 @@
                                                          Clicked="MoreOpt_Clicked" Margin="5,5,5,5"
                                                                      CommandParameter="{Binding .}" x:Name="MoreOpt"/>
                                         </StackLayout>-->
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <StackLayout x:Name="emptysearch" IsVisible="False" Margin="10">
+                    <Label Margin="10" FontSize="Caption" Text="No Record Found" TextColor="{StaticResource TxtColor}"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" x:Name="stack2" IsVisible="False">
+                    <ListView x:Name="SearchMemList" CachingStrategy="RecycleElement" VerticalScrollBarVisibility="Default"
+                          HasUnevenRows="True" ItemTapped="ViewMemberTapped" SeparatorVisibility="Default" IsPullToRefreshEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid VerticalOptions="CenterAndExpand" Padding="2" 
+                          HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Row="0" Margin="2,0,2,0" Grid.Column="0" HeightRequest="50">
+                                            <controls:CircleImage x:Name="MmImage" Margin="0,0,0,0" Source="{Binding MemImage}"
+                                Aspect="AspectFill"  BorderColor="{StaticResource Primary}"  HorizontalOptions="Center"
+                                BorderThickness="1" WidthRequest="60" HeightRequest="45">
+                                            </controls:CircleImage>
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="0" Grid.Column="1" Margin="10" Orientation="Vertical">
+                                            <Label HorizontalOptions="StartAndExpand" Text="{Binding fullname}" TextColor="{StaticResource TxtColor}" 
+                                               FontSize="18"/>
+
+                                        </StackLayout>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

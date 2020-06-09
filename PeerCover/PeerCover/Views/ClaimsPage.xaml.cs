@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
 using PeerCover.Models;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Net.Http;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,10 +16,19 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetClaims();
+            ClaimList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetClaims();
+                ClaimList.IsRefreshing = false;
+            });
         }
         public async void GetClaims()
-
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
             indicator.IsRunning = true;
             indicator.IsVisible = true;
 

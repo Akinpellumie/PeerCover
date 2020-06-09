@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Rg.Plugins.Popup.Services;
 
 namespace PeerCover.Views
 {
@@ -20,10 +21,28 @@ namespace PeerCover.Views
         public Dashboard()
         {
             InitializeComponent();
+            CheckInternet();
+            Permission();
             //GetSubs();
             GetSubDetails();
             LblName.Text = HelperAppSettings.Name;
 
+        }
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+        async void Permission()
+        {
+            await Permissions.RequestAsync<Permissions.Camera>();
+            await Permissions.RequestAsync<Permissions.StorageRead>();
+            await Permissions.RequestAsync<Permissions.StorageWrite>();
+            await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            await Permissions.RequestAsync<Permissions.LocationAlways>();
+            await Permissions.RequestAsync<Permissions.NetworkState>();
         }
         //public async void GetSubs()
 
@@ -50,6 +69,12 @@ namespace PeerCover.Views
 
         public async void GetSubDetails()
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             HttpClient client = new HttpClient();
             var UserCountEndpoint = Helper.getActiveSubUrl + HelperAppSettings.username;
             client.DefaultRequestHeaders.Clear();
@@ -169,23 +194,32 @@ namespace PeerCover.Views
             }
         }
 
-        public void SignOutClicked(object sender, EventArgs e)
+        public async void SignOutClicked(object sender, EventArgs e)
         {
-            ContentPage fpm = new LoginPage();
-            HelperAppSettings.Token = "";
-            HelperAppSettings.firstname = "";
-            HelperAppSettings.lastname = "";
-            HelperAppSettings.username = "";
-            HelperAppSettings.email = "";
-            HelperAppSettings.phonenumber = "";
-            HelperAppSettings.community_code = "";
-            HelperAppSettings.community_name = "";
-            HelperAppSettings.id = "";
-            HelperAppSettings.profile_img_url = "";
-            HelperAppSettings.priviledges = "";
-            HelperAppSettings.capName = "";
-            HelperAppSettings.Name = "";
-            Application.Current.MainPage = fpm;
+            bool result = await DisplayAlert("Hey!" , "Are you sure you want to sign out?", "Yes", "No");
+            if (result == true)
+            {
+                ContentPage fpm = new LoginPage();
+                HelperAppSettings.Token = "";
+                HelperAppSettings.firstname = "";
+                HelperAppSettings.lastname = "";
+                HelperAppSettings.username = "";
+                HelperAppSettings.email = "";
+                HelperAppSettings.phonenumber = "";
+                HelperAppSettings.community_code = "";
+                HelperAppSettings.community_name = "";
+                HelperAppSettings.id = "";
+                HelperAppSettings.profile_img_url = "";
+                HelperAppSettings.priviledges = "";
+                HelperAppSettings.capName = "";
+                HelperAppSettings.Name = "";
+                Application.Current.MainPage = fpm;
+            }
+            else
+            {
+                return;
+            }
+            
         }
 
         public void menuHider_clicked(object sender, EventArgs e)
@@ -243,7 +277,7 @@ namespace PeerCover.Views
             }
             else
             {
-                var imgUrl = Helper.ImageUrl + "PeerCoverImages/odlu1kyfty1uwemzezef.jpg";
+                var imgUrl = Helper.ImageUrl + ProfileImage;
                 FlyOutImage.Source = imgUrl;
             }
         }

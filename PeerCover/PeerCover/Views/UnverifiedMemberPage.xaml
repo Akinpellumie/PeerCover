@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls1="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              mc:Ignorable="d"
              x:Class="PeerCover.Views.UnverifiedMemberPage"
              NavigationPage.HasNavigationBar="True" Shell.NavBarIsVisible="True"
@@ -41,29 +42,48 @@
                         <StackLayout Grid.Row="0">
                             <Label  Margin="10" Text="Your account has not yet been verified!!!" TextColor="Red" HorizontalOptions="CenterAndExpand" FontSize="12"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="1" Margin="10">
-                            <Frame Margin="5,5,5,5" HasShadow="True" BackgroundColor="White">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <StackLayout Grid.Row="0" Orientation="Vertical" Margin="10">
-                                        <Label Text="Welcome back," TextColor="{StaticResource TxtColor}" FontSize="Subtitle"/>
-                                        <Label x:Name="LblName" Text="{Binding firstname}"
+                        <StackLayout  Grid.Row="0" BackgroundColor="White" Padding="0" Margin="0">
+                            <StackLayout Margin="10">
+                                <Frame Margin="5,5,5,5" HasShadow="False" BackgroundColor="White">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <StackLayout Grid.Row="0" Margin="10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackLayout Grid.Column="0" Orientation="Vertical" HorizontalOptions="StartAndExpand" 
+                                                     BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
+                                                    <Label Margin="5" Text="Welcome back," TextColor="{StaticResource TxtColor}" FontSize="Subtitle"/>
+                                                    <Label Margin="5" x:Name="LblName" Text="{Binding firstname}"
                                     TextColor="{StaticResource TxtColor}" FontSize="18"/>
-                                    </StackLayout>
-                                    <StackLayout Margin="0,0,0,5" Grid.Row="1" HorizontalOptions="FillAndExpand">
-                                        <BoxView BackgroundColor="LightGreen" HeightRequest="1" 
-                                             HorizontalOptions="FillAndExpand" Color="LightGreen"/>
-                                    </StackLayout>
-
-                                    <!--<StackLayout Grid.Row="2" Margin="10,10,10,10">
-                            <Label Text="Subscribe to a plan to get started." 
-                                   TextColor="{StaticResource TxtColor}" FontSize="18"/>
-                            </StackLayout>-->
-                                </Grid>
-                            </Frame>
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand" 
+                                                     BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
+                                                    <controls1:CircleImage
+                                            Margin="15,10,0,0" x:Name="FlyOutImage"
+                                            Source="{Binding profile_img_url}"
+                                            Aspect="AspectFill"
+                                            BorderColor="#27d2dc"
+                                            BorderThickness="1"
+                                            HeightRequest="50"
+                                            WidthRequest="50">
+                                                    </controls1:CircleImage>
+                                                </StackLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                        <StackLayout Margin="0,0,0,2" Grid.Row="1" HorizontalOptions="FillAndExpand">
+                                            <BoxView BackgroundColor="LightGreen" HeightRequest="1" 
+                                             HorizontalOptions="FillAndExpand" Color="#27d2dc"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
                         </StackLayout>
 
 

@@ -13,6 +13,7 @@ using Xamarin.Forms.Xaml;
 using Plugin.FilePicker;
 using System.Threading.Tasks;
 using Plugin.FileUploader.Abstractions;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -101,24 +102,27 @@ namespace PeerCover.Views
 
         }
 
-        protected override bool OnBackButtonPressed()
-        {
-                if (!string.IsNullOrEmpty(firstname) || !string.IsNullOrEmpty(lastname) || !string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(phone) || !string.IsNullOrEmpty(address) || !string.IsNullOrEmpty(gndPck) || !string.IsNullOrEmpty(bnkNm2) || !string.IsNullOrEmpty(acctNumEdit) || !string.IsNullOrEmpty(acctNameEdit))
-                {
-                    var result  = DisplayAlert("Discard unsaved changes?", "You have unsaved changes, are you sure you want to discard them?", "Cancel", "Okay");
-                    if(result.Equals( true))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                return true;
-        }
+        //protected override bool OnBackButtonPressed()
+        //{
+        //    Device.BeginInvokeOnMainThread(async () =>
+        //    {
+        //        if (!string.IsNullOrEmpty(firstname) || !string.IsNullOrEmpty(lastname) || !string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(phone) || !string.IsNullOrEmpty(address) || !string.IsNullOrEmpty(gndPck) || !string.IsNullOrEmpty(bnkNm2) || !string.IsNullOrEmpty(acctNumEdit) || !string.IsNullOrEmpty(acctNameEdit))
+        //        {
+        //            var result = await DisplayAlert("Discard unsaved changes?", "You have unsaved changes, are you sure you want to discard them?", "Okay", "Cancel");
+        //            if (result) await this.Navigation.PopAsync();
+
+        //        }
+        //    });
+        //        return true;
+        //}
         public async void CallIconUpload(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             await PopupNavigation.Instance.PushAsync(new PopLoader());
             if (string.IsNullOrEmpty(ProfileImage) && string.IsNullOrEmpty(filename))
             {
@@ -278,14 +282,19 @@ UpdateMemberClicked()
                     if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         //await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("Alert", response.ReasonPhrase, "Ok");
+                        await DisplayAlert("Oops!", "Server Unavailable! please try again later." , "Ok");
+
+                    }
+                    else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        //await PopupNavigation.Instance.PopAsync(true);
+                        await DisplayAlert("Oops!", "Session expired. Kindly Login again.", "Ok");
+                        Application.Current.MainPage = new NavigationPage(new LoginPage());
 
                     }
                     else
                     {
-                        //await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("Alert", "Please try again later", "Ok");
-
+                        await DisplayAlert("Oops!" , "Please try again later." , "Ok");
                     }
                 }
             }

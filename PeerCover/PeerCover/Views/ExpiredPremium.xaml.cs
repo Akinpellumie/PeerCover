@@ -19,6 +19,11 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetSubDetails();
+            expPreList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetSubDetails();
+                expPreList.IsRefreshing = false;
+            });
         }
         public async void GetSubDetails()
         {

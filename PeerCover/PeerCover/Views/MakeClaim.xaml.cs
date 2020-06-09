@@ -43,6 +43,7 @@ namespace PeerCover.Views
             InitializeComponent();
             GetUserById();
             GetBanks();
+            CheckInternet();
             LoadUserPlan(subscription_id);
             PickCauses.BindingContext = new CausesViewModel();
         }
@@ -60,7 +61,14 @@ namespace PeerCover.Views
             policyNo = UsersList.subscription[0].policy_number;
         }
 
-        
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void UploadImage1Tapped(object sender, EventArgs e)
         {
             Permission();
@@ -120,11 +128,11 @@ namespace PeerCover.Views
                     }
                     else if (k.StatusCode == 401)
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Upload server error. Please try again later." , "ok");
                     }
                     else
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Whoops!", "Please try again later." , "ok");
                     }
                 }
             }
@@ -194,11 +202,15 @@ namespace PeerCover.Views
                     }
                     else if (k.StatusCode == 401)
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Server error. Please try again later.", "ok");
+                    }
+                    else if (k.StatusCode == 500)
+                    {
+                        await DisplayAlert("Oops!", "Session timeout, kindly login again.", "Ok");
                     }
                     else
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Please try again later.", "ok");
                     }
                 }
             }
@@ -268,11 +280,15 @@ namespace PeerCover.Views
                     }
                     else if (k.StatusCode == 401)
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Server error. Please try again later." , "ok");
+                    }
+                    else if(k.StatusCode == 500)
+                    {
+                        await DisplayAlert("Oops!" , "Session timeout, kindly login again." , "Ok");
                     }
                     else
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Please try again later." , "ok");
                     }
                 }
             }
@@ -342,11 +358,15 @@ namespace PeerCover.Views
                     }
                     else if (k.StatusCode == 401)
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Server error. Please try again later.", "ok");
+                    }
+                    else if (k.StatusCode == 500)
+                    {
+                        await DisplayAlert("Oops!", "Session timeout, kindly login again.", "Ok");
                     }
                     else
                     {
-                        await DisplayAlert("InHub", k.Message, "ok");
+                        await DisplayAlert("Oops!", "Please try again later.", "ok");
                     }
                 }
             }
@@ -377,6 +397,11 @@ namespace PeerCover.Views
 
         async void Fetchdetails()
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
 
             await PopupNavigation.Instance.PushAsync(new PopAcctLoader());
             try
@@ -438,6 +463,12 @@ namespace PeerCover.Views
 
         private async void MakeClaimClicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             if (string.IsNullOrEmpty(MaACNInput.Text) || string.IsNullOrEmpty(MaANMInput.Text) || string.IsNullOrEmpty(RecInput.Text) || string.IsNullOrEmpty(CostInput.Text))
             {;
                 await DisplayAlert("Oops!", "Input fields cannot be empty", "Ok");
@@ -541,6 +572,7 @@ namespace PeerCover.Views
                     {
                         await PopupNavigation.Instance.PopAsync(true);
                         await DisplayAlert("InHub", "Session timeout. Please Login again.", "Ok");
+                        Application.Current.MainPage = new NavigationPage(new LoginPage());
                     }
                     else
                     {
@@ -557,13 +589,15 @@ namespace PeerCover.Views
 
         public async void GetBanks()
         {
-            HttpClient client = new HttpClient();
-            var UserCountEndpoint = Helper.getBanksUrl;
+                HttpClient client = new HttpClient();
+                var UserCountEndpoint = Helper.BankNamesUrl;
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
 
-            var result = await client.GetStringAsync(UserCountEndpoint);
-            var UsersCnt = JsonConvert.DeserializeObject<BankNameModels>(result);
+                var result = await client.GetStringAsync(UserCountEndpoint);
+                var UsersCnt = JsonConvert.DeserializeObject<List<BanksModel>>(result);
 
-            MaBankPicker.ItemsSource = UsersCnt.banks;
+                MaBankPicker.ItemsSource = UsersCnt;
 
         }
 

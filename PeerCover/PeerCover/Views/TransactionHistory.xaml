@@ -17,8 +17,8 @@
                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
 
                 <StackLayout  x:Name="TranStack" IsVisible="True" Margin="5,15,5,5">
-                    <ListView x:Name="TransList" HasUnevenRows="True"
-                          SeparatorVisibility="Default" SeparatorColor="#27d2dc" IsPullToRefreshEnabled="False">
+                    <ListView x:Name="TransList" HasUnevenRows="True" IsPullToRefreshEnabled="True"
+                          SeparatorVisibility="Default" SeparatorColor="#27d2dc">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

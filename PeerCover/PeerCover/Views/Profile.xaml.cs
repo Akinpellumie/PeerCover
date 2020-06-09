@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using Rg.Plugins.Popup.Services;
 
 namespace PeerCover.Views
 {
@@ -31,9 +33,19 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetUserById();
+            CheckInternet();
             //PageName.BindingContext = HelperAppSettings.capName;
             //UserImagePro.BindingContext = HelperAppSettings.profile_img_url;
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void GetUserById()
         {
             HttpClient client = new HttpClient();

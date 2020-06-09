@@ -1,22 +1,46 @@
-﻿
-using PeerCover.Models;
+﻿using PeerCover.Models;
 using Newtonsoft.Json;
-using Rg.Plugins.Popup.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using Rg.Plugins.Popup.Services;
+using System.Linq;
+using PeerCover.GroupHelper;
 
 namespace PeerCover.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserMemberPage : ContentPage
     {
+        //public static ObservableCollection<Grouping<string, MembersListModel>> MembersGrouped { get; set; }
+
+        public static ObservableCollection<MembersListModel> Members { get; set; }
+        public static ObservableCollection<MembersListModel> AllMembers { get; set; }
+        private ObservableCollection<GroupedMembersModel> grouped { get; set; }
+
         public UserMemberPage()
         {
             InitializeComponent();
             GetMembers();
+            CheckInternet();
+            MemberList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetMembers();
+                MemberList.IsRefreshing = false;
+            });
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void GetMembers()
 
         {
@@ -30,8 +54,22 @@ namespace PeerCover.Views
             client.DefaultRequestHeaders.Add("Authorization", Helper.userprofile.token);
             var result = await client.GetStringAsync(dashboardEndpoint);
             var MemList = JsonConvert.DeserializeObject<MembersListModel>(result);
-            MemberList.ItemsSource = MemList.members;
-            //LblRole.BindingContext = MemList.members[0];
+            var sorted = from member in MemList.members
+                         orderby member.firstname
+                         group member by member.NameSort into memberGroup
+                         select new Grouping<string, MembersModel>(memberGroup.Key, memberGroup);
+            var groupedMembers = new ObservableCollection<Grouping<string, MembersModel>>(sorted);
+
+
+            stack2.IsVisible = false;
+            stack1.IsVisible = true;
+            MemberList.ItemsSource = groupedMembers;
+            MemberList.IsGroupingEnabled = true;
+            MemberList.GroupDisplayBinding = new Binding("Key");
+            MemberList.GroupShortNameBinding = new Binding("Key");
+
+            //grouped = new ObservableCollection<GroupedMembersModel>();
+            //var veggieGroup = new GroupedMembersModel() { LongName = , ShortName = "v" };
 
             indicator.IsRunning = false;
             indicator.IsVisible = false;
@@ -62,27 +100,25 @@ namespace PeerCover.Views
                 {
                     indicator.IsRunning = false;
                     indicator.IsVisible = false;
-
-                    //Itemsearch.IsVisible = true;
-                    //BindingContext = ItemsList;
-                    MemberList.ItemsSource = UsersList.members;
-                    //Itemsearch.ItemsSource = ItemsList;
-                    // Autocomplete.IsEnabled = true;
+                    stack2.IsVisible = true;
+                    stack1.IsVisible = false;
+                    SearchMemList.ItemsSource = UsersList.members;
                 }
-                else if (UsersList == null)
+                else if (string.IsNullOrEmpty(UsersList.members[0].firstname))
                 {
+                    stack2.IsVisible = false;
+                    stack1.IsVisible = false;
+                    emptysearch.IsVisible = true;
                     await DisplayAlert("Search", "No Record Found", "Ok");
                 }
             }
 
             else if (string.IsNullOrEmpty(e.NewTextValue))
             {
-                //acindicator.IsRunning = true;
-                //acindicator.IsVisible = true;
+                stack2.IsVisible = false;
+                stack1.IsVisible = true;
+                emptysearch.IsVisible = false;
                 GetMembers();
-                //acindicator.IsRunning = false;
-                //acindicator.IsVisible = false;
-
 
             }
 
@@ -91,7 +127,7 @@ namespace PeerCover.Views
         public async void ViewMemberTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null) return;
-            var selectedUser = e.Item as Models.MembersModel; ;
+            var selectedUser = e.Item as MembersModel;
             await Shell.Current.Navigation.PushAsync(new SingleMemberPage(selectedUser.id, selectedUser.username));
 
         }

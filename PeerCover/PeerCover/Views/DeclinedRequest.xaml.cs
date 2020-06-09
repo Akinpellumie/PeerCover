@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -20,11 +21,21 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetDecRequests();
+            DeclinedRequestList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetDecRequests();
+                DeclinedRequestList.IsRefreshing = false;
+            });
         }
 
         public async void GetDecRequests()
-
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             indicator.IsRunning = true;
             indicator.IsVisible = true;
 
@@ -62,7 +73,6 @@ namespace PeerCover.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            GetDecRequests();
         }
 
         public void DeclinedTapped(object sender, ItemTappedEventArgs e)

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace PeerCover
 {
@@ -47,10 +48,29 @@ namespace PeerCover
             GetUserById();
         }
 
-            protected override bool OnBackButtonPressed()
-            {
+        protected override bool OnBackButtonPressed()
+        {
             base.OnBackButtonPressed();
             return true;
-            }
         }
+
+        //    protected override bool OnBackButtonPressed()
+        //    {
+        //    Device.BeginInvokeOnMainThread(async () =>
+        //    {
+        //        var result = await this.DisplayAlert("Alert!", "Are you sure you want to exit this App?", "Yes", "No");
+        //        if (result==true)
+        //        {
+        //            base.OnBackButtonPressed();
+        //            Application.Current.Quit();
+        //        }
+        //    });
+        //    return true;
+        //    }
+
+        //public interface IAndroidMethods
+        //{
+        //    void Quit();
+        //}
     }
+ }

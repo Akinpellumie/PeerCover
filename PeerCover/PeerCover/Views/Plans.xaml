@@ -27,7 +27,7 @@
 
                 <StackLayout  Margin="5,15,5,5" x:Name="PlanActList" IsVisible="True">
                     <ListView x:Name="ActivePlanList" HasUnevenRows="True" ItemTapped="ViewSubTapped"
-                          SeparatorVisibility="Default" SeparatorColor="LightGreen" IsPullToRefreshEnabled="False">
+                          SeparatorVisibility="Default" SeparatorColor="LightGreen" IsPullToRefreshEnabled="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using Rg.Plugins.Popup.Services;
 
 namespace PeerCover.Views
 {
@@ -23,6 +25,11 @@ namespace PeerCover.Views
 
         private async void ForgotPassClicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
 
             User update = new User()
             {
@@ -51,7 +58,7 @@ namespace PeerCover.Views
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    await DisplayAlert("InHub", "Whoopps! Invalid Username. Try Again!", "Ok");
+                    await DisplayAlert("Whoopps!", " Server unavailable. Please try again later!", "Ok");
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
                 }
@@ -59,7 +66,7 @@ namespace PeerCover.Views
                 {
                     indicator.IsRunning = false;
                     indicator.IsVisible = false;
-                    await DisplayAlert("InHub", "Please try again later", "Ok");
+                    await DisplayAlert("Whoopps!", "Please try again later", "Ok");
 
                 }
             }

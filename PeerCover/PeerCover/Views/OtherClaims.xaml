@@ -20,7 +20,7 @@
 
                 <StackLayout Margin="5,15,5,5" x:Name="stcList" IsVisible="True">
                     <ListView x:Name="OtherClaimsList" HasUnevenRows="True" ItemTapped="ViewClaimTapped"
-                          SeparatorVisibility="Default" SeparatorColor="LightGreen" IsPullToRefreshEnabled="True">
+                          SeparatorVisibility="Default" SeparatorColor="Accent" IsPullToRefreshEnabled="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

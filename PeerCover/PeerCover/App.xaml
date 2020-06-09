@@ -171,7 +171,7 @@
                 <Setter Property="HasShadow" Value="False" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="BackgroundColor" Value="White"/>
-                <Setter Property="BorderColor" Value="{StaticResource TxtColor}" />
+                <Setter Property="BorderColor" Value="LightGray" />
             </Style>
             <Style x:Key="FrameListStyle" TargetType="Frame">
                 <Setter Property="HasShadow" Value="False" />

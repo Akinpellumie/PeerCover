@@ -110,9 +110,6 @@ namespace PeerCover.Views
                             await DisplayAlert("Success", "Vehicle Image Updated", "Ok");
                             await PopupNavigation.Instance.PopAsync(true);
                             Indic.IsVisible = false;
-
-
-
                         }
                         else if (k.StatusCode == 401)
                         {

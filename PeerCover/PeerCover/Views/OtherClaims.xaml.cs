@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using Rg.Plugins.Popup.Services;
 
 namespace PeerCover.Views
 {
@@ -19,7 +21,22 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetOtherClaims();
+            CheckInternet();
+            OtherClaimsList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetOtherClaims();
+                OtherClaimsList.IsRefreshing = false;
+            });
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
 
         public async void GetOtherClaims()
 

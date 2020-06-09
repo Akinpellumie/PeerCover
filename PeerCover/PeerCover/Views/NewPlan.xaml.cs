@@ -91,159 +91,6 @@ namespace PeerCover.Views
             }
         }
 
-        //        private async void Button_Clicked(object sender, EventArgs e)
-        //    {
-        //        try
-        //        {
-
-        //        var file = await CrossFilePicker.Current.PickFile();
-
-        //            FileBytesItem bfitem = new FileBytesItem("fileName", file.DataArray, file.FileName);
-
-        //            FilePathItem fpitem = new FilePathItem("fileName", file.FilePath);
-
-        //        if (file != null)
-        //        {
-        //            lbl.Text = file.FileName;
-        //        }
-        //            FileUploadResponse k = null;
-        //        try
-        //        {
-
-        //            k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return;
-        //        }
-        //        string responsee = k.Message;
-        //        if (k.StatusCode == 201)
-        //        {
-
-        //            licenseName = responsee;
-
-        //        }
-        //        else if (k.StatusCode == 401)
-        //        {
-        //            await DisplayAlert("InHub", k.Message, "ok");
-        //        }
-        //        else
-        //        {
-        //            await DisplayAlert("InHub", k.Message, "ok");
-        //        }
-
-        //        }
-
-        //        catch (Exception)
-        //        {
-        //            return;
-        //        }
-        //    }
-
-        //private async void Button2_Clicked(object sender, EventArgs e)
-        //    {
-        //            try
-        //            {
-
-        //        var file2 = await CrossFilePicker.Current.PickFile();
-
-        //            FileBytesItem bfitem = new FileBytesItem("fileName", file2.DataArray, file2.FileName);
-
-        //            FilePathItem fpitem = new FilePathItem("fileName", file2.FilePath);
-
-        //        if (file2 != null)
-        //        {
-        //            lbl2.Text = file2.FileName;
-
-        //        }
-        //            FileUploadResponse k = null;
-        //        try
-        //        {
-
-
-        //            k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() { { "fileName", this.fileName } });
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return;
-        //        }
-        //        string responseee = k.Message;
-        //        if (k.StatusCode == 201)
-        //        {
-
-        //            utilityBillName = responseee;
-
-        //        }
-        //        else if (k.StatusCode == 401)
-        //        {
-        //            await DisplayAlert("InHub", k.Message, "ok");
-        //        }
-        //        else
-        //        {
-        //            await DisplayAlert("InHub", k.Message, "ok");
-        //        }
-
-        //        }
-
-        //        catch (Exception)
-        //        {
-        //            return;
-        //        }
-        //    }
-
-        //    private async void Button1_Clicked(object sender, EventArgs e)
-        //    {
-        //        try
-        //        {
-
-        //        var file1 = await CrossFilePicker.Current.PickFile();
-
-        //            FileBytesItem bfitem = new FileBytesItem("fileName", file1.DataArray, file1.FileName);
-
-        //            FilePathItem fpitem = new FilePathItem("fileName", file1.FilePath);
-
-        //            if (file1 != null)
-        //            {
-        //                lbl1.Text = file1.FileName;
-
-        //            }
-
-
-        //            FileUploadResponse k = null;
-        //        try
-        //        {
-
-
-        //            k = await Plugin.FileUploader.CrossFileUploader.Current.UploadFileAsync(Helper.UploadUrl, bfitem, 
-        //                new Dictionary<string, string>() { { "Authorization", Helper.userprofile.token } }, new Dictionary<string, string>() 
-        //                { { "fileName", this.fileName } });
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return;
-        //        }
-        //        string responseeee = k.Message;
-        //        if (k.StatusCode == 201)
-        //        {
-
-        //            ImageName = responseeee;
-
-        //        }
-        //        else if (k.StatusCode == 401)
-        //        {
-        //            await DisplayAlert("InHub", k.Message, "ok");
-        //        }
-        //        else
-        //        {
-        //            await DisplayAlert("InHub", k.Message, "ok");
-        //        }
-        //        }
-
-        //        catch (Exception)
-        //        {
-        //            return;
-        //        }
-        //    }
 
         public async void UploadImaTapped(object sender, EventArgs e)
         {
@@ -481,6 +328,18 @@ namespace PeerCover.Views
 
         private async void NewSubClicked(object sender, EventArgs e)
         {
+            if(string.IsNullOrEmpty(VMInput.Text) || string.IsNullOrEmpty(RNInput.Text) || string.IsNullOrEmpty(VCInput.Text) || string.IsNullOrEmpty(YMInput.Text) || string.IsNullOrEmpty(ENInput.Text) || string.IsNullOrEmpty(VLMInput.Text) || string.IsNullOrEmpty(PRMInput.Text) || string.IsNullOrEmpty(VINInput.Text))
+            {
+                await DisplayAlert("Holla!", "Input fields cannot be empty.", "Ok");
+                return;
+            }
+
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             await PopupNavigation.Instance.PushAsync(new PopLoader());
 
             if ((VLMInput.Text).Length <= 0)
@@ -531,7 +390,7 @@ namespace PeerCover.Views
                 if (response.IsSuccessStatusCode)
                 {
                     await PopupNavigation.Instance.PopAsync(true);
-                    await DisplayAlert("InHub", "New Plan Subscribed", "Ok");
+                    await DisplayAlert("Success!", "New Plan Subscribed", "Ok");
                     await Shell.Current.Navigation.PushAsync(new Dashboard());
                     VMInput.Text = "";
                     RNInput.Text = "";
@@ -550,9 +409,14 @@ namespace PeerCover.Views
                     if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         await PopupNavigation.Instance.PopAsync(true);
-                        await DisplayAlert("Whoops!", response.ReasonPhrase, "Ok");
+                        await DisplayAlert("Whoops!", "Server error! Please try again later." , "Ok");
                         indicator.IsVisible = false;
                         indicator.IsRunning = false;
+                    }
+                    else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        await DisplayAlert("Ooops!","Session timeout. Please Login again.","Ok");
+                        Application.Current.MainPage = new NavigationPage(new LoginPage());
                     }
                     else
                     {

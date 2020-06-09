@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
 using PeerCover.Models;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Net.Http;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +16,22 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetSubDetails();
+            CheckInternet();
+            ActivePlanList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetSubDetails();
+                ActivePlanList.IsRefreshing = false;
+            });
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void GetSubDetails()
         {
             indicator.IsRunning = true;

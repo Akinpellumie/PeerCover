@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using PeerCover.ViewModels;
 using Rg.Plugins.Popup.Services;
 using PeerCover.Utils;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -19,9 +20,22 @@ namespace PeerCover.Views
         {
             InitializeComponent();
              BindingContext = this;
+            CheckInternet();
+        }
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
         public async void CreateUserBtn_Clicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
             await PopupNavigation.Instance.PushAsync(new PopLoader());
             try
             {

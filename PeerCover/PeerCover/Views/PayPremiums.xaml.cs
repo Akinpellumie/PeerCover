@@ -29,7 +29,16 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetSubDetails();
+            CheckInternet();
             //LoadSinPlan();
+        }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
 
         public async void GetSubDetails()
@@ -110,9 +119,10 @@ namespace PeerCover.Views
                             //string responseeee = await resultee.Content.ReadAsStringAsync();
                             if (resultee.Contains("Image is expired"))
                             {
-                                await PopupNavigation.Instance.PushAsync(new PopUpload(NumId));
-             
-                                await CallAstraPay();
+                                Task task = PopupNavigation.Instance.PushAsync(new PopUpload(NumId));
+                                Task result = await Task.FromResult(task);
+                                return;
+                                //await CallAstraPay();
 
                             }
                             else if (resultee.Contains("Image not expired"))
@@ -335,9 +345,10 @@ CallAstraPay()
                     //string responseeee = await resultee.Content.ReadAsStringAsync();
                     if (resultee.Contains("Image is expired"))
                     {
-                        await PopupNavigation.Instance.PushAsync(new PopUpload(NumId));
-
-                        await CallOverCounterPay();
+                        Task task = PopupNavigation.Instance.PushAsync(new PopUpload(NumId));
+                        Task result = await Task.FromResult(task);
+                        return;
+                        //await CallOverCounterPay();
 
                     }
                     else if (resultee.Contains("Image not expired"))

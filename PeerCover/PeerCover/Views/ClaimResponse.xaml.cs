@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -52,6 +53,11 @@ namespace PeerCover.Views
 
         private async void AcceptClaimClicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
             indicator.IsVisible = true;
             indicator.IsRunning = true;
 
@@ -84,15 +90,20 @@ namespace PeerCover.Views
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    await DisplayAlert("Whoops!!!", response.ReasonPhrase, "Ok");
+                    await DisplayAlert("Whoops!!!", "Server error. Please try again later." , "Ok");
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
+                }
+                else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    await DisplayAlert("Oops!", "Session Timeout. Kindly Login and try again." , "Ok");
+                    Application.Current.MainPage = new NavigationPage(new LoginPage());
                 }
                 else
                 {
                     indicator.IsRunning = false;
                     indicator.IsVisible = false;
-                    await DisplayAlert("InHub", "Please try again later", "Ok");
+                    await DisplayAlert("Oops!", "Please try again later", "Ok");
 
                 }
             }

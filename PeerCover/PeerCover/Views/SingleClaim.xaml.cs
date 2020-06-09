@@ -1,12 +1,8 @@
 ﻿using PeerCover.Models;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -23,7 +19,16 @@ namespace PeerCover.Views
             InitializeComponent();
             PopupNavigation.Instance.PushAsync(new PopLoader());
             LoadSingleClaim(id);
+            CheckInternet();
             PopupNavigation.Instance.PopAsync(true);
+        }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
         public async void LoadSingleClaim(string id)
 

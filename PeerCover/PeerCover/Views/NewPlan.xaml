@@ -28,7 +28,7 @@
                                   Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
                     </StackLayout>
 
-                    <Frame BackgroundColor="#f5fafa">
+                    <Frame BackgroundColor="#f5fafa" HasShadow="False">
                         <StackLayout>
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
@@ -45,9 +45,9 @@
                         <Label x:Name="lbl" Text="" FontSize="12" TextColor="#828282"/>
                         </StackLayout>
                     </Frame>
-                    
-                    
-                    <Frame BackgroundColor="#f5fafa">
+
+
+                    <Frame BackgroundColor="#f5fafa" HasShadow="False">
                         <StackLayout>
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
@@ -65,9 +65,9 @@
                         <Label x:Name="lbl1" Text=" " FontSize="12" TextColor="#828282"/>
                         </StackLayout>
                     </Frame>
-                   
-                    
-                    <Frame BackgroundColor="#f5fafa">
+
+
+                    <Frame BackgroundColor="#f5fafa" HasShadow="False">
                         <StackLayout>
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>

@@ -20,7 +20,7 @@
 
                 <StackLayout Margin="5,10,5,5" x:Name="InActList" IsVisible="True">
                     <ListView x:Name="expPreList" HasUnevenRows="True" ItemTapped="ViewSubTapped"
-                          SeparatorVisibility="Default" SeparatorColor="Accent" IsPullToRefreshEnabled="False">
+                          SeparatorVisibility="Default" SeparatorColor="Accent" IsPullToRefreshEnabled="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

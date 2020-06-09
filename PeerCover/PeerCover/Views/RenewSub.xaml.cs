@@ -36,7 +36,16 @@ namespace PeerCover.Views
             renewSubId = subscription_id;
             polNum = policyNo;
             InitializeComponent();
+            CheckInternet();
             LoadSingleSub(subscription_id);
+        }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
         }
 
         public async void LoadSingleSub(string subscription_id)
@@ -341,6 +350,14 @@ namespace PeerCover.Views
 
         private async void NewSubClicked(object sender, EventArgs e)
         {
+
+
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
+
             await PopupNavigation.Instance.PushAsync(new PopLoader());
 
             if ((ReVLMInput.Text).Length <= 0)

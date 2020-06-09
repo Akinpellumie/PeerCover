@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Services;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -25,7 +26,17 @@ namespace PeerCover.Views
             subscription_id = subscriptionId;
             InitializeComponent();
             LoadSinglePlan(subscription_id);
+            CheckInternet();
         }
+
+        async void CheckInternet()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+            }
+        }
+
         public async void LoadSinglePlan(string subscription_id)
         {
             await PopupNavigation.Instance.PushAsync(new PopLoader());

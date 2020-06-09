@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace PeerCover.Views
 {
@@ -20,11 +21,20 @@ namespace PeerCover.Views
         {
             InitializeComponent();
             GetAccRequests();
+            AcceptedRequestList.RefreshCommand = new Command(() => {
+                //Do your stuff.    
+                GetAccRequests();
+                AcceptedRequestList.IsRefreshing = false;
+            });
         }
 
         public async void GetAccRequests()
-
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopUpNoInternet());
+                return;
+            }
             indicator.IsRunning = true;
             indicator.IsVisible = true;
 
@@ -67,7 +77,7 @@ namespace PeerCover.Views
         public void AcceptedTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null) return;
-            var selectedUser = e.Item as Models.RequestsModel;
+            var selectedUser = e.Item as RequestsModel;
             DisplayAlert("Yoo!", selectedUser.firstname + " has been accepted to the community", "Ok");
             //if(selectedUser.status.Contains("A"))
             //PopupNavigation.Instance.PushAsync(new PopUpRequests(selectedUser.request_id));
