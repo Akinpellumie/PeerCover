@@ -73,9 +73,25 @@
             </Style>
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="{StaticResource font_book}" />
-                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontSize" Value="Subtitle" />
                 <Setter Property="TextColor" Value="#5F5D5D" />
             </Style>
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily" Value="{StaticResource font_book}" />
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="TextColor" Value="#5F5D5D" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="FontFamily" Value="{StaticResource font_book}" />
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="TextColor" Value="#5F5D5D" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="FontFamily" Value="{StaticResource font_book}" />
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="TextColor" Value="#5F5D5D" />
+            </Style>
+            
             <Style TargetType="Button">
                 <Setter Property="FontFamily" Value="{StaticResource font_medium}" />
                 <Setter Property="FontSize" Value="16" />
@@ -102,12 +118,7 @@
                 <Setter Property="FontFamily" Value="{StaticResource font_book}"/>
                 <Setter Property="BackgroundColor" Value="{StaticResource OriginalColor}"/>
             </Style>
-            <Style TargetType="Entry">
-                <Setter Property="FontFamily" Value="{StaticResource font_book}" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="HeightRequest" Value="40"/>
-                <Setter Property="WidthRequest" Value="285.53"/>
-            </Style>
+           
             <Style TargetType="StackLayout">
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="0"/>
@@ -170,8 +181,8 @@
             <Style x:Key="FrameStyle" TargetType="Frame">
                 <Setter Property="HasShadow" Value="False" />
                 <Setter Property="Padding" Value="0" />
-                <Setter Property="BackgroundColor" Value="White"/>
-                <Setter Property="BorderColor" Value="LightGray" />
+                <Setter Property="BackgroundColor" Value="#f4f5f9"/>
+                <Setter Property="BorderColor" Value="Transparent" />
             </Style>
             <Style x:Key="FrameListStyle" TargetType="Frame">
                 <Setter Property="HasShadow" Value="False" />

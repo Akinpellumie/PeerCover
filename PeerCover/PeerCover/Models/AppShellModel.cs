@@ -6,26 +6,10 @@ namespace PeerCover.Models
 {
     public class AppShellModel
     {
-        public string fullname
-        {
-            get
-            {
-                return HelperAppSettings.capName;
-            }
-        }
-        public string commCode
-        {
-            get
-            {
-                return HelperAppSettings.community_code;
-            }
-        }
-        public string commName1
-        {
-            get
-            {
-                return HelperAppSettings.community_name;
-            }
-        }
+        public string fullname { get; set; }
+        public string commCode { get; set; }
+        public string commName1 { get; set; }
+        public string userName { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

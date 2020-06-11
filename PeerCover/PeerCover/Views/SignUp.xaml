@@ -11,87 +11,139 @@
              Title="Sign Up">
     <ContentPage.Content>
         <StackLayout>
-            <Frame BackgroundColor="{StaticResource Primary}" IsClippedToBounds="True" HasShadow="True">
-                <Label Text="Sign Up" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Margin="5,0,0,0"/>
+            <Frame BackgroundColor="{StaticResource Primary}" HeightRequest="35" IsClippedToBounds="True" HasShadow="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Sign Up" TextColor="White" FontSize="20" 
+                           HorizontalOptions="StartAndExpand" Margin="5,0,0,0"/>
+                    <ImageButton Source="close.png" Aspect="AspectFill"  Grid.Column="1" BackgroundColor="Transparent" Clicked="BackToLoginPressed"
+                                WidthRequest="30" HorizontalOptions="End" HeightRequest="30" Margin="0,0,5,0"/>
+                </Grid>
             </Frame>
-            <ScrollView>
-                <StackLayout Margin="20,10,20,10">
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" Text="Firstname" TextColor="Gray"/>
-                        <Entry x:Name="FTInput" Margin="0,0,0,8" Keyboard="Default" 
-                                  Style="{StaticResource EntryStyle}"/>
+
+            <StackLayout Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+              
+                <StackLayout Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                   
+                <StackLayout Grid.Column="0">
+                <Label Margin="7,5,5,2" Text="Firstname" TextColor="Gray"/>
+                <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,0" HeightRequest="45" CornerRadius="50">
+                        <Controls:CustomEntry  x:Name="FTInput" Margin="5,0,0,3" VerticalOptions="End" Keyboard="Default"/>
+                    </Frame>
+                </StackLayout>
+                        
+                <StackLayout Grid.Column="1">
+                    <Label Margin="7,5,5,2" Text="Lastname" TextColor="Gray"/>
+                    <Frame Style="{StaticResource FrameStyle}" Margin="0,0,5,0" HeightRequest="45" CornerRadius="50">
+                        <Controls:CustomEntry  x:Name="LTInput" Margin="5,0,0,3" VerticalOptions="End" Keyboard="Default"/>
+                    </Frame>
+                </StackLayout>
+                    </Grid>
+                </StackLayout>
+
+                    <StackLayout Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Grid.Column="0">
+                                <Label Margin="7,3,5,2" x:Name="LblUser" Text="Username" TextColor="Gray"/>
+                                <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,0" HeightRequest="45" CornerRadius="50">
+                                    <Controls:CustomEntry  x:Name="USNInput" Margin="5,0,0,3" VerticalOptions="End" TextChanged="Input2_TextChanged" 
+                                                           Unfocused="Username_Unfocused" Keyboard="Default"/>
+                                </Frame>
+                                <Label Margin="5,1,5,1" Text="" x:Name="LblUsn" TextColor="Red" FontSize="12"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="1">
+                                <Label Margin="7,3,5,2" Text="Phone Number" TextColor="Gray"/>
+                                <Frame Style="{StaticResource FrameStyle}" Margin="0,0,5,0" HeightRequest="45" CornerRadius="50">
+                                    <Controls:CustomEntry x:Name="PNInput" Margin="5,0,0,3" VerticalOptions="End" Keyboard="Telephone"/>
+                                </Frame>
+                            </StackLayout>
+                        </Grid>
                     </StackLayout>
 
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" Text="Lastname" TextColor="Gray"/>
-                        <Entry x:Name="LTInput" Margin="0,0,0,8" Keyboard="Default"
-                                  Style="{StaticResource EntryStyle}"/>
+                    <StackLayout Grid.Row="2">
+                        <Label Margin="7,3,5,2" Text="Email Address" TextColor="Gray"/>
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,0" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry  x:Name="EAInput" Margin="5,0,0,3" VerticalOptions="End" Keyboard="Email"/>
+                        </Frame>
                     </StackLayout>
 
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" x:Name="LblUser" Text="Username" TextColor="Gray"/>
-                        <Entry x:Name="USNInput" TextChanged="Input2_TextChanged" Unfocused="Username_Unfocused" Keyboard="Default"
-                                  Style="{StaticResource EntryStyle}"/>
-                        <Label Margin="5,1,5,1" Text="" x:Name="LblUsn" TextColor="Red" FontSize="12"/>
+                    <StackLayout Grid.Row="3">
+                        <Label Margin="7,3,5,2" Text="Community Code" TextColor="Gray"/>
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,0" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry  x:Name="CCInput" Margin="5,0,0,3" VerticalOptions="End"  Keyboard="Default"/>
+                        </Frame>
                     </StackLayout>
 
-
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" Text="Email Address" TextColor="Gray"/>
-                        <Entry x:Name="EAInput" Margin="0,0,0,8" Keyboard="Email"
-                                  Style="{StaticResource EntryStyle}"/>
-                    </StackLayout>
-
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" Text="Phone Number" TextColor="Gray"/>
-                        <Entry x:Name="PNInput" Margin="0,0,0,8"  Keyboard="Telephone"
-                                  Style="{StaticResource EntryStyle}"/>
-                    </StackLayout>
-
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" Text="Community Code" TextColor="Gray"/>
-                        <Entry x:Name="CCInput" Margin="0,0,0,8"  Keyboard="Default"
-                                  Style="{StaticResource EntryStyle}"/>
-                    </StackLayout>
-
-                    <StackLayout>
-                        <Label Margin="7,5,5,2" Text="Password" TextColor="Gray"/>
-                        <Entry Margin="0,0,0,2" x:Name="PWDInput" TextChanged="Handle_TextChanged" IsPassword="True" Keyboard="Default"
-                                  Style="{StaticResource EntryStyle}">
-                            <Entry.Effects>
-                                <Controls:ShowHidePassEffect />
-                            </Entry.Effects>
-                        </Entry>
-
+                    <StackLayout Grid.Row="4">
+                        <Label Margin="7,3,5,2" Text="Password" TextColor="Gray"/>
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,0" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry  x:Name="PWDInput" TextChanged="Handle_TextChanged" Margin="5,0,0,0" VerticalOptions="End" IsPassword="True" Keyboard="Default">
+                                <Entry.Effects>
+                                    <Controls:ShowHidePassEffect />
+                                </Entry.Effects>
+                            </Controls:CustomEntry>
+                        </Frame>
                         <StackLayout Orientation="Horizontal" Margin="7,1,5,5" HorizontalOptions="Start" IsVisible="True">
                             <Label Text="Password Strength: " FontSize="12"/>
                             <Label
                         x:Name="StrengthIndicator"
-                        FontSize="12"
+                        FontSize="8"
                         Text="" FontAttributes="Bold" />
                         </StackLayout>
                     </StackLayout>
-                    
 
-                    <StackLayout Margin="5">
-                        <Grid>
-                            <CheckBox Color="#FF5F58" 
+                    <StackLayout Grid.Row="5">
+                        <!--<StackLayout Margin="2">
+                            <Grid>
+                                <CheckBox Color="#FF5F58" 
                                       IsChecked="False" IsEnabled="True" x:Name="TermsCheck"/>
-                            <Label TextColor="#FF5F58" Text="Accept Terms and Conditions" Margin="40,5,0,0"/>
-                        </Grid>
-                    </StackLayout>
+                                <Label TextColor="#FF5F58" Text="Accept Terms and Conditions" Margin="40,5,0,0"/>
+                            </Grid>
+                        </StackLayout>-->
 
-                    <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 
-                           VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsRunning="False" />
-
-                    <StackLayout>
-                        <Button  Margin="10,20" FontSize="20" BorderRadius="6"
-                         HeightRequest="45" TextColor="White" Clicked="CreateUserBtn_Clicked"
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                    <Button  Margin="5" FontSize="20" BorderRadius="6"
+                         HeightRequest="45" TextColor="White" CornerRadius="50" Clicked="CreateUserBtn_Clicked"
                          BackgroundColor="{StaticResource BtnColor}" Text="Sign Up"/>
-                    </StackLayout>
+                            <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="Center" Orientation="Horizontal" BackgroundColor="Transparent">
+                                <Label Text="Already a member?" Margin="0,2" TextColor="Accent" FontSize="Caption"/>
 
-                </StackLayout>
-            </ScrollView>
+                                <Label x:Name="LoginBck" Margin="0,2"
+                        Text="Login here!" TextColor="Accent" FontSize="Caption" TextDecorations="Underline">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="BackToLoginPressed" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                        </StackLayout>
+
+            </StackLayout>
+                </Grid>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

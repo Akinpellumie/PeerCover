@@ -4,8 +4,8 @@
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
-       xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
        xmlns:local="clr-namespace:PeerCover.Views"
+       xmlns:controls="clr-namespace:PeerCover.Utils"
        Title="PeerCover"
        x:Class="PeerCover.AppShell"
       NavigationPage.HasNavigationBar="True">
@@ -47,10 +47,10 @@
     // This header appears at the top of the Flyout.-->
     <Shell.FlyoutHeaderTemplate >
         <DataTemplate>
-            <Frame HasShadow="True" BackgroundColor="White" HeightRequest="75">
+            <Frame HasShadow="True" BackgroundColor="{StaticResource NavigationPrimary}" HeightRequest="75">
                 <Image Source="AppLogo.png" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
-                   HeightRequest="50" WidthRequest="50" BackgroundColor="Transparent"/>
+                   HeightRequest="75" WidthRequest="150" BackgroundColor="Transparent"/>
             </Frame>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>

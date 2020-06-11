@@ -18,8 +18,8 @@ namespace PeerCover
             splashImage = new Image
             {
                 Source = "AppLogo.png",
-                WidthRequest = 100,
-                HeightRequest = 100,
+                WidthRequest = 350,
+                HeightRequest = 350,
             };
             AbsoluteLayout.SetLayoutFlags(splashImage,
                 AbsoluteLayoutFlags.PositionProportional);
@@ -34,9 +34,8 @@ namespace PeerCover
         {
             base.OnAppearing();
 
-            await splashImage.ScaleTo(1, 600);
-            await splashImage.ScaleTo(0.9, 500, Easing.Linear);
-            await splashImage.ScaleTo(150, 650, Easing.Linear);
+            splashImage.Opacity = 0;
+            await splashImage.FadeTo(1, 4000);
             Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
     }

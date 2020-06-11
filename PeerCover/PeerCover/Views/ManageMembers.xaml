@@ -19,18 +19,19 @@
                 </Grid.RowDefinitions>
 
                 <StackLayout Grid.Row="0" Margin="15,5">
-                    <Frame Style="{StaticResource FrameStyle}" Margin="0,10,0,20" 
-                   WidthRequest="285.53" CornerRadius="60" HeightRequest="45">
+                    <Frame Style="{StaticResource FrameStyle}" HorizontalOptions="Fill" Margin="10,10,10,20" HeightRequest="45" CornerRadius="50">
                         <Grid VerticalOptions="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="magnify.png" Margin="10,0,0,0"></Image>
-                            <Controls:CustomEntry Grid.Column="1" Style="{StaticResource EntryStyle}" TextChanged="SearchBar_TextChanged"
-                                          Placeholder="Input member name" x:Name="TxtMemberSearch" Keyboard="Default"/>
+                            <Controls:CustomEntry Grid.Column="1" TextChanged="SearchBar_TextChanged"
+                                          Placeholder="Input member name" x:Name="TxtMemberSearch" Keyboard="Default"
+                                                   Margin="5,0,0,3" VerticalOptions="End"/>
                         </Grid>
                     </Frame>
+                   
                 </StackLayout>
 
                 <ActivityIndicator x:Name="indicator" IsVisible="False" Margin="0,5,0,0"  Grid.RowSpan="2" 

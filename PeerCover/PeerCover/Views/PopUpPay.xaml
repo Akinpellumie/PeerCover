@@ -29,9 +29,9 @@
                  VerticalOptions="Center">
         
         <StackLayout Margin="5">
-            <Frame Style="{StaticResource FrameStyle}" HasShadow="False" HeightRequest="45">
-                <PickerControl:CustomPicker HeightRequest="45" Image="ic_arrow_drop_down" x:Name="PickMethod" 
-                                    Style="{StaticResource PickerStyle}" Title="--Select Payment Method--"
+            <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                <PickerControl:CustomPicker x:Name="PickMethod"  Margin="5,0,0,3" VerticalOptions="End"
+                                     Title="--Select Payment Method--"
                                     FontSize="12" ItemsSource="{Binding PaymentList}"
                                     ItemDisplayBinding="{Binding Value}"/>
             </Frame>

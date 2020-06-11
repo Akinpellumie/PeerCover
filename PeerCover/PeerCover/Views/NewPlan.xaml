@@ -18,14 +18,20 @@
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Vehicle Model" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="VMInput" Margin="0,0,0,10" Placeholder="XXXX-XXXX-XXXX" PlaceholderColor="{StaticResource TypeColor}" Keyboard="Default" 
-                                  Style="{StaticResource EntryStyle}"/>
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="VMInput"  Margin="5,0,0,3" VerticalOptions="End" 
+                                  PlaceholderColor="{StaticResource TypeColor}" Keyboard="Default" 
+                                  Style="{StaticResource EntryStyle}" Placeholder="XXXX-XXXX-XXXX"/>
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Registration Number" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="RNInput"  Margin="0,0,0,10" Keyboard="Default" Placeholder="XXXX-XXXX-XXXX" 
-                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="RNInput"  Margin="5,0,0,3" VerticalOptions="End" 
+                                   Keyboard="Default" Placeholder="XXXX-XXXX-XXXX" 
+                                   PlaceholderColor="{StaticResource TypeColor}" />
+                        </Frame>
                     </StackLayout>
 
                     <Frame BackgroundColor="#f5fafa" HasShadow="False">
@@ -37,7 +43,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Margin="7,5,5,5" Text="Driver's License" VerticalOptions="Center" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
-                            <Button x:Name="DLuploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                            <Button x:Name="DLuploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="50"
                                     FontSize="10" Text="Take Picture" HorizontalOptions="End"
                                     BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
                                    Clicked="UploadLicenseTapped" Margin="2"/>
@@ -56,7 +62,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Margin="7,5,5,5" Text="Vehicle Image" VerticalOptions="Center" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
-                            <Button x:Name="ImguploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                            <Button x:Name="ImguploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="50"
                                     FontSize="10" Text="Take Picture" HorizontalOptions="End"
                                     BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
                                    Clicked="UploadImaTapped" Margin="2"/>
@@ -76,7 +82,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Margin="7,5,5,5" Text="Utility Bill" VerticalOptions="Center" TextColor="{StaticResource TxtColor}" Grid.Column="0"/>
-                            <Button x:Name="BillUploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="10"
+                            <Button x:Name="BillUploadButton"  HeightRequest="30"  Grid.Column="1" CornerRadius="50"
                                     FontSize="10" Text="Take Picture" HorizontalOptions="End"
                                     BackgroundColor="Accent" BorderWidth="1"  TextColor="White"
                                    Clicked="UploadBillTapped" Margin="2"/>
@@ -87,7 +93,7 @@
                     
                     
 
-                    <Button  Margin="5,20,5,15" FontSize="20" BorderRadius="6"
+                    <Button  Margin="5,20,5,15" FontSize="20" CornerRadius="50"
                          WidthRequest="150" HeightRequest="45" HorizontalOptions="End" TextColor="White" 
                          BackgroundColor="{StaticResource BtnColor}" Text="NEXT" Clicked="firstScrn_clicked"/>
                 </StackLayout>
@@ -95,50 +101,66 @@
 
                 <StackLayout x:Name="SecondScreen" IsVisible="False">
 
-                    <Button  Margin="5,20,5,15" FontSize="20" BorderRadius="6" 
+                    <Button  Margin="5,20,5,15" FontSize="20" CornerRadius="50" 
                          WidthRequest="150" HeightRequest="45" HorizontalOptions="Start" TextColor="White" 
                          BackgroundColor="{StaticResource BtnColor}" Text="BACK" Clicked="ScndScrn_clicked"/>
 
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Vehicle Color" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="VCInput" Keyboard="Default" Margin="0,0,0,10" Placeholder="XXXX-XXXX-XXXX" 
-                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="VCInput" Keyboard="Default"  Margin="5,0,0,3" VerticalOptions="End" 
+                                  Placeholder="XXXX-XXXX-XXXX" 
+                                  PlaceholderColor="{StaticResource TypeColor}" />
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Year of Make" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="YMInput" Margin="0,0,0,10" Keyboard="Default" Placeholder="XXXX" 
-                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="YMInput" Margin="5,0,0,3" VerticalOptions="End" 
+                                   Keyboard="Default" Placeholder="XXXX" 
+                                   PlaceholderColor="{StaticResource TypeColor}" />
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Engine Number" TextColor="{StaticResource Primary}"/>
-                        <Entry x:Name="ENInput" Margin="0,0,0,10" Keyboard="Default" Placeholder="XXXX-XXXX-XXXX" 
-                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="ENInput" Margin="5,0,0,3" VerticalOptions="End"  
+                                  Keyboard="Default" Placeholder="XXXX-XXXX-XXXX" 
+                                   PlaceholderColor="{StaticResource TypeColor}" />
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Valuation Amount" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="VLMInput" Margin="0,0,0,10"  Unfocused="Input_unfocused" Keyboard="Numeric"  TextChanged="Input_TextChanged" 
-                                  Style="{StaticResource EntryStyle}"  Placeholder="Input your car valuation" 
-                                              PlaceholderColor="{StaticResource TypeColor}"/>
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="VLMInput" Margin="5,0,0,3" VerticalOptions="End"  
+                                  Unfocused="Input_unfocused" Keyboard="Numeric"  TextChanged="Input_TextChanged" 
+                                  Placeholder="Input your car valuation" PlaceholderColor="{StaticResource TypeColor}"/>
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="Premium (per annum)" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="PRMInput" Margin="0,0,0,10" TextChanged="InputPrm_TextChanged" Keyboard="Default" Placeholder="#0.00" IsReadOnly="True"
-                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}"/>
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="PRMInput"  Margin="5,0,0,3" VerticalOptions="End"   
+                                   TextChanged="InputPrm_TextChanged" Keyboard="Default" Placeholder="#0.00" IsReadOnly="True"
+                                   PlaceholderColor="{StaticResource TypeColor}"/>
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
                         <Label Margin="7,5,5,5" Text="VIN" TextColor="{StaticResource TxtColor}"/>
-                        <Entry x:Name="VINInput" Margin="0,0,0,10" Keyboard="Default" Placeholder="XXXX-XXXX-XXXX" 
-                                  Style="{StaticResource EntryStyle}" PlaceholderColor="{StaticResource TypeColor}" />
+                        <Frame Style="{StaticResource FrameStyle}" Margin="5,0,10,5" HeightRequest="45" CornerRadius="50">
+                            <Controls:CustomEntry x:Name="VINInput" Keyboard="Default"  Margin="5,0,0,3" VerticalOptions="End"  
+                               Placeholder="XXXX-XXXX-XXXX" PlaceholderColor="{StaticResource TypeColor}" />
+                        </Frame>
                     </StackLayout>
 
                     <StackLayout>
-                        <Button  Margin="5,10,5,15" FontSize="20" BorderRadius="6"
+                        <Button  Margin="5,10,5,15" FontSize="20" BorderRadius="6" CornerRadius="50"
                          WidthRequest="285.53" HeightRequest="45" Clicked="NewSubClicked" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" TextColor="White" 
                          BackgroundColor="{StaticResource BtnColor}" Text="SUBSCRIBE"/>
                     </StackLayout>

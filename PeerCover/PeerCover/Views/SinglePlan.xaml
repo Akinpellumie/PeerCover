@@ -83,7 +83,7 @@
 
                     <StackLayout Grid.Row="3" Margin="20, 15" x:Name="PayStc1"  IsVisible="False" >
                         
-                            <Button x:Name="ClaimBtn" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                            <Button x:Name="ClaimBtn" VerticalOptions="EndAndExpand" FontSize="15" CornerRadius="50"
                          HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
                          BackgroundColor="Accent" Text="Make Claim" Clicked="MakeClaim_Clicked"/>
                             <!--<Button x:Name="BtnPay" Grid.Column="1" VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
@@ -93,13 +93,13 @@
                     </StackLayout>
 
                     <StackLayout Grid.Row="3" Margin="20, 15" x:Name="PayStck" IsVisible="False" HorizontalOptions="Fill">
-                        <Button VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                        <Button VerticalOptions="EndAndExpand" FontSize="15" CornerRadius="50"
                         HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
                          BackgroundColor="#FA9917" Text="Pay Contribution" Clicked="PayPremium_Clicked"/>
                     </StackLayout>
 
                     <StackLayout Grid.Row="3" Margin="20, 15" x:Name="RenewStck" IsVisible="False" HorizontalOptions="Fill">
-                        <Button VerticalOptions="EndAndExpand" FontSize="15" BorderRadius="6"
+                        <Button VerticalOptions="EndAndExpand" FontSize="15" CornerRadius="50"
                         HeightRequest="45" HorizontalOptions="Fill" TextColor="White" 
                          BackgroundColor="Accent" Text="Renew Plan" Clicked="Renew_Clicked"/>
                     </StackLayout>

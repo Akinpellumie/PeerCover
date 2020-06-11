@@ -47,10 +47,10 @@
 
     <Shell.FlyoutHeaderTemplate >
         <DataTemplate>
-            <Frame HasShadow="True" BackgroundColor="White" HeightRequest="75">
+            <Frame HasShadow="True" BackgroundColor="{StaticResource NavigationPrimary}" HeightRequest="75">
                 <Image Source="AppLogo.png" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
-                   HeightRequest="50" WidthRequest="50" BackgroundColor="Transparent"/>
+                   HeightRequest="75" WidthRequest="150" BackgroundColor="Transparent"/>
             </Frame>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>

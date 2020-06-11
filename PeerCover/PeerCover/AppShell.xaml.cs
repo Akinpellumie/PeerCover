@@ -12,8 +12,20 @@ namespace PeerCover
     {
         public AppShell()
         {
-            //AppShell appShell = new AppShell();
-            //AppShell.
+            AppShellModel appShell = new AppShellModel();
+            appShell.fullname = "Akinlade Akinpelumi";
+            appShell.commName1 = HelperAppSettings.community_name;
+            appShell.userName = HelperAppSettings.username;
+            BindingContext = appShell;
+            if (string.IsNullOrEmpty(HelperAppSettings.profile_img_url))
+            {
+                appShell.ImageUrl = "placeholder.png";
+            }
+            else
+            {
+                var imgUrl = Helper.ImageUrl + HelperAppSettings.profile_img_url;
+                appShell.ImageUrl = imgUrl;
+            }
             InitializeComponent();
 
             this.BindingContext = Helper.userprofile;

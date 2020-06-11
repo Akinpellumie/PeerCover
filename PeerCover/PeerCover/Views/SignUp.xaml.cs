@@ -46,8 +46,6 @@ namespace PeerCover.Views
                     await DisplayAlert("Alert", "Input fields cannot be empty", "Ok");
                     return;
                 }
-                indicator.IsRunning = true;
-                indicator.IsVisible = true;
                 AddMemberModel members = new AddMemberModel(FTInput.Text, LTInput.Text, USNInput.Text, EAInput.Text, PNInput.Text, CCInput.Text, PWDInput.Text)
                 {
                     firstname = FTInput.Text.Trim(),
@@ -75,8 +73,6 @@ namespace PeerCover.Views
                         //await DisplayAlert("InHub", "Registration Succesful", "Ok");
                         await Navigation.PushModalAsync(new SignUpConfirmation());
                         await PopupNavigation.Instance.PopAsync(true);
-                        indicator.IsVisible = false;
-                        indicator.IsRunning = false;
                         FTInput.Text = "";
                         LTInput.Text = "";
                         USNInput.Text = "";
@@ -92,13 +88,9 @@ namespace PeerCover.Views
                         {
                             await PopupNavigation.Instance.PopAsync(true);
                             await DisplayAlert("InHub", response.ReasonPhrase, "Ok");
-                            indicator.IsVisible = false;
-                            indicator.IsRunning = false;
                         }
                         else
                         {
-                            indicator.IsRunning = false;
-                            indicator.IsVisible = false;
                             await PopupNavigation.Instance.PopAsync(true);
                             await DisplayAlert("InHub", "Please try again later", "Ok");
 
@@ -144,6 +136,10 @@ namespace PeerCover.Views
 
         }
 
+        public void BackToLoginPressed(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+        }
         public void Input2_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -181,8 +177,8 @@ namespace PeerCover.Views
             stateGroup.States.Add(CreateState("VeryWeak", "Very Weak", Color.Red));
             stateGroup.States.Add(CreateState("Weak", "Weak", Color.Orange));
             stateGroup.States.Add(CreateState("Medium", "Good", Color.GreenYellow));
-            stateGroup.States.Add(CreateState("String", "Strong", Color.Green));
-            stateGroup.States.Add(CreateState("VeryStrong", "Very Strong", Color.Green));
+            stateGroup.States.Add(CreateState("String", "Strong", Color.LightGreen));
+            stateGroup.States.Add(CreateState("VeryStrong", "Very Strong", Color.LightGreen));
 
             VisualStateManager.SetVisualStateGroups(this.StrengthIndicator, new VisualStateGroupList { stateGroup });
 

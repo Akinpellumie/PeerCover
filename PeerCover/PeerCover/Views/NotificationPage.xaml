@@ -33,11 +33,11 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="NewBtn" Pressed="onNewBtnPressed" 
+                                <Button x:Name="NewBtn" Pressed="onNewBtnPressed" CornerRadius="50"
                                  d:Padding="5" Text="New Message(s)" Grid.Column="0" Padding="0" HeightRequest="30"
                                Margin="0" TextColor="White" BackgroundColor="Accent" Clicked="NewBtn_Clicked"/>
 
-                                <Button x:Name="OldBtn" Text="Old Message(s)" d:Padding="5"
+                                <Button x:Name="OldBtn" Text="Old Message(s)" d:Padding="5" CornerRadius="50"
                                 Grid.Column="1" Padding="0" HeightRequest="30" Pressed="onOldBtnPressed"
                                Margin="0" TextColor="White" Clicked="OldBtn_Clicked" BackgroundColor="Gray"/>
                             </Grid>
